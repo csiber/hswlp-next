@@ -20,7 +20,7 @@ export default function VerifyEmailClientComponent() {
   const { execute: handleVerification, isPending, error } = useServerAction(verifyEmailAction, {
     onError: ({ err }) => {
       toast.dismiss();
-      toast.error(err.message || "Failed to verify email");
+      toast.error(err.message || "Nem sikerült megerősíteni az email címet");
     },
     onStart: () => {
       toast.loading("Email ellenőrzése...");

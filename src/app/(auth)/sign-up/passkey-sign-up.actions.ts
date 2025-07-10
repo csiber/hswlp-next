@@ -35,7 +35,7 @@ export const startPasskeyRegistrationAction = createServerAction()
           if (!success) {
             throw new ZSAError(
               "INPUT_PARSE_ERROR",
-              "Please complete the captcha"
+              "Kérjük, töltsd ki a captchát"
             )
           }
         }
@@ -52,7 +52,7 @@ export const startPasskeyRegistrationAction = createServerAction()
         if (existingUser) {
           throw new ZSAError(
             "CONFLICT",
-            "An account with this email already exists"
+            "Ezzel az email címmel már létezik fiók"
           );
         }
 
@@ -70,7 +70,7 @@ export const startPasskeyRegistrationAction = createServerAction()
         if (!user) {
           throw new ZSAError(
             "INTERNAL_SERVER_ERROR",
-            "Failed to create user"
+            "Nem sikerült létrehozni a felhasználót"
           );
         }
 
@@ -119,7 +119,7 @@ export const startPasskeyRegistrationAction = createServerAction()
 const completePasskeyRegistrationSchema = z.object({
   response: z.custom<RegistrationResponseJSON>((val): val is RegistrationResponseJSON => {
     return typeof val === "object" && val !== null && "id" in val && "rawId" in val;
-  }, "Invalid registration response"),
+  }, "Érvénytelen regisztrációs válasz"),
 });
 
 export const completePasskeyRegistrationAction = createServerAction()
@@ -132,7 +132,7 @@ export const completePasskeyRegistrationAction = createServerAction()
     if (!challenge || !userId) {
       throw new ZSAError(
         "PRECONDITION_FAILED",
-        "Invalid registration session"
+        "Érvénytelen regisztrációs munkamenet"
       );
     }
 
@@ -209,10 +209,10 @@ export const completePasskeyRegistrationAction = createServerAction()
 
       return { success: true };
     } catch (error) {
-      console.error("Failed to register passkey:", error);
+      console.error("Nem sikerült regisztrálni a passkey-t:", error);
       throw new ZSAError(
         "PRECONDITION_FAILED",
-        "Failed to register passkey"
+        "Nem sikerült regisztrálni a passkey-t"
       );
     }
   });

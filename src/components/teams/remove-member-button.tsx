@@ -37,18 +37,18 @@ export function RemoveMemberButton({
   userId,
   memberName,
   isDisabled = false,
-  tooltipText = "You cannot remove this member"
+  tooltipText = "Ezt a tagot nem lehet eltávolítani"
 }: RemoveMemberButtonProps) {
   const dialogCloseRef = useRef<HTMLButtonElement>(null);
   const router = useRouter();
 
   const { execute: removeMember, isPending } = useServerAction(removeTeamMemberAction, {
     onError: (error) => {
-      toast.error(error.err?.message || "Failed to remove team member");
+      toast.error(error.err?.message || "Nem sikerült eltávolítani a csapattagot");
       dialogCloseRef.current?.click();
     },
     onSuccess: () => {
-      toast.success("Team member removed successfully");
+      toast.success("A csapattag sikeresen eltávolítva");
       router.refresh();
       dialogCloseRef.current?.click();
     }
@@ -72,7 +72,7 @@ export function RemoveMemberButton({
                 disabled
             >
               <TrashIcon className="h-4 w-4" />
-              <span className="sr-only">Cannot remove member</span>
+              <span className="sr-only">Tag nem távolítható el</span>
               </Button>
             </div>
           </TooltipTrigger>
@@ -93,19 +93,19 @@ export function RemoveMemberButton({
           className="h-8 w-8 text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20"
         >
           <TrashIcon className="h-4 w-4" />
-          <span className="sr-only">Remove member</span>
+          <span className="sr-only">Tag eltávolítása</span>
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Remove team member</DialogTitle>
+          <DialogTitle>Csapattag eltávolítása</DialogTitle>
           <DialogDescription>
-            Are you sure you want to remove {memberName} from this team? This action cannot be undone.
+            Biztosan el szeretnéd távolítani {memberName} felhasználót a csapatból? Ez a művelet nem visszavonható.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="mt-4 flex flex-col gap-4 sm:flex-row">
           <DialogClose ref={dialogCloseRef} asChild>
-            <Button variant="outline" className="sm:w-auto w-full">Cancel</Button>
+            <Button variant="outline" className="sm:w-auto w-full">Mégsem</Button>
           </DialogClose>
           <Button
             variant="destructive"
@@ -113,7 +113,7 @@ export function RemoveMemberButton({
             disabled={isPending}
             className="sm:w-auto w-full"
           >
-            {isPending ? "Removing..." : "Remove member"}
+            {isPending ? "Eltávolítás..." : "Tag eltávolítása"}
           </Button>
         </DialogFooter>
       </DialogContent>

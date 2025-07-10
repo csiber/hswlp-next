@@ -69,13 +69,13 @@ const SignUpPage = ({ redirectPath }: SignUpClientProps) => {
       setIsRegistering(false)
     },
     onStart: () => {
-      toast.loading("Starting passkey registration...")
+      toast.loading("Passkey regisztráció indítása...")
       setIsRegistering(true)
     },
     onSuccess: async (response) => {
       toast.dismiss()
       if (!response?.data?.optionsJSON) {
-        toast.error("Failed to start passkey registration")
+        toast.error("Nem sikerült elindítani a passkey regisztrációt")
         setIsRegistering(false)
         return;
       }
@@ -87,8 +87,8 @@ const SignUpPage = ({ redirectPath }: SignUpClientProps) => {
         });
         await completePasskeyRegistration({ response: attResp });
       } catch (error: unknown) {
-        console.error("Failed to register passkey:", error);
-        toast.error("Failed to register passkey")
+      console.error("Nem sikerült regisztrálni a passkey-t:", error);
+      toast.error("Nem sikerült regisztrálni a passkey-t")
         setIsRegistering(false)
       }
     }
@@ -141,7 +141,7 @@ const SignUpPage = ({ redirectPath }: SignUpClientProps) => {
         </div>
 
         <SeparatorWithText>
-          <span className="uppercase text-muted-foreground">Or</span>
+          <span className="uppercase text-muted-foreground">Vagy</span>
         </SeparatorWithText>
 
         <Form {...form}>

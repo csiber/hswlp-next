@@ -40,7 +40,7 @@ export const generateRegistrationOptionsAction = createServerAction()
 
       // Verify the email matches the logged-in user
       if (user.id !== session?.user?.id) {
-        throw new ZSAError("FORBIDDEN", "You can only register passkeys for your own account");
+        throw new ZSAError("FORBIDDEN", "Csak a saját fiókodhoz regisztrálhatsz passkeyt");
       }
 
       // Check if user has reached the passkey limit
@@ -52,7 +52,7 @@ export const generateRegistrationOptionsAction = createServerAction()
       if (existingPasskeys.length >= 5) {
         throw new ZSAError(
           "FORBIDDEN",
-          "You have reached the maximum limit of 5 passkeys"
+          "Elérted a passkeyk maximális, 5 darabos limitjét"
         );
       }
 
@@ -85,7 +85,7 @@ export const verifyRegistrationAction = createServerAction()
 
       // Verify the email matches the logged-in user
       if (user.id !== session?.user?.id) {
-        throw new ZSAError("FORBIDDEN", "You can only register passkeys for your own account");
+        throw new ZSAError("FORBIDDEN", "Csak a saját fiókodhoz regisztrálhatsz passkeyt");
       }
 
       await verifyPasskeyRegistration({
@@ -114,7 +114,7 @@ export const deletePasskeyAction = createServerAction()
       if (session?.passkeyCredentialId === input.credentialId) {
         throw new ZSAError(
           "FORBIDDEN",
-          "Cannot delete the current passkey"
+          "A jelenleg használt passkey nem törölhető"
         );
       }
 
@@ -135,7 +135,7 @@ export const deletePasskeyAction = createServerAction()
       if (passkeys.length === 1 && !user.passwordHash) {
         throw new ZSAError(
           "FORBIDDEN",
-          "Cannot delete the last passkey when no password is set"
+          "Nem törölheted az utolsó passkeyt, ha nincs jelszó beállítva"
         );
       }
 
@@ -159,7 +159,7 @@ export const generateAuthenticationOptionsAction = createServerAction()
 const verifyAuthenticationSchema = z.object({
   response: z.custom<AuthenticationResponseJSON>((val): val is AuthenticationResponseJSON => {
     return typeof val === "object" && val !== null && "id" in val && "rawId" in val;
-  }, "Invalid authentication response"),
+  }, "Érvénytelen hitelesítési válasz"),
   challenge: z.string(),
 });
 
@@ -170,7 +170,7 @@ export const verifyAuthenticationAction = createServerAction()
       const { verification, credential } = await verifyPasskeyAuthentication(input.response, input.challenge);
 
       if (!verification.verified) {
-        throw new ZSAError("FORBIDDEN", "Passkey authentication failed");
+        throw new ZSAError("FORBIDDEN", "A passkey hitelesítés sikertelen");
       }
 
       await createAndStoreSession(credential.userId, "passkey", input.response.id);

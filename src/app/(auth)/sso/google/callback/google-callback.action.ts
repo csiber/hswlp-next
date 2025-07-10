@@ -75,7 +75,7 @@ export const googleSSOCallbackAction = createServerAction()
       if (input.state !== cookieState) {
         throw new ZSAError(
           "NOT_AUTHORIZED",
-          "Invalid state parameter"
+          "Érvénytelen állapot paraméter"
         );
       }
 
@@ -87,7 +87,7 @@ export const googleSSOCallbackAction = createServerAction()
         console.error("Google OAuth callback: Error validating authorization code", error);
         throw new ZSAError(
           "NOT_AUTHORIZED",
-          "Invalid authorization code"
+          "Érvénytelen autorizációs kód"
         );
       }
 
