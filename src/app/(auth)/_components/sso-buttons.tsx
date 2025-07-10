@@ -24,7 +24,7 @@ export default function SSOButtons({
           <Button className="w-full" asChild size='lg'>
             <Link href="/sso/google">
               <Google className="w-[22px] h-[22px] mr-1" />
-              {isSignIn ? "Sign in with Google" : "Sign up with Google"}
+              {isSignIn ? "Bejelentkezés Google-lel" : "Regisztráció Google-lel"}
             </Link>
           </Button>
         </>

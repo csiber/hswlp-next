@@ -94,19 +94,19 @@ export function SettingsSidebar() {
               )}
             >
               <LogOut className="mr-2 h-4 w-4" />
-              Sign out
+              Kijelentkezés
             </button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Sign out?</DialogTitle>
+              <DialogTitle>Kijelentkezel?</DialogTitle>
               <DialogDescription>
-                Are you sure you want to sign out of your account?
+                Biztosan kijelentkezel a fiókodból?
               </DialogDescription>
             </DialogHeader>
             <DialogFooter className="mt-4 flex flex-col gap-4">
               <DialogClose ref={dialogCloseRef} asChild>
-                <Button variant="outline">Cancel</Button>
+                <Button variant="outline">Mégse</Button>
               </DialogClose>
               <Button
                 variant="destructive"
@@ -115,7 +115,7 @@ export function SettingsSidebar() {
                   dialogCloseRef.current?.click();
                 }}
               >
-                Sign out
+                Kijelentkezés
               </Button>
             </DialogFooter>
           </DialogContent>

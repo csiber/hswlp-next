@@ -86,7 +86,7 @@ export function NavUser() {
                 <span className="font-semibold overflow-hidden text-ellipsis whitespace-nowrap">{displayName}</span>
                 <span className="truncate text-xs text-muted-foreground">{user.email}</span>
                 <Badge variant="secondary" className="w-fit text-[10px]" onClick={() => router.push('/dashboard/billing')}>
-                  {user.currentCredits} credits
+                  {user.currentCredits} kredit
                 </Badge>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
@@ -108,28 +108,28 @@ export function NavUser() {
                   <span className="font-semibold">{displayName}</span>
                   <span className="truncate text-xs text-muted-foreground">{user.email}</span>
                   <Badge variant="secondary" className="w-fit text-[10px]">
-                    {user.currentCredits} credits
+                    {user.currentCredits} kredit
                   </Badge>
                 </div>
               </div>
             </DropdownMenuLabel>
             <div className="px-2">
               <ThemeSwitch className="w-full my-3">
-                Change theme
+                Téma váltása
               </ThemeSwitch>
             </div>
             <DropdownMenuGroup>
               <DropdownMenuItem className="cursor-pointer" onClick={() => router.push('/settings')}>
                 <BadgeCheck />
-                Account
+                Fiók
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer" onClick={() => router.push('/dashboard/billing')}>
                 <CreditCard />
-                Billing
+                Számlázás
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer">
                 <Bell />
-                Notifications
+                Értesítések
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
@@ -142,7 +142,7 @@ export function NavUser() {
               className="cursor-pointer"
             >
               <LogOut />
-              Log out
+              Kijelentkezés
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

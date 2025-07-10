@@ -41,11 +41,11 @@ export default function ForgotPasswordClientComponent() {
       toast.error(error.err?.message);
     },
     onStart: () => {
-      toast.loading("Sending reset instructions...");
+      toast.loading("Új jelszó kérése folyamatban...");
     },
     onSuccess: () => {
       toast.dismiss();
-      toast.success("Reset instructions sent");
+      toast.success("A visszaállítási útmutató elküldve");
     },
   });
 
@@ -58,9 +58,9 @@ export default function ForgotPasswordClientComponent() {
       <div className="container mx-auto px-4 flex items-center justify-center min-h-screen">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle>Check your email</CardTitle>
+          <CardTitle>Ellenőrizd az emailed</CardTitle>
             <CardDescription>
-              If an account exists with that email, we&apos;ve sent you instructions to reset your password.
+            Ha létezik fiók ezzel az email címmel, elküldtük a jelszó-visszaállítási lépéseket.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -69,7 +69,7 @@ export default function ForgotPasswordClientComponent() {
               className="w-full"
               onClick={() => router.push("/sign-in")}
             >
-              Back to login
+              Vissza a belépéshez
             </Button>
           </CardContent>
         </Card>
@@ -82,10 +82,10 @@ export default function ForgotPasswordClientComponent() {
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>
-            {session ? "Change Password" : "Forgot Password"}
+            {session ? "Jelszó módosítása" : "Elfelejtett jelszó"}
           </CardTitle>
           <CardDescription>
-            Enter your email address and we&apos;ll send you instructions to reset your password.
+            Add meg az email címed, és elküldjük a jelszó-visszaállítási útmutatót.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -122,7 +122,7 @@ export default function ForgotPasswordClientComponent() {
                   className="mt-8 mb-2"
                   disabled={Boolean(isTurnstileEnabled && !captchaToken)}
                 >
-                  Send Reset Instructions
+                  Visszaállítási link küldése
                 </Button>
               </div>
             </form>
@@ -138,7 +138,7 @@ export default function ForgotPasswordClientComponent() {
             className="w-full"
             onClick={() => router.push("/settings")}
           >
-            Back to settings
+            Vissza a beállításokhoz
           </Button>
         ) : (
           <Button
@@ -147,7 +147,7 @@ export default function ForgotPasswordClientComponent() {
             className="w-full"
             onClick={() => router.push("/sign-in")}
           >
-            Back to login
+            Vissza a belépéshez
           </Button>
         )}
       </div>

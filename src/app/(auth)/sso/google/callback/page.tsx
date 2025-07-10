@@ -5,8 +5,8 @@ import GoogleCallbackClientComponent from "./google-callback.client";
 import { REDIRECT_AFTER_SIGN_IN } from "@/constants";
 
 export const metadata: Metadata = {
-  title: "Sign in with Google",
-  description: "Complete your sign in with Google",
+  title: "Bejelentkezés Google-lel",
+  description: "Google-bejelentkezés befejezése",
 };
 
 export default async function GoogleCallbackPage() {
