@@ -68,7 +68,7 @@ function PaymentForm({ packageId, clientSecret, onSuccess, onCancel, credits, pr
       }
     } catch (error) {
       console.error("Payment error:", error);
-      toast.error("An unexpected error occurred");
+      toast.error("Váratlan hiba történt");
     } finally {
       setIsProcessing(false);
     }

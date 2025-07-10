@@ -161,7 +161,7 @@ export const googleSSOCallbackAction = createServerAction()
 
         throw new ZSAError(
           "INTERNAL_SERVER_ERROR",
-          "An unexpected error occurred"
+          "Váratlan hiba történt"
         );
       }
     }, RATE_LIMITS.GOOGLE_SSO_CALLBACK);

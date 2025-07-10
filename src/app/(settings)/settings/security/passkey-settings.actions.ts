@@ -35,7 +35,7 @@ export const generateRegistrationOptionsAction = createServerAction()
       });
 
       if (!user) {
-        throw new ZSAError("NOT_FOUND", "User not found");
+        throw new ZSAError("NOT_FOUND", "Felhasználó nem található");
       }
 
       // Verify the email matches the logged-in user
@@ -80,7 +80,7 @@ export const verifyRegistrationAction = createServerAction()
       });
 
       if (!user) {
-        throw new ZSAError("NOT_FOUND", "User not found");
+        throw new ZSAError("NOT_FOUND", "Felhasználó nem található");
       }
 
       // Verify the email matches the logged-in user

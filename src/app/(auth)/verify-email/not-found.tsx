@@ -13,16 +13,16 @@ export default function NotFound() {
     <div className="container mx-auto px-4 flex items-center justify-center min-h-screen">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Invalid Verification Link</CardTitle>
+          <CardTitle>Érvénytelen megerősítő link</CardTitle>
           <CardDescription>
-            The verification link you clicked is invalid or has expired. This can happen if:
+            A megnyitott megerősítő link érvénytelen vagy lejárt. Ez történhet, ha:
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-            <li>The link has expired (verification links are valid for 24 hours)</li>
-            <li>You&apos;ve already verified your email</li>
-            <li>The link was modified or is incomplete</li>
+            <li>A link lejárt (a megerősítő linkek 24 óráig érvényesek)</li>
+            <li>Már megerősítetted az e-mail címed</li>
+            <li>A link módosítva lett vagy hiányos</li>
           </ul>
 
           <div className="space-y-2">
@@ -32,7 +32,7 @@ export default function NotFound() {
               asChild
             >
               <Link href="/sign-in">
-                Sign In
+                Bejelentkezés
               </Link>
             </Button>
             <Button
@@ -41,7 +41,7 @@ export default function NotFound() {
               asChild
             >
               <Link href="/">
-                Go to Home
+                  Vissza a kezdőlapra
               </Link>
             </Button>
           </div>

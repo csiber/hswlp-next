@@ -23,7 +23,7 @@ export default async function ResetPasswordPage({
   const { env } = getCloudflareContext();
 
   if (!env?.NEXT_INC_CACHE_KV) {
-    throw new Error("Can't connect to KV store");
+    throw new Error("Nem sikerült csatlakozni a KV tárhoz");
   }
 
   const resetTokenStr = await env.NEXT_INC_CACHE_KV.get(getResetTokenKey(token));
