@@ -3,8 +3,8 @@ import type { Route } from "next"
 export const SITE_NAME = "HSWLP:Next"
 export const SITE_DESCRIPTION =
   "🧩 Hybrid Service Workflow Launch Platform – felhőalapú SaaS sablon a gyors induláshoz."
-export const SITE_URL = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://nextjs-saas-template.agenticdev.agency"
-export const GITHUB_REPO_URL = "https://github.com/LubomirGeorgiev/cloudflare-workers-nextjs-saas-template"
+export const SITE_URL = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://hswlp-next.promnet.workers.dev/"
+export const GITHUB_REPO_URL = "https://github.com/csiber/hswlp-next"
 
 export const SITE_DOMAIN = new URL(SITE_URL).hostname
 export const PASSWORD_RESET_TOKEN_EXPIRATION_SECONDS = 24 * 60 * 60 // 24 hours
