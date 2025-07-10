@@ -8,18 +8,18 @@ import { GITHUB_REPO_URL } from "@/constants";
 
 const faqs = [
   {
-    question: "Is this template really free?",
+    question: "Valóban ingyenes ez a sablon?",
     answer: (
       <>
-        Yes, this template is completely free and <a href={GITHUB_REPO_URL} target="_blank">open source</a>! You can use it for both personal and commercial projects without any licensing fees. You can fork, copy, modify, and distribute it as you see fit without any restrictions and attribution.
+        Igen, a sablon teljesen ingyenes és <a href={GITHUB_REPO_URL} target="_blank">nyílt forráskódú</a>! Szabadon használhatod személyes és kereskedelmi projektekben, módosíthatod és terjesztheted mindenféle megkötés nélkül.
       </>
     ),
   },
   {
-    question: "What features are included?",
+    question: "Milyen funkciók találhatók meg a sablonban?",
     answer: (
       <>
-        The template includes a comprehensive set of features:
+        A sablon átfogó funkciókészlettel rendelkezik:
         <ul className="list-disc pl-6 mt-2 space-y-1">
           <li>Authentication with email/password and forgot password flow</li>
           <li>Database integration with Drizzle ORM and Cloudflare D1</li>
@@ -32,16 +32,16 @@ const faqs = [
           <li>Automated deployments with GitHub Actions</li>
           <li>Captcha integration with Turnstile</li>
           <li>SEO optimization with Next.js</li>
-          <li>And countless other features...</li>
+          <li>És még rengeteg egyéb funkció...</li>
         </ul>
       </>
     ),
   },
   {
-    question: "What's the tech stack?",
+    question: "Milyen technológiákra épül a rendszer?",
     answer: (
       <>
-        <p>The template uses modern and reliable technologies:</p>
+        <p>A sablon modern és megbízható technológiákat használ:</p>
         <ul className="list-disc pl-6 mt-2 space-y-1">
           <li>Next.js 15 with App Router and React Server Components</li>
           <li>TypeScript for type safety</li>
@@ -50,16 +50,16 @@ const faqs = [
           <li>Lucia Auth for authentication</li>
           <li>Cloudflare Workers for serverless deployment</li>
           <li>Cloudflare KV for session storage</li>
-          <li>React Email for beautiful email templates</li>
+          <li>React Email a szép e-mail sablonokért</li>
         </ul>
       </>
     ),
   },
   {
-    question: "How do I deploy my application?",
+    question: "Hogyan telepíthetem az alkalmazást?",
     answer: (
       <>
-        <p>Deployment is automated with GitHub Actions. You&apos;ll need to:</p>
+        <p>A telepítés GitHub Actions segítségével automatizált. A következőkre lesz szükséged:</p>
         <ol className="list-decimal pl-6 mt-2 space-y-1">
           <li>Create Cloudflare D1 and KV namespaces</li>
           <li>Set up Resend for email service</li>
@@ -67,24 +67,24 @@ const faqs = [
           <li>Add your Cloudflare API token to GitHub secrets</li>
           <li>Push to the main branch</li>
         </ol>
-        <p className="mt-2">The deployment process is fully documented in the <a href={`${GITHUB_REPO_URL}/blob/main/README.md`} target="_blank">GitHub repository</a>.</p>
+        <p className="mt-2">A telepítési folyamat teljes egészében dokumentálva van a <a href={`${GITHUB_REPO_URL}/blob/main/README.md`} target="_blank">GitHub repóban</a>.</p>
       </>
     ),
   },
   {
-    question: "What do I need to get started?",
+    question: "Mire van szükség a kezdéshez?",
     answer: (
       <>
-        <p>You&apos;ll need a Cloudflare account (free tier is fine), Node.js installed locally, and basic knowledge of React and TypeScript. The template includes detailed documentation to guide you through the setup.</p>
-        <p>You can also check out the <a href={`${GITHUB_REPO_URL}/blob/main/README.md`} target="_blank">documentation</a> for more information.</p>
+        <p>Csak egy Cloudflare fiók (a free csomag is elegendő), helyben telepített Node.js és alap React illetve TypeScript ismeret kell. A sablon részletes dokumentációval segít a beállításban.</p>
+        <p>További információért nézd meg a <a href={`${GITHUB_REPO_URL}/blob/main/README.md`} target="_blank">dokumentációt</a>.</p>
       </>
     ),
   },
   {
-    question: "What are the upcoming features?",
+    question: "Milyen újdonságok várhatók?",
     answer: (
       <>
-        <p>We have an exciting roadmap ahead! Planned features include:</p>
+        <p>Izgalmas fejlesztések vannak tervben:</p>
         <ul className="list-disc pl-6 mt-2 space-y-1">
           <li>Multi-language support (i18n)</li>
           <li>Billing and payment processing</li>
@@ -100,18 +100,18 @@ const faqs = [
     ),
   },
   {
-    question: "Can I preview the email templates?",
+    question: "Meg tudom nézni előre az email sablonokat?",
     answer: (
       <>
-        Yes! Run <code>pnpm email:dev</code> and open <a href="http://localhost:3001" target="_blank">http://localhost:3001</a> to preview and edit the email templates. They&apos;re built with React Email for a great developer experience.
+        Igen! Futtasd a <code>pnpm email:dev</code> parancsot, majd nyisd meg a <a href="http://localhost:3001" target="_blank">http://localhost:3001</a> címet, ahol szerkesztheted és előnézheted a sablonokat.
       </>
     ),
   },
   {
-    question: "How do I customize the template?",
+    question: "Hogyan tudom testre szabni a sablont?",
     answer: (
       <>
-        <p>Before deploying to production, you should:</p>
+        <p>A végleges élesítés előtt érdemes:</p>
         <ul className="list-disc pl-6 mt-2 space-y-1">
           <li>Update project details in <code>src/constants.ts</code></li>
           <li>Customize the documentation in <code>./cursor-docs</code></li>
@@ -122,10 +122,10 @@ const faqs = [
     ),
   },
   {
-    question: "How can I contribute?",
+    question: "Hogyan tudok hozzájárulni?",
     answer: (
       <>
-        Contributions are welcome! Feel free to open issues, submit pull requests, or help improve the documentation on <a href={GITHUB_REPO_URL} target="_blank">GitHub</a>. The project follows standard open source contribution guidelines.
+        Szívesen fogadunk minden közreműködést! Nyiss hibajegyet, küldj pull requestet vagy segíts a dokumentáció fejlesztésében a <a href={GITHUB_REPO_URL} target="_blank">GitHubon</a>.
       </>
     ),
   },
@@ -137,7 +137,7 @@ export function FAQ() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl divide-y divide-gray-900/10 dark:divide-gray-100/10">
           <h2 className="text-2xl font-bold leading-10 tracking-tight">
-            Frequently asked questions
+            Gyakran ismételt kérdések
           </h2>
           <Accordion type="single" collapsible className="w-full mt-10">
             {faqs.map((faq, index) => (

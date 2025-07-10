@@ -11,51 +11,51 @@ import {
 
 const features = [
   {
-    name: "Authentication Ready",
+    name: "Bejelentkezésre kész",
     description:
-      "Complete authentication system with email/password sign in, sign up, forgot password flow, and session management using Lucia Auth.",
+      "Teljes hitelesítési rendszer email/jelszó belépéssel, regisztrációval, elfelejtett jelszó folyamattal és munkamenet-kezeléssel Lucia Auth segítségével.",
     icon: ShieldCheckIcon,
   },
   {
-    name: "Database & Email",
+    name: "Adatbázis és e-mail",
     description:
-      "Drizzle ORM with Cloudflare D1 for the database, and React Email with Resend for beautiful email templates.",
+      "Drizzle ORM és Cloudflare D1 az adatbázishoz, valamint React Email és Resend a látványos e-mail sablonokhoz.",
     icon: EnvelopeIcon,
   },
   {
-    name: "Modern Stack",
+    name: "Modern stack",
     description:
-      "Next.js 15 App Router with React Server Components, Server Actions, and Edge Runtime for optimal performance.",
+      "Next.js 15 App Router React Server Components-szel, Server Actions-szel és Edge Runtime-mal az optimális teljesítményért.",
     icon: BoltIcon,
   },
   {
-    name: "Beautiful UI",
+    name: "Letisztult felület",
     description:
-      "Polished UI with Tailwind CSS, Shadcn UI components, dark/light mode, and responsive design out of the box.",
+      "Reszponzív, sötét/világos módot támogató felület Tailwind CSS és Shadcn UI komponensekkel.",
     icon: SunIcon,
   },
   {
-    name: "Edge Deployment",
+    name: "Edge deploy",
     description:
-      "Deploy globally with Cloudflare Workers for zero cold starts and leverage Cloudflare's edge network for blazing-fast performance.",
+      "Globális deploy Cloudflare Workers segítségével, hidegindítás nélkül, kihasználva a Cloudflare edge hálózatának sebességét.",
     icon: CloudIcon,
   },
   {
-    name: "Developer Experience",
+    name: "Fejlesztői élmény",
     description:
-      "GitHub Actions for deployment, comprehensive documentation, and TypeScript for type safety.",
+      "GitHub Actions alapú deploy, részletes dokumentáció és TypeScript a típusbiztonságért.",
     icon: CommandLineIcon,
   },
   {
-    name: "Form Handling",
+    name: "Űrlapkezelés",
     description:
-      "Built-in form validation with Zod and React Hook Form for a smooth user experience.",
+      "Beépített űrlapvalidáció Zod és React Hook Form segítségével a gördülékeny felhasználói élményért.",
     icon: RocketLaunchIcon,
   },
   {
-    name: "Team Ready",
+    name: "Csapatra felkészítve",
     description:
-      "Built with collaboration in mind. Easy to customize and extend with your team's requirements.",
+      "Együttműködésre tervezve, könnyen testreszabható és bővíthető a csapat igényei szerint.",
     icon: UserGroupIcon,
   },
 ];
@@ -66,14 +66,13 @@ export function Features() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
           <h2 className="text-base font-semibold leading-7 text-indigo-600 dark:text-indigo-400">
-            Production Ready
+            Éles használatra kész
           </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-            Everything you need to build a SaaS
+            Minden, ami egy SaaS alkalmazáshoz kell
           </p>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            Start with a complete foundation. All the essential features are built-in,
-            so you can focus on what makes your SaaS unique.
+            Teljes alapokra építünk, hogy a lényegre koncentrálhass.
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">

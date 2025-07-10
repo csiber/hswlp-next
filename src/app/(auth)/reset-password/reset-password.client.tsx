@@ -47,11 +47,11 @@ export default function ResetPasswordClientComponent() {
       toast.error(error.err?.message);
     },
     onStart: () => {
-      toast.loading("Resetting password...");
+      toast.loading("Jelszó visszaállítása folyamatban...");
     },
     onSuccess: () => {
       toast.dismiss();
-      toast.success("Password reset successfully");
+      toast.success("Sikeres jelszóváltás");
     },
   });
 
@@ -64,9 +64,9 @@ export default function ResetPasswordClientComponent() {
       <div className="container mx-auto px-4 flex items-center justify-center min-h-screen">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle>Password Reset Successfully</CardTitle>
+            <CardTitle>Sikeres jelszóváltás</CardTitle>
             <CardDescription>
-              Your password has been reset. You can now log in with your new password.
+              A jelszavad frissült, most már bejelentkezhetsz az új jelszóval.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -75,7 +75,7 @@ export default function ResetPasswordClientComponent() {
               className="w-full"
               onClick={() => router.push("/sign-in")}
             >
-              Go to Login
+              Ugrás a belépéshez
             </Button>
           </CardContent>
         </Card>
@@ -87,9 +87,9 @@ export default function ResetPasswordClientComponent() {
     <div className="container mx-auto px-4 flex items-center justify-center min-h-screen">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Reset Password</CardTitle>
+          <CardTitle>Jelszó visszaállítása</CardTitle>
           <CardDescription>
-            Enter your new password below.
+            Add meg az új jelszavad.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -100,7 +100,7 @@ export default function ResetPasswordClientComponent() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>New Password</FormLabel>
+                    <FormLabel>Új jelszó</FormLabel>
                     <FormControl>
                       <Input
                         type="password"
@@ -116,7 +116,7 @@ export default function ResetPasswordClientComponent() {
                 name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Confirm Password</FormLabel>
+                    <FormLabel>Jelszó megerősítése</FormLabel>
                     <FormControl>
                       <Input
                         type="password"
@@ -128,7 +128,7 @@ export default function ResetPasswordClientComponent() {
                 )}
               />
               <Button type="submit" className="w-full">
-                Reset Password
+                Jelszó frissítése
               </Button>
             </form>
           </Form>

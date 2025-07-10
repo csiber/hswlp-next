@@ -16,16 +16,16 @@ export function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6">
             {/* Legal Links */}
             <div className="space-y-3 md:space-y-4 flex flex-col items-center md:items-start">
-              <h3 className="text-sm font-semibold text-foreground text-center md:text-left">Legal</h3>
+              <h3 className="text-sm font-semibold text-foreground text-center md:text-left">Jogi</h3>
               <ul className="space-y-2 flex flex-col items-center md:items-start">
                 <li>
                   <Link href="/terms" className="text-sm text-muted-foreground hover:text-foreground text-center md:text-left">
-                    Terms of Service
+                    Felhasználási feltételek
                   </Link>
                 </li>
                 <li>
                   <Link href="/privacy" className="text-sm text-muted-foreground hover:text-foreground text-center md:text-left">
-                    Privacy Policy
+                    Adatkezelési tájékoztató
                   </Link>
                 </li>
               </ul>
@@ -33,11 +33,11 @@ export function Footer() {
 
             {/* Company Info */}
             <div className="space-y-3 md:space-y-4 flex flex-col items-center md:items-start">
-              <h3 className="text-sm font-semibold text-foreground text-center md:text-left">Company</h3>
+              <h3 className="text-sm font-semibold text-foreground text-center md:text-left">Cég</h3>
               <ul className="space-y-2 flex flex-col items-center md:items-start">
                 <li>
                   <Link href="/" className="text-sm text-muted-foreground hover:text-foreground text-center md:text-left">
-                    Home
+                    Főoldal
                   </Link>
                 </li>
               </ul>
@@ -45,7 +45,7 @@ export function Footer() {
 
             {/* Social Links and Theme Switch */}
             <div className="space-y-3 md:space-y-4 flex flex-col items-center md:items-start">
-              <h3 className="text-sm font-semibold text-foreground text-center md:text-left">Social</h3>
+              <h3 className="text-sm font-semibold text-foreground text-center md:text-left">Közösség</h3>
               <div className="flex items-center space-x-4">
                 <a
                   href="https://github.com/LubomirGeorgiev"
@@ -63,7 +63,7 @@ export function Footer() {
                   className="text-muted-foreground hover:text-foreground"
                 >
                   <XIcon className="h-5 w-5" />
-                  <span className="sr-only">X (formerly Twitter)</span>
+                  <span className="sr-only">X</span>
                 </a>
               </div>
             </div>
@@ -91,7 +91,7 @@ export function Footer() {
                     target="_blank"
                     className="flex items-center font-medium text-sm hover:text-foreground transition-colors"
                   >
-                    <span className="whitespace-nowrap">Built by</span>
+                    <span className="whitespace-nowrap">Készítette</span>
                     <AgenticDevStudioLogo className="h-7 w-7 mx-1.5" />
                     <span className="whitespace-nowrap">AgenticDev</span>
                   </a>
@@ -119,7 +119,7 @@ async function GithubButton() {
       >
         <GithubIcon className="h-4 w-4" />
         <span className="whitespace-nowrap">
-          {starsCount ? `Fork on Github (${starsCount} Stars)` : "Fork on Github"}
+          {starsCount ? `Fork a Githubon (${starsCount} csillag)` : "Fork a Githubon"}
         </span>
       </a>
     </Button>
@@ -137,7 +137,7 @@ function GithubButtonFallback() {
         className="flex items-center justify-center space-x-2"
       >
         <GithubIcon className="h-4 w-4" />
-        <span className="whitespace-nowrap">Fork on Github</span>
+        <span className="whitespace-nowrap">Fork a Githubon</span>
       </a>
     </Button>
   );

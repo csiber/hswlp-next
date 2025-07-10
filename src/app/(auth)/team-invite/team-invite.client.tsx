@@ -19,14 +19,14 @@ export default function TeamInviteClientComponent() {
   const { execute: handleAcceptInvite, isPending, error } = useServerAction(acceptTeamInviteAction, {
     onError: ({ err }) => {
       toast.dismiss();
-      toast.error(err.message || "Failed to accept team invitation");
+      toast.error(err.message || "Nem sikerült elfogadni a csapatmeghívást");
     },
     onStart: () => {
-      toast.loading("Processing your invitation...");
+      toast.loading("Meghívó feldolgozása...");
     },
     onSuccess: (data) => {
       toast.dismiss();
-      toast.success("You've successfully joined the team!");
+      toast.success("Sikeresen csatlakoztál a csapathoz!");
 
       router.refresh();
 
@@ -51,7 +51,7 @@ export default function TeamInviteClientComponent() {
         hasCalledAcceptInvite.current = true;
         handleAcceptInvite(result.data);
       } else {
-        toast.error("Invalid invitation token");
+        toast.error("Érvénytelen meghívó token");
         router.push("/sign-in");
       }
     }
@@ -65,9 +65,9 @@ export default function TeamInviteClientComponent() {
           <CardHeader className="text-center">
             <div className="flex flex-col items-center space-y-4">
               <Spinner size="large" />
-              <CardTitle>Accepting Invitation</CardTitle>
+              <CardTitle>Meghívó elfogadása</CardTitle>
               <CardDescription>
-                Please wait while we process your team invitation...
+                Kérjük, várj amíg feldolgozzuk a csapatmeghívót...
               </CardDescription>
             </div>
           </CardHeader>
@@ -81,25 +81,25 @@ export default function TeamInviteClientComponent() {
       <div className="container mx-auto px-4 flex items-center justify-center min-h-screen">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle>Invitation Error</CardTitle>
+            <CardTitle>Meghívó hiba</CardTitle>
             <CardDescription>
-              {error?.message || "Failed to process the invitation"}
+              {error?.message || "Nem sikerült feldolgozni a meghívót"}
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
             <p className="text-sm text-muted-foreground">
               {error?.code === "CONFLICT"
-                ? "You are already a member of this team."
+                ? "Már tagja vagy ennek a csapatnak."
                 : error?.code === "FORBIDDEN" && error?.message.includes("limit")
-                ? "You've reached the maximum number of teams you can join."
-                : "The invitation may have expired or been revoked."}
+                ? "Elérted a csatlakozható csapatok maximális számát."
+                : "A meghívó lejárt vagy visszavonták."}
             </p>
             <Button
               variant="outline"
               className="w-full"
               onClick={() => router.push("/dashboard")}
             >
-              Go to Dashboard
+              Ugrás a vezérlőpulthoz
             </Button>
           </CardContent>
         </Card>
@@ -112,9 +112,9 @@ export default function TeamInviteClientComponent() {
       <div className="container mx-auto px-4 flex items-center justify-center min-h-screen">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle>Invalid Invitation Link</CardTitle>
+            <CardTitle>Érvénytelen meghívó link</CardTitle>
             <CardDescription>
-              The invitation link is invalid or has expired.
+              A meghívó link érvénytelen vagy lejárt.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -123,7 +123,7 @@ export default function TeamInviteClientComponent() {
               className="w-full"
               onClick={() => router.push("/dashboard")}
             >
-              Go to Dashboard
+              Ugrás a vezérlőpulthoz
             </Button>
           </CardContent>
         </Card>

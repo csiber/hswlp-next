@@ -70,9 +70,9 @@ export default function GoogleCallbackClientComponent() {
       <div className="container mx-auto px-4 flex items-center justify-center min-h-screen">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle>Sign in failed</CardTitle>
+            <CardTitle>Sikertelen bejelentkezés</CardTitle>
             <CardDescription>
-              {error?.message || "Failed to sign in with Google"}
+              {error?.message || "Nem sikerült bejelentkezni Google-lel"}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -81,7 +81,7 @@ export default function GoogleCallbackClientComponent() {
               className="w-full"
               onClick={() => router.push("/sign-in")}
             >
-              Back to sign in
+              Vissza a bejelentkezéshez
             </Button>
           </CardContent>
         </Card>
@@ -93,9 +93,9 @@ export default function GoogleCallbackClientComponent() {
     <div className="container mx-auto px-4 flex items-center justify-center min-h-screen">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Invalid callback</CardTitle>
+          <CardTitle>Érvénytelen visszahívás</CardTitle>
           <CardDescription>
-            The sign in callback is invalid or has expired. Please try signing in again.
+            A bejelentkezési visszahívás érvénytelen vagy lejárt. Próbáld újra a bejelentkezést.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -104,7 +104,7 @@ export default function GoogleCallbackClientComponent() {
             className="w-full"
             onClick={() => router.push("/sign-in")}
           >
-            Back to sign in
+            Vissza a bejelentkezéshez
           </Button>
         </CardContent>
       </Card>

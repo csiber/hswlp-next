@@ -46,7 +46,7 @@ function PaymentForm({ packageId, clientSecret, onSuccess, onCancel, credits, pr
       });
 
       if (error) {
-        toast.error(error.message || "Payment failed");
+        toast.error(error.message || "A fizetés nem sikerült");
       } else {
         // The payment was successful
         const paymentIntent = await stripe.retrievePaymentIntent(clientSecret);
@@ -57,10 +57,10 @@ function PaymentForm({ packageId, clientSecret, onSuccess, onCancel, credits, pr
           });
 
           if (success) {
-            toast.success("Payment successful!");
+            toast.success("Sikeres fizetés!");
             onSuccess();
           } else {
-            toast.error("Payment failed");
+            toast.error("A fizetés nem sikerült");
           }
         } else {
           throw new Error("No payment intent found");
@@ -84,7 +84,7 @@ function PaymentForm({ packageId, clientSecret, onSuccess, onCancel, credits, pr
                 {getPackageIcon(credits)}
                 <div>
                   <div className="text-2xl font-bold">
-                    {credits.toLocaleString()} credits
+                    {credits.toLocaleString()} kredit
                   </div>
                 </div>
               </div>
@@ -95,13 +95,13 @@ function PaymentForm({ packageId, clientSecret, onSuccess, onCancel, credits, pr
             <div className="h-px bg-border" />
             <div className="text-xs text-muted-foreground space-y-2">
               <p>
-                Your payment is secure and encrypted. We use Stripe, a trusted global payment provider, to process your payment.
+                A fizetés biztonságos és titkosított. A Stripe megbízható szolgáltató kezeli a tranzakciót.
               </p>
               <p>
-                For your security, your payment details are handled directly by Stripe and never touch our servers.
+                A fizetési adataid közvetlenül a Stripe-hoz kerülnek, és nem jutnak el a szervereinkre.
               </p>
               <p>
-                Credits will be added to your account immediately after successful payment and will be valid for {CREDITS_EXPIRATION_YEARS} years from the purchase date.
+                A kreditek sikeres fizetés után azonnal jóváíródnak, és {CREDITS_EXPIRATION_YEARS} évig érvényesek.
               </p>
             </div>
           </div>
@@ -117,14 +117,14 @@ function PaymentForm({ packageId, clientSecret, onSuccess, onCancel, credits, pr
             onClick={onCancel}
             disabled={isProcessing}
           >
-            Cancel
+            Mégse
           </Button>
           <Button
             type="submit"
             disabled={isProcessing || !stripe || !elements}
             className="px-8"
           >
-            {isProcessing ? "Processing..." : "Pay Now"}
+            {isProcessing ? "Feldolgozás..." : "Fizetés"}
           </Button>
         </div>
       </form>
