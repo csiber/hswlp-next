@@ -155,7 +155,7 @@ export const completePasskeyRegistrationAction = createServerAction()
       if (!user || !user.email) {
         throw new ZSAError(
           "INTERNAL_SERVER_ERROR",
-          "User not found"
+          "Felhasználó nem található"
         );
       }
 
@@ -165,7 +165,7 @@ export const completePasskeyRegistrationAction = createServerAction()
       const expiresAt = new Date(Date.now() + EMAIL_VERIFICATION_TOKEN_EXPIRATION_SECONDS * 1000);
 
       if (!env?.NEXT_INC_CACHE_KV) {
-        throw new Error("Can't connect to KV store");
+        throw new Error("Nem sikerült csatlakozni a KV tárhoz");
       }
 
       // Save verification token in KV with expiration

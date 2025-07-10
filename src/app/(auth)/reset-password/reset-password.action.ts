@@ -19,7 +19,7 @@ export const resetPasswordAction = createServerAction()
         const { env } = getCloudflareContext();
 
         if (!env?.NEXT_INC_CACHE_KV) {
-          throw new Error("Can't connect to KV store");
+          throw new Error("Nem sikerült csatlakozni a KV tárhoz");
         }
 
         try {
@@ -28,7 +28,7 @@ export const resetPasswordAction = createServerAction()
           if (!resetTokenStr) {
             throw new ZSAError(
               "NOT_FOUND",
-              "Invalid or expired reset token"
+              "Érvénytelen vagy lejárt jelszó-visszaállító token"
             );
           }
 
@@ -41,7 +41,7 @@ export const resetPasswordAction = createServerAction()
           if (new Date() > new Date(resetToken.expiresAt)) {
             throw new ZSAError(
               "PRECONDITION_FAILED",
-              "Reset token has expired"
+              "A jelszó-visszaállító token lejárt"
             );
           }
 
@@ -53,7 +53,7 @@ export const resetPasswordAction = createServerAction()
           if (!user) {
             throw new ZSAError(
               "NOT_FOUND",
-              "User not found"
+              "Felhasználó nem található"
             );
           }
 
@@ -76,7 +76,7 @@ export const resetPasswordAction = createServerAction()
 
           throw new ZSAError(
             "INTERNAL_SERVER_ERROR",
-            "An unexpected error occurred"
+            "Váratlan hiba történt"
           );
         }
       },
