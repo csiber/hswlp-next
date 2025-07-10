@@ -13,9 +13,9 @@ export default function ResetPasswordNotFound() {
     <div className="container mx-auto px-4 flex items-center justify-center min-h-screen">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Invalid Reset Link</CardTitle>
+          <CardTitle>Érvénytelen visszaállítási link</CardTitle>
           <CardDescription>
-            This password reset link is invalid or has expired. Please request a new one.
+            Ez a jelszó-visszaállítási link érvénytelen vagy lejárt. Kérj új linket.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -25,7 +25,7 @@ export default function ResetPasswordNotFound() {
             asChild
           >
             <Link href="/forgot-password">
-              Request New Reset Link
+              Új visszaállítási link kérése
             </Link>
           </Button>
         </CardContent>

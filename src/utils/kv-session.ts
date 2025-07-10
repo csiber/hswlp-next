@@ -89,7 +89,7 @@ export async function createKVSession({
   const kv = await getKV();
 
   if (!kv) {
-    throw new Error("Can't connect to KV store");
+    throw new Error("Nem sikerült csatlakozni a KV tárhoz");
   }
 
   const session: KVSession = {
@@ -144,7 +144,7 @@ export async function getKVSession(sessionId: string, userId: string): Promise<K
   const kv = await getKV();
 
   if (!kv) {
-    throw new Error("Can't connect to KV store");
+    throw new Error("Nem sikerült csatlakozni a KV tárhoz");
   }
 
   const sessionStr = await kv.get(getSessionKey(userId, sessionId));
@@ -178,7 +178,7 @@ export async function updateKVSession(sessionId: string, userId: string, expires
   const updatedUser = await getUserFromDB(userId);
 
   if (!updatedUser) {
-    throw new Error("User not found");
+    throw new Error("Felhasználó nem található");
   }
 
   // Get updated teams data with permissions
@@ -195,7 +195,7 @@ export async function updateKVSession(sessionId: string, userId: string, expires
   const kv = await getKV();
 
   if (!kv) {
-    throw new Error("Can't connect to KV store");
+    throw new Error("Nem sikerült csatlakozni a KV tárhoz");
   }
 
   await kv.put(
@@ -216,7 +216,7 @@ export async function deleteKVSession(sessionId: string, userId: string): Promis
   const kv = await getKV();
 
   if (!kv) {
-    throw new Error("Can't connect to KV store");
+    throw new Error("Nem sikerült csatlakozni a KV tárhoz");
   }
 
   await kv.delete(getSessionKey(userId, sessionId));
@@ -226,7 +226,7 @@ export async function getAllSessionIdsOfUser(userId: string) {
   const kv = await getKV();
 
   if (!kv) {
-    throw new Error("Can't connect to KV store");
+    throw new Error("Nem sikerült csatlakozni a KV tárhoz");
   }
 
   const sessions = await kv.list({ prefix: getSessionKey(userId, "") });
@@ -246,7 +246,7 @@ export async function updateAllSessionsOfUser(userId: string) {
   const kv = await getKV();
 
   if (!kv) {
-    throw new Error("Can't connect to KV store");
+    throw new Error("Nem sikerült csatlakozni a KV tárhoz");
   }
 
   const newUserData = await getUserFromDB(userId);

@@ -157,7 +157,7 @@ export async function createSession({
   const user = await getUserFromDB(userId);
 
   if (!user) {
-    throw new Error("User not found");
+    throw new Error("Felhasználó nem található");
   }
 
   const teamsWithPermissions = await getUserTeamsWithPermissions(userId);
