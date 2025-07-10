@@ -21,14 +21,14 @@ export default function GoogleCallbackClientComponent() {
   const { execute: handleCallback, isPending, error } = useServerAction(googleSSOCallbackAction, {
     onError: (error) => {
       toast.dismiss();
-      toast.error(error.err?.message || "Failed to sign in with Google");
+      toast.error(error.err?.message || "Nem sikerült bejelentkezni Google-lel");
     },
     onStart: () => {
-      toast.loading("Signing you in with Google...");
+      toast.loading("Bejelentkezés Google-lel...");
     },
     onSuccess: () => {
       toast.dismiss();
-      toast.success("Signed in successfully");
+      toast.success("Sikeres bejelentkezés");
       window.location.href = REDIRECT_AFTER_SIGN_IN;
     },
   });
@@ -40,7 +40,7 @@ export default function GoogleCallbackClientComponent() {
         hasCalledCallback.current = true;
         handleCallback(result.data);
       } else {
-        toast.error("Invalid callback parameters");
+        toast.error("Érvénytelen visszahívási paraméterek");
         router.push("/sign-in");
       }
     }
@@ -54,9 +54,9 @@ export default function GoogleCallbackClientComponent() {
           <CardHeader className="text-center">
             <div className="flex flex-col items-center space-y-4">
               <Spinner size="large" />
-              <CardTitle>Signing in with Google</CardTitle>
+              <CardTitle>Bejelentkezés Google-lel</CardTitle>
               <CardDescription>
-                Please wait while we complete your sign in...
+                Kérjük, várj amíg befejezzük a bejelentkezést...
               </CardDescription>
             </div>
           </CardHeader>

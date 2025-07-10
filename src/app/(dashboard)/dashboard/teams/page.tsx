@@ -10,8 +10,8 @@ import { PageHeader } from "@/components/page-header";
 import { PendingInvitations } from "./pending-invitations";
 
 export const metadata = {
-  title: "My Teams",
-  description: "Manage your teams and collaborations",
+  title: "Csapataim",
+  description: "Csapatok és együttműködések kezelése",
 };
 
 interface TeamRole {
@@ -62,13 +62,13 @@ export default async function TeamsIndexPage() {
       <div className="container mx-auto px-5 pb-12">
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold">My Teams</h1>
-            <p className="text-muted-foreground mt-2">Manage your teams and collaborations</p>
+            <h1 className="text-4xl font-bold">Csapataim</h1>
+            <p className="text-muted-foreground mt-2">Kezeld a csapataidat és együttműködéseidet</p>
           </div>
           <Button asChild>
             <Link href={"/dashboard/teams/create" as Route}>
               <PlusIcon className="h-4 w-4 mr-2" />
-              Create Team
+              Csapat létrehozása
             </Link>
           </Button>
         </div>
@@ -79,9 +79,9 @@ export default async function TeamsIndexPage() {
         {teams.length === 0 ? (
           <Card className="border-dashed border-2">
             <CardHeader>
-              <CardTitle className="text-xl">You don&apos;t have any teams yet</CardTitle>
+              <CardTitle className="text-xl">Még nincs csapatod</CardTitle>
               <CardDescription>
-                Teams let you collaborate with others on projects and share resources.
+                A csapatok lehetővé teszik, hogy másokkal közösen dolgozz projekteken és megoszd az erőforrásokat.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex justify-center py-8">
@@ -91,7 +91,7 @@ export default async function TeamsIndexPage() {
               <Button asChild>
                 <Link href={"/dashboard/teams/create" as Route}>
                   <PlusIcon className="h-4 w-4 mr-2" />
-                  Create your first team
+                  Hozd létre az első csapatodat
                 </Link>
               </Button>
             </CardFooter>
@@ -120,14 +120,14 @@ export default async function TeamsIndexPage() {
                       <CardTitle>{team.name}</CardTitle>
                       {team.role && (
                         <CardDescription>
-                          Your role: <span className="capitalize">{team.role.name}</span>
+                          Szereped: <span className="capitalize">{team.role.name}</span>
                         </CardDescription>
                       )}
                     </div>
                   </CardHeader>
                   <CardContent>
                     <p className="line-clamp-2 text-muted-foreground">
-                      {team.description || "No description provided"}
+                      {team.description || "Nincs leírás"}
                     </p>
                   </CardContent>
                 </Card>
@@ -137,7 +137,7 @@ export default async function TeamsIndexPage() {
             <Link href={"/dashboard/teams/create" as Route}>
               <Card className="h-full border-dashed border-2 hover:border-primary transition-all">
                 <CardHeader className="text-center pt-8">
-                  <CardTitle className="text-xl">Create a new team</CardTitle>
+                  <CardTitle className="text-xl">Új csapat létrehozása</CardTitle>
                 </CardHeader>
                 <CardContent className="flex justify-center">
                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-muted">

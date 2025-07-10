@@ -25,7 +25,7 @@ export const purchaseAction = createServerAction()
         if (!session) {
           throw new ZSAError(
             "NOT_AUTHORIZED",
-            "You must be logged in to make purchases"
+            "A vásárláshoz be kell jelentkezned"
           );
         }
 
@@ -41,7 +41,7 @@ export const purchaseAction = createServerAction()
         if (!itemDetails) {
           throw new ZSAError(
             "NOT_FOUND",
-            "Item not found"
+            "A termék nem található"
           );
         }
 
@@ -54,7 +54,7 @@ export const purchaseAction = createServerAction()
         if (!hasCredits) {
           throw new ZSAError(
             "INSUFFICIENT_CREDITS",
-            "You don't have enough credits to purchase this item"
+            "Nincs elég kredited a termék megvásárlásához"
           );
         }
 
@@ -72,7 +72,7 @@ export const purchaseAction = createServerAction()
         if (existingPurchase) {
           throw new ZSAError(
             "CONFLICT",
-            "You already own this item"
+            "Már rendelkezel ezzel a termékkel"
           );
         }
 

@@ -31,7 +31,7 @@ export const signUpAction = createServerAction()
           if (!success) {
             throw new ZSAError(
               "INPUT_PARSE_ERROR",
-              "Please complete the captcha"
+              "Kérjük, töltsd ki a captchát"
             )
           }
         }
@@ -47,7 +47,7 @@ export const signUpAction = createServerAction()
         if (existingUser) {
           throw new ZSAError(
             "CONFLICT",
-            "Email already taken"
+            "Ez az email cím már foglalt"
           );
         }
 
@@ -68,7 +68,7 @@ export const signUpAction = createServerAction()
         if (!user || !user.email) {
           throw new ZSAError(
             "INTERNAL_SERVER_ERROR",
-            "Failed to create user"
+            "Nem sikerült létrehozni a felhasználót"
           );
         }
 
@@ -119,7 +119,7 @@ export const signUpAction = createServerAction()
 
           throw new ZSAError(
             "INTERNAL_SERVER_ERROR",
-            "Failed to create session after signup"
+            "Nem sikerült létrehozni a munkamenetet a regisztráció után"
           );
         }
 

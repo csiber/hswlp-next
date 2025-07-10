@@ -66,7 +66,7 @@ export function PendingInvitations() {
       const [result] = await acceptInvitationAction({ token });
 
       if (result?.success) {
-        toast.success("You have successfully joined the team");
+        toast.success("Sikeresen csatlakoztál a csapathoz");
 
         // Remove from pending list
         setPendingInvitations(prev => prev.filter(inv => inv.token !== token));
@@ -75,7 +75,7 @@ export function PendingInvitations() {
         router.refresh();
       }
     } catch {
-      toast.error("Failed to accept invitation");
+        toast.error("Nem sikerült elfogadni a meghívást");
     } finally {
       setIsAccepting(prev => ({ ...prev, [token]: false }));
     }
@@ -92,9 +92,9 @@ export function PendingInvitations() {
   return (
     <Card className="mb-8 border-orange-200 dark:border-orange-900 bg-orange-50 dark:bg-orange-950/20">
       <CardHeader>
-        <CardTitle className="text-xl">Pending Team Invitations</CardTitle>
+        <CardTitle className="text-xl">Függőben lévő csapatmeghívások</CardTitle>
         <CardDescription>
-          You have been invited to join the following teams
+          Meghívást kaptál a következő csapatokhoz
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -128,11 +128,11 @@ export function PendingInvitations() {
               size="sm"
             >
               {isAccepting[invitation.token] ? (
-                "Accepting..."
+                "Elfogadás..."
               ) : (
                 <>
                   <CheckCircle className="mr-2 h-4 w-4" />
-                  Accept
+                  Elfogadás
                 </>
               )}
             </Button>

@@ -25,7 +25,7 @@ export const signInAction = createServerAction()
           if (!user) {
             throw new ZSAError(
               "NOT_AUTHORIZED",
-              "Invalid email or password"
+              "Érvénytelen email vagy jelszó"
             );
           }
 
@@ -33,14 +33,14 @@ export const signInAction = createServerAction()
           if (!user.passwordHash && user.googleAccountId) {
             throw new ZSAError(
               "FORBIDDEN",
-              "Please sign in with your Google account instead."
+              "Kérjük, jelentkezz be a Google-fiókoddal."
             );
           }
 
           if (!user.passwordHash) {
             throw new ZSAError(
               "NOT_AUTHORIZED",
-              "Invalid email or password"
+              "Érvénytelen email vagy jelszó"
             );
           }
 
@@ -53,7 +53,7 @@ export const signInAction = createServerAction()
           if (!isValid) {
             throw new ZSAError(
               "NOT_AUTHORIZED",
-              "Invalid email or password"
+              "Érvénytelen email vagy jelszó"
             );
           }
 

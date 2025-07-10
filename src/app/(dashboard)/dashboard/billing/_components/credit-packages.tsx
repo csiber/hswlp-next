@@ -75,7 +75,7 @@ export function CreditPackages() {
     <>
       <Card>
         <CardHeader>
-          <CardTitle>Credits</CardTitle>
+          <CardTitle>Kreditek</CardTitle>
         </CardHeader>
         <CardContent className="space-y-8">
           <div className="space-y-2">
@@ -93,7 +93,7 @@ export function CreditPackages() {
               )}
             </div>
             <div className="text-sm text-muted-foreground">
-              You get {FREE_MONTHLY_CREDITS} free credits every month.
+              Havonta {FREE_MONTHLY_CREDITS} ingyenes kreditet kapsz.
             </div>
           </div>
 
@@ -102,11 +102,11 @@ export function CreditPackages() {
           <div className="space-y-4">
             <div>
               <h2 className="text-xl sm:text-2xl font-semibold">
-                Top up your credits
+                Töltsd fel a kreditjeidet
               </h2>
               <p className="text-sm text-muted-foreground mt-2 sm:mt-3">
-                Purchase additional credits to use our services. The more
-                credits you buy, the better the value.
+                Vásárolj további krediteket szolgáltatásaink használatához. Minél
+                több kreditet vásárolsz, annál kedvezőbb az ár.
               </p>
             </div>
 
@@ -134,14 +134,14 @@ export function CreditPackages() {
                           {pkg.price} Ft
                         </div>
                         <div className="text-xs sm:text-sm text-muted-foreground">
-                          one-time payment
+                          egyszeri fizetés
                         </div>
                         {index > 0 ? (
                           <Badge
                             variant="secondary"
                             className="mt-1 text-xs sm:text-sm bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
                           >
-                            Save {calculateSavings(pkg)}%
+                            Megtakarítás {calculateSavings(pkg)}%
                           </Badge>
                         ) : (
                           <div className="h-[22px] sm:h-[26px]" /> /* Placeholder for badge height */
@@ -155,13 +155,13 @@ export function CreditPackages() {
                           handlePurchase(pkg);
                         } else {
                           toast.error(
-                            "Something went wrong with our payment provider. Please try again later."
+                            "Hiba történt a fizetési szolgáltatónál. Próbáld meg később."
                           );
                         }
                       }}
                       className="w-full text-sm sm:text-base"
                     >
-                      Purchase Now
+                      Vásárlás
                     </Button>
                   </CardContent>
                 </Card>
@@ -174,7 +174,7 @@ export function CreditPackages() {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Purchase Credits</DialogTitle>
+            <DialogTitle>Kreditek vásárlása</DialogTitle>
           </DialogHeader>
           {clientSecret && selectedPackage && (
             <StripePaymentForm
