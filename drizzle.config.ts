@@ -22,8 +22,10 @@ function getLocalD1DB() {
   }
 }
 
+const migrationsDir = process.env.MIGRATIONS_DIR ?? './migrations/local';
+
 export default defineConfig({
-  out: './src/db/migrations',
+  out: migrationsDir,
   schema: './src/db/schema.ts',
   dialect: 'sqlite',
   ...(process.env.NODE_ENV === "production"
