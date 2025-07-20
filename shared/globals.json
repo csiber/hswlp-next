@@ -1,0 +1,14 @@
+{
+  "GLOBAL_TABLES": [
+    "credit_transaction",
+    "passkey_credential",
+    "purchased_item",
+    "revalidations",
+    "tags",
+    "team",
+    "team_invitation",
+    "team_membership",
+    "team_role",
+    "user"
+  ]
+}

@@ -72,10 +72,16 @@
 
 "d1_databases": [
   {
+    "binding": "GLOBAL_DB",
+    "database_name": "hswlp-d1",
+    "database_id": "00ebabdd-6e83-4dd0-9790-ff546dae1e69",
+    "migrations_dir": "migrations/global"
+  },
+  {
     "binding": "DB",
     "database_name": "hswlp-d1",
     "database_id": "00ebabdd-6e83-4dd0-9790-ff546dae1e69",
-    "migrations_dir": "src/db/migrations"
+    "migrations_dir": "migrations/local"
   },
   {
     "binding": "NEXT_TAG_CACHE_D1",
