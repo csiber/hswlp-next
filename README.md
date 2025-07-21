@@ -2,10 +2,10 @@
 
 Ez a repository a HSWLP platform `hswlp-next` nevű **új alaprendszere**, amelyre a különböző frontend rétegek (ún. **shellek**) épülnek. A rendszer teljesen Cloudflare-infrastruktúrán fut (Workers, D1, R2, KV), és készen áll SaaS alkalmazások hosztolására – külön back-end nélkül.
 
-Ez az alap biztosítja a következőket:
+- Ez az alap biztosítja a következőket:
 
 - Bejelentkezés, regisztráció, email hitelesítés
-- Google OAuth és Turnstile captcha
+- Turnstile captcha
 - Cloudflare D1 adatbázis migrációkkal
 - R2 tárhely és KV session kezelés
 - Stripe integráció és emailküldés (Resend vagy Brevo)
