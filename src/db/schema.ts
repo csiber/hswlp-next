@@ -63,38 +63,6 @@ export const userTable = sqliteTable("user", {
   index('role_idx').on(table.role),
 ]));
 
-export const passKeyCredentialTable = sqliteTable("passkey_credential", {
-  ...commonColumns,
-  id: text().primaryKey().$defaultFn(() => `pkey_${createId()}`).notNull(),
-  userId: text().notNull().references(() => userTable.id),
-  credentialId: text({
-    length: 255,
-  }).notNull().unique(),
-  credentialPublicKey: text({
-    length: 255,
-  }).notNull(),
-  counter: integer().notNull(),
-  // Optional array of AuthenticatorTransport as JSON string
-  transports: text({
-    length: 255,
-  }),
-  // Authenticator Attestation GUID. We use this to identify the device/authenticator app that created the passkey
-  aaguid: text({
-    length: 255,
-  }),
-  // The user agent of the device that created the passkey
-  userAgent: text({
-    length: 255,
-  }),
-  // The IP address that created the passkey
-  ipAddress: text({
-    length: 100,
-  }),
-}, (table) => ([
-  index('user_id_idx').on(table.userId),
-  index('credential_id_idx').on(table.credentialId),
-]));
-
 // Credit transaction types
 export const CREDIT_TRANSACTION_TYPE = {
   PURCHASE: 'PURCHASE',
@@ -340,21 +308,12 @@ export const purchasedItemsRelations = relations(purchasedItemsTable, ({ one }) 
 }));
 
 export const userRelations = relations(userTable, ({ many }) => ({
-  passkeys: many(passKeyCredentialTable),
   creditTransactions: many(creditTransactionTable),
   purchasedItems: many(purchasedItemsTable),
   teamMemberships: many(teamMembershipTable),
 }));
 
-export const passKeyCredentialRelations = relations(passKeyCredentialTable, ({ one }) => ({
-  user: one(userTable, {
-    fields: [passKeyCredentialTable.userId],
-    references: [userTable.id],
-  }),
-}));
-
 export type User = InferSelectModel<typeof userTable>;
-export type PassKeyCredential = InferSelectModel<typeof passKeyCredentialTable>;
 export type CreditTransaction = InferSelectModel<typeof creditTransactionTable>;
 export type PurchasedItem = InferSelectModel<typeof purchasedItemsTable>;
 export type Team = InferSelectModel<typeof teamTable>;
