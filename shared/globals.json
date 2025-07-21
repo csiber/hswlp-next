@@ -1,7 +1,6 @@
 {
   "GLOBAL_TABLES": [
     "credit_transaction",
-    "passkey_credential",
     "purchased_item",
     "revalidations",
     "tags",
