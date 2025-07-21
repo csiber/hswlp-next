@@ -114,10 +114,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             url: "/settings",
           },
           {
-            title: "Biztonság",
-            url: "/settings/security",
-          },
-          {
             title: "Munkamenetek",
             url: "/settings/sessions",
           },
