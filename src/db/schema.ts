@@ -94,6 +94,7 @@ export const creditTransactionTable = sqliteTable("credit_transaction", {
   paymentIntentId: text({
     length: 255,
   }),
+  sourceApp: text(),
 }, (table) => ([
   index('credit_transaction_user_id_idx').on(table.userId),
   index('credit_transaction_type_idx').on(table.type),

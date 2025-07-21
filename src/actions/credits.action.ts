@@ -12,6 +12,7 @@ import { getStripe } from "@/lib/stripe";
 import { MAX_TRANSACTIONS_PER_PAGE, CREDITS_EXPIRATION_YEARS } from "@/constants";
 import ms from "ms";
 import { withRateLimit, RATE_LIMITS } from "@/utils/with-rate-limit";
+import { headers } from "next/headers";
 
 // Action types
 type GetTransactionsInput = {
@@ -131,13 +132,16 @@ export async function confirmPayment({ packageId, paymentIntentId }: PurchaseCre
 
       // Add credits and log transaction
       await updateUserCredits(session.user.id, creditPackage.credits);
+      const host = (await headers()).get('host') ?? undefined;
+      const sourceApp = host ? host.split('.')[0] : undefined;
       await logTransaction({
         userId: session.user.id,
         amount: creditPackage.credits,
         description: `Purchased ${creditPackage.credits} credits`,
         type: CREDIT_TRANSACTION_TYPE.PURCHASE,
         expirationDate: new Date(Date.now() + ms(`${CREDITS_EXPIRATION_YEARS} years`)),
-        paymentIntentId: paymentIntent?.id
+        paymentIntentId: paymentIntent?.id,
+        sourceApp
       });
 
       return { success: true };

@@ -80,6 +80,7 @@ export function TransactionHistory() {
                   <TableHead>Date</TableHead>
                   <TableHead>Type</TableHead>
                   <TableHead>Amount</TableHead>
+                  <TableHead>Source</TableHead>
                   <TableHead>Description</TableHead>
                 </TableRow>
               </TableHeader>
@@ -105,6 +106,9 @@ export function TransactionHistory() {
                       {Math.abs(transaction.amount)}
                     </TableCell>
                     <TableCell>
+                      {transaction.sourceApp || "-"}
+                    </TableCell>
+                    <TableCell>
                       {transaction.description}
                       {transaction.type !== "USAGE" && transaction.expirationDate && (
                         <Badge
@@ -122,7 +126,7 @@ export function TransactionHistory() {
                   </TableRow>
                 )) : (
                   <TableRow>
-                    <TableCell colSpan={4} className="h-24 text-center">No transactions found</TableCell>
+                  <TableCell colSpan={5} className="h-24 text-center">No transactions found</TableCell>
                   </TableRow>
                 )}
               </TableBody>
@@ -162,6 +166,7 @@ export function TransactionHistory() {
                   {Math.abs(transaction.amount)}
                 </span>
               </div>
+              <span className="text-sm text-muted-foreground">Source: {transaction.sourceApp || "-"}</span>
               {transaction.type !== "USAGE" && transaction.expirationDate && (
                 <Badge
                   variant="secondary"
