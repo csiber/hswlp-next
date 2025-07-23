@@ -16,6 +16,7 @@ import { Captcha } from "@/components/captcha";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import { useServerAction } from "zsa-react";
 import Link from "next/link";
 import SSOButtons from "../_components/sso-buttons";
@@ -31,6 +32,7 @@ interface SignUpClientProps {
 
 const SignUpPage = ({ redirectPath }: SignUpClientProps) => {
   const { isTurnstileEnabled } = useConfigStore();
+  const t = useTranslations('toasts');
   const [isPasskeyModalOpen, setIsPasskeyModalOpen] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
 
@@ -40,11 +42,11 @@ const SignUpPage = ({ redirectPath }: SignUpClientProps) => {
       toast.error(error.err?.message)
     },
     onStart: () => {
-      toast.loading("Fiók létrehozása folyamatban...")
+      toast.loading(t('creating_account'))
     },
     onSuccess: () => {
       toast.dismiss()
-      toast.success("Sikeres fióklétrehozás")
+      toast.success(t('account_created'))
       window.location.href = redirectPath || REDIRECT_AFTER_SIGN_IN
     }
   })
@@ -57,7 +59,7 @@ const SignUpPage = ({ redirectPath }: SignUpClientProps) => {
     },
     onSuccess: () => {
       toast.dismiss()
-      toast.success("Sikeres fióklétrehozás")
+      toast.success(t('account_created'))
       window.location.href = redirectPath || REDIRECT_AFTER_SIGN_IN
     }
   })
@@ -69,13 +71,13 @@ const SignUpPage = ({ redirectPath }: SignUpClientProps) => {
       setIsRegistering(false)
     },
     onStart: () => {
-      toast.loading("Passkey regisztráció indítása...")
+      toast.loading(t('starting_passkey_registration'))
       setIsRegistering(true)
     },
     onSuccess: async (response) => {
       toast.dismiss()
       if (!response?.data?.optionsJSON) {
-        toast.error("Nem sikerült elindítani a passkey regisztrációt")
+        toast.error(t('passkey_registration_start_error'))
         setIsRegistering(false)
         return;
       }
@@ -88,7 +90,7 @@ const SignUpPage = ({ redirectPath }: SignUpClientProps) => {
         await completePasskeyRegistration({ response: attResp });
       } catch (error: unknown) {
       console.error("Nem sikerült regisztrálni a passkey-t:", error);
-      toast.error("Nem sikerült regisztrálni a passkey-t")
+      toast.error(t('passkey_registration_error'))
         setIsRegistering(false)
       }
     }
@@ -320,16 +322,16 @@ const SignUpPage = ({ redirectPath }: SignUpClientProps) => {
                   {isRegistering ? (
                     <>
                       <Spinner className="mr-2 h-4 w-4" />
-                      Regisztráció...
+                      {t('registering')}
                     </>
                   ) : (
-                    "Folytatás"
+                    t('continue')
                   )}
                 </Button>
               </div>
               {!isRegistering && (
                 <p className="text-xs text-muted text-center mt-4">
-                  A folytatás után a böngésző felkér egy Passkey létrehozására és mentésére, így a jövőben jelszó nélkül tudsz majd bejelentkezni.
+                  {t('passkey_info')}
                 </p>
               )}
             </form>

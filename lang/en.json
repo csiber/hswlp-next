@@ -70,6 +70,24 @@
     "notifications": "Notifications",
     "sign_out": "Sign out"
   },
+  "toasts": {
+    "creating_account": "Creating account...",
+    "account_created": "Account created successfully",
+    "starting_passkey_registration": "Starting passkey registration...",
+    "passkey_registration_start_error": "Failed to start passkey registration",
+    "passkey_registration_error": "Failed to register passkey",
+    "signing_in": "Signing in...",
+    "sign_in_success": "Signed in successfully",
+    "authentication_start": "Authenticating with passkey...",
+    "authentication_error": "Authentication failed",
+    "authentication_success": "Authentication successful",
+    "authenticating": "Authenticating...",
+    "signing_out": "Signing out...",
+    "signed_out": "Signed out successfully",
+    "registering": "Registering...",
+    "continue": "Continue",
+    "passkey_info": "After continuing, your browser will prompt you to create and save a Passkey so you can sign in without a password in the future."
+  },
   "emails": {
     "reset_password": {
       "subject": "Reset your {siteName} password",

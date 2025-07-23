@@ -70,6 +70,24 @@
     "notifications": "Értesítések",
     "sign_out": "Kijelentkezés"
   },
+  "toasts": {
+    "creating_account": "Fiók létrehozása folyamatban...",
+    "account_created": "Sikeres fióklétrehozás",
+    "starting_passkey_registration": "Passkey regisztráció indítása...",
+    "passkey_registration_start_error": "Nem sikerült elindítani a passkey regisztrációt",
+    "passkey_registration_error": "Nem sikerült regisztrálni a passkey-t",
+    "signing_in": "Bejelentkezés folyamatban...",
+    "sign_in_success": "Sikeres bejelentkezés",
+    "authentication_start": "Hitelesítés passkey-jel...",
+    "authentication_error": "A hitelesítés nem sikerült",
+    "authentication_success": "Sikeres hitelesítés",
+    "authenticating": "Hitelesítés...",
+    "signing_out": "Kijelentkezés...",
+    "signed_out": "Sikeres kijelentkezés",
+    "registering": "Regisztráció...",
+    "continue": "Folytatás",
+    "passkey_info": "A folytatás után a böngésző felkér egy Passkey létrehozására és mentésére, így a jövőben jelszó nélkül tudsz majd bejelentkezni."
+  },
   "emails": {
     "reset_password": {
       "subject": "Jelszavad visszaállítása a {siteName} fiókhoz",
