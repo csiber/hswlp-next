@@ -5,8 +5,8 @@ import VerifyEmailClientComponent from "./verify-email.client";
 import { REDIRECT_AFTER_SIGN_IN } from "@/constants";
 
 export const metadata: Metadata = {
-  title: "Verify Email",
-  description: "Verify your email address",
+  title: "Email megerősítése",
+  description: "Erősítsd meg az email címed",
 };
 
 export default async function VerifyEmailPage({

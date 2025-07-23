@@ -299,7 +299,7 @@ export const requireVerifiedEmail = cache(async ({
       return null;
     }
 
-    throw new ZSAError("FORBIDDEN", "Please verify your email first");
+    throw new ZSAError("FORBIDDEN", "Kérjük, előbb erősítsd meg az email címedet");
   }
 
   return session;

@@ -30,36 +30,30 @@ export const TeamInviteEmail = ({
       <Body style={main}>
         <Container style={container}>
           <Heading style={preheader}>
-            You&apos;ve been invited to join a team on {SITE_DOMAIN}
+            Meghívást kaptál egy csapatba a {SITE_DOMAIN} oldalon
           </Heading>
-          <Text style={paragraph}>Hello,</Text>
+          <Text style={paragraph}>Szervusz,</Text>
           <Text style={paragraph}>
-            {inviterName} has invited you to join the &quot;{teamName}&quot;
-            team on {SITE_DOMAIN}.
+            {inviterName} meghívott, hogy csatlakozz a &quot;{teamName}&quot; csapathoz a {SITE_DOMAIN} oldalon.
           </Text>
           <Section style={buttonContainer}>
             <Link style={button} href={inviteLink}>
-              Accept Invitation
+              Meghívás elfogadása
             </Link>
           </Section>
           <Text style={paragraph}>
-            This invitation was sent to {recipientEmail}. If you don&apos;t have
-            an account yet, you&apos;ll be able to create one when you accept
-            the invitation.
+            Ezt a meghívót a(z) {recipientEmail} címre küldtük. Ha még nincs fiókod, a meghívás elfogadása után létrehozhatod.
           </Text>
           <Text style={paragraph}>
-            If you&apos;re having trouble with the button above, copy and paste
-            this URL into your browser:
+            Ha nem működik a fenti gomb, másold be ezt a linket a böngésződ címsorába:
           </Text>
           <Text style={link}>{inviteLink}</Text>
           <Text style={paragraph}>
-            If you didn&apos;t expect to receive an invitation to this team, you
-            can safely ignore this email.
+            Ha nem számítottál ilyen meghívóra, nyugodtan töröld ezt a levelet.
           </Text>
         </Container>
         <Text style={footer}>
-          This is an automated message from {SITE_DOMAIN}. Please do not reply
-          to this email.
+          Ezt az üzenetet a {SITE_DOMAIN} küldte automatikusan. Kérjük, ne válaszolj rá.
         </Text>
       </Body>
     </Html>
