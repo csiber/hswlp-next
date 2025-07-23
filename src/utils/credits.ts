@@ -151,7 +151,7 @@ export async function addFreeMonthlyCreditsIfNeeded(session: KVSession): Promise
     await logTransaction({
       userId: session.userId,
       amount: FREE_MONTHLY_CREDITS,
-      description: 'Free monthly credits',
+      description: 'Ingyenes havi kredit',
       type: CREDIT_TRANSACTION_TYPE.MONTHLY_REFRESH,
       expirationDate
     });
@@ -197,7 +197,7 @@ export async function consumeCredits({ userId, amount, description }: { userId: 
   });
 
   if (!user || user.currentCredits < amount) {
-    throw new Error("Insufficient credits");
+    throw new Error("Elégtelen kredit");
   }
 
   // Get all non-expired transactions with remaining credits, ordered by creation date
