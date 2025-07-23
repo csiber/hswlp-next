@@ -6,5 +6,42 @@
     "view_on_github": "Megtekintés GitHubon",
     "try_demo": "Demó kipróbálása",
     "total_users": "{totalUsers} felhasználó és növekszik"
+  },
+  "features": {
+    "tagline": "Éles használatra kész",
+    "heading": "Minden, ami egy SaaS alkalmazáshoz kell",
+    "description": "Teljes alapokra építünk, hogy a lényegre koncentrálhass.",
+    "login_ready": {
+      "name": "Bejelentkezésre kész",
+      "description": "Teljes hitelesítési rendszer email/jelszó belépéssel, regisztrációval, elfelejtett jelszó folyamattal és munkamenet-kezeléssel Lucia Auth segítségével."
+    },
+    "database_email": {
+      "name": "Adatbázis és e-mail",
+      "description": "Drizzle ORM és Cloudflare D1 az adatbázishoz, valamint React Email és Resend a látványos e-mail sablonokhoz."
+    },
+    "modern_stack": {
+      "name": "Modern stack",
+      "description": "Next.js 15 App Router React Server Components-szel, Server Actions-szel és Edge Runtime-mal az optimális teljesítményért."
+    },
+    "clean_ui": {
+      "name": "Letisztult felület",
+      "description": "Reszponzív, sötét/világos módot támogató felület Tailwind CSS és Shadcn UI komponensekkel."
+    },
+    "edge_deploy": {
+      "name": "Edge deploy",
+      "description": "Globális deploy Cloudflare Workers segítségével, hidegindítás nélkül, kihasználva a Cloudflare edge hálózatának sebességét."
+    },
+    "dev_experience": {
+      "name": "Fejlesztői élmény",
+      "description": "GitHub Actions alapú deploy, részletes dokumentáció és TypeScript a típusbiztonságért."
+    },
+    "forms": {
+      "name": "Űrlapkezelés",
+      "description": "Beépített űrlapvalidáció Zod és React Hook Form segítségével a gördülékeny felhasználói élményért."
+    },
+    "team_ready": {
+      "name": "Csapatra felkészítve",
+      "description": "Együttműködésre tervezve, könnyen testreszabható és bővíthető a csapat igényei szerint."
+    }
   }
 }
