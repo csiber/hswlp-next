@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils"
 import { useNavStore } from "@/state/nav"
 import { Skeleton } from "@/components/ui/skeleton"
 import { SITE_NAME } from "@/constants"
+import { useTranslations } from "next-intl"
 
 type NavItem = {
   name: string;
@@ -20,6 +21,7 @@ type NavItem = {
 const ActionButtons = () => {
   const { session, isLoading } = useSessionStore()
   const { setIsOpen } = useNavStore()
+  const t = useTranslations('navigation')
 
   if (isLoading) {
     return <Skeleton className="h-10 w-[80px] bg-primary" />
@@ -31,7 +33,7 @@ const ActionButtons = () => {
 
   return (
     <Button asChild onClick={() => setIsOpen(false)}>
-      <Link href="/sign-in">Bejelentkezés</Link>
+      <Link href="/sign-in">{t('login')}</Link>
     </Button>
   )
 }
@@ -40,12 +42,13 @@ export function Navigation() {
   const { session, isLoading } = useSessionStore()
   const { isOpen, setIsOpen } = useNavStore()
   const pathname = usePathname()
+  const t = useTranslations('navigation')
 
   const navItems: NavItem[] = [
-    { name: "Főoldal", href: "/" },
+    { name: t('home'), href: "/" },
     ...(session ? [
-      { name: "Beállítások", href: "/settings" },
-      { name: "Vezérlőpult", href: "/dashboard" },
+      { name: t('settings'), href: "/settings" },
+      { name: t('dashboard'), href: "/dashboard" },
     ] as NavItem[] : []),
   ]
 
@@ -96,7 +99,7 @@ export function Navigation() {
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="p-6">
                   <Menu className="w-9 h-9" />
-                  <span className="sr-only">Menü megnyitása</span>
+                  <span className="sr-only">{t('menu_open')}</span>
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[240px] sm:w-[300px]">

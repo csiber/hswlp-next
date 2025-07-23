@@ -43,5 +43,31 @@
       "name": "Csapatra felkészítve",
       "description": "Együttműködésre tervezve, könnyen testreszabható és bővíthető a csapat igényei szerint."
     }
+  },
+  "navigation": {
+    "menu_open": "Menü megnyitása",
+    "login": "Bejelentkezés",
+    "home": "Főoldal",
+    "settings": "Beállítások",
+    "dashboard": "Vezérlőpult"
+  },
+  "footer": {
+    "legal_heading": "Jogi",
+    "terms": "Felhasználási feltételek",
+    "privacy": "Adatkezelési tájékoztató",
+    "company_heading": "Cég",
+    "community_heading": "Közösség",
+    "home": "Főoldal",
+    "created_by": "Készítette",
+    "fork_on_github": "Fork a Githubon",
+    "fork_on_github_stars": "Fork a Githubon ({starsCount} csillag)",
+    "all_rights_reserved": "© {year} {siteName}. Minden jog fenntartva."
+  },
+  "nav_user": {
+    "theme_switch": "Téma váltása",
+    "account": "Fiók",
+    "billing": "Számlázás",
+    "notifications": "Értesítések",
+    "sign_out": "Kijelentkezés"
   }
 }

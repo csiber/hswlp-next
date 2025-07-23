@@ -43,5 +43,31 @@
       "name": "Team ready",
       "description": "Designed for collaboration, easy to customize and extend to fit your team's needs."
     }
+  },
+  "navigation": {
+    "menu_open": "Open menu",
+    "login": "Sign in",
+    "home": "Home",
+    "settings": "Settings",
+    "dashboard": "Dashboard"
+  },
+  "footer": {
+    "legal_heading": "Legal",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "company_heading": "Company",
+    "community_heading": "Community",
+    "home": "Home",
+    "created_by": "Created by",
+    "fork_on_github": "Fork on GitHub",
+    "fork_on_github_stars": "Fork on GitHub ({starsCount} stars)",
+    "all_rights_reserved": "© {year} {siteName}. All rights reserved."
+  },
+  "nav_user": {
+    "theme_switch": "Switch theme",
+    "account": "Account",
+    "billing": "Billing",
+    "notifications": "Notifications",
+    "sign_out": "Sign out"
   }
 }
