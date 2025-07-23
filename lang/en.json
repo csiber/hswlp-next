@@ -1,0 +1,47 @@
+{
+  "hero": {
+    "open_source": "100% free and open source",
+    "title": "Production-ready SaaS template",
+    "subtitle": "Modern, open source starter to launch SaaS apps quickly on Next.js 15 and Cloudflare Workers.",
+    "view_on_github": "View on GitHub",
+    "try_demo": "Try the demo",
+    "total_users": "{totalUsers} users and counting"
+  },
+  "features": {
+    "tagline": "Ready for production",
+    "heading": "Everything you need for a SaaS app",
+    "description": "Built on solid foundations so you can focus on what matters.",
+    "login_ready": {
+      "name": "Authentication included",
+      "description": "Full auth system with email/password login, registration, password reset flow and session management powered by Lucia Auth."
+    },
+    "database_email": {
+      "name": "Database and email",
+      "description": "Drizzle ORM with Cloudflare D1 for the database and React Email with Resend for beautiful email templates."
+    },
+    "modern_stack": {
+      "name": "Modern stack",
+      "description": "Next.js 15 App Router with React Server Components, Server Actions and Edge Runtime for optimal performance."
+    },
+    "clean_ui": {
+      "name": "Clean interface",
+      "description": "Responsive UI with dark/light mode using Tailwind CSS and Shadcn UI components."
+    },
+    "edge_deploy": {
+      "name": "Edge deploy",
+      "description": "Global deployments on Cloudflare Workers with no cold starts, leveraging the speed of the Cloudflare edge network."
+    },
+    "dev_experience": {
+      "name": "Developer experience",
+      "description": "GitHub Actions based deploys, thorough documentation and TypeScript for type safety."
+    },
+    "forms": {
+      "name": "Form handling",
+      "description": "Built-in validation using Zod and React Hook Form for a smooth user experience."
+    },
+    "team_ready": {
+      "name": "Team ready",
+      "description": "Designed for collaboration, easy to customize and extend to fit your team's needs."
+    }
+  }
+}
