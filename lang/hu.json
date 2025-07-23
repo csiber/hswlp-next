@@ -1,0 +1,10 @@
+{
+  "hero": {
+    "open_source": "100% ingyenes és nyílt forráskódú",
+    "title": "Éles üzemre kész SaaS sablon",
+    "subtitle": "Modern, nyílt forrású sablon SaaS alkalmazások gyors indításához Next.js 15 és Cloudflare Workers alapokon.",
+    "view_on_github": "Megtekintés GitHubon",
+    "try_demo": "Demó kipróbálása",
+    "total_users": "{totalUsers} felhasználó és növekszik"
+  }
+}
