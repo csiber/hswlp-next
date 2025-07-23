@@ -6,6 +6,8 @@ import "server-only";
 import { ThemeProvider } from "@/components/providers";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { NextIntlClientProvider } from "next-intl";
+import { defaultLocale, getMessages } from "@/i18n";
 import NextTopLoader from 'nextjs-toploader'
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/constants";
 import { AgenticDevStudioStickyBanner } from "@/components/startup-studio-sticky-banner";
@@ -51,13 +53,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BaseLayout({
+export default async function BaseLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const messages = await getMessages(defaultLocale);
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={defaultLocale} suppressHydrationWarning>
       <body className={inter.className}>
         <NextTopLoader
           initialPosition={0.15}
@@ -73,7 +76,9 @@ export default function BaseLayout({
             delayDuration={100}
             skipDelayDuration={50}
           >
-            {children}
+            <NextIntlClientProvider messages={messages} locale={defaultLocale}>
+              {children}
+            </NextIntlClientProvider>
           </TooltipProvider>
         </ThemeProvider>
         <Toaster richColors closeButton position="top-right" expand duration={7000} />

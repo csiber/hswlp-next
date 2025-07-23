@@ -12,6 +12,7 @@ import SeparatorWithText from "@/components/separator-with-text";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import { useServerAction } from "zsa-react";
 import Link from "next/link";
 import SSOButtons from "../_components/sso-buttons";
@@ -31,21 +32,22 @@ interface PasskeyAuthenticationButtonProps {
 }
 
 function PasskeyAuthenticationButton({ className, disabled, children, redirectPath }: PasskeyAuthenticationButtonProps) {
+  const t = useTranslations('toasts');
   const { execute: generateOptions } = useServerAction(generateAuthenticationOptionsAction, {
     onError: (error) => {
       toast.dismiss();
-        toast.error(error.err?.message || "Nem sikerült lekérni a hitelesítési opciókat");
+      toast.error(error.err?.message || t('options_error'));
     },
   });
 
   const { execute: verifyAuthentication } = useServerAction(verifyAuthenticationAction, {
     onError: (error) => {
       toast.dismiss();
-        toast.error(error.err?.message || "A hitelesítés nem sikerült");
+      toast.error(error.err?.message || t('authentication_error'));
     },
     onSuccess: () => {
       toast.dismiss();
-        toast.success("Sikeres hitelesítés");
+      toast.success(t('authentication_success'));
       window.location.href = redirectPath;
     },
   });
@@ -55,13 +57,13 @@ function PasskeyAuthenticationButton({ className, disabled, children, redirectPa
   const handleAuthenticate = async () => {
     try {
       setIsAuthenticating(true);
-        toast.loading("Hitelesítés passkey-jel...");
+      toast.loading(t('authentication_start'));
 
       // Get authentication options from the server
       const [options] = await generateOptions({});
 
       if (!options) {
-          throw new Error("Nem sikerült lekérni a hitelesítési opciókat");
+        throw new Error(t('options_error'));
       }
 
       // Start the authentication process in the browser
@@ -77,7 +79,7 @@ function PasskeyAuthenticationButton({ className, disabled, children, redirectPa
     } catch (error) {
         console.error("Passkey hitelesítési hiba:", error);
         toast.dismiss();
-        toast.error("A hitelesítés nem sikerült");
+        toast.error(t('authentication_error'));
     } finally {
       setIsAuthenticating(false);
     }
@@ -89,23 +91,24 @@ function PasskeyAuthenticationButton({ className, disabled, children, redirectPa
       disabled={isAuthenticating || disabled}
       className={className}
     >
-      {isAuthenticating ? "Hitelesítés..." : children || "Bejelentkezés Passkey-jel"}
+      {isAuthenticating ? t('authenticating') : children || "Bejelentkezés Passkey-jel"}
     </Button>
   );
 }
 
 const SignInPage = ({ redirectPath }: SignInClientProps) => {
+  const t = useTranslations('toasts');
   const { execute: signIn } = useServerAction(signInAction, {
     onError: (error) => {
       toast.dismiss()
       toast.error(error.err?.message)
     },
     onStart: () => {
-      toast.loading("Bejelentkezés folyamatban...")
+      toast.loading(t('signing_in'))
     },
     onSuccess: () => {
       toast.dismiss()
-      toast.success("Sikeres bejelentkezés")
+      toast.success(t('sign_in_success'))
       window.location.href = redirectPath;
     }
   })
