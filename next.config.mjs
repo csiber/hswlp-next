@@ -4,12 +4,19 @@ import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare';
 // added by create cloudflare to enable calling `getCloudflareContext()` in `next dev`
 initOpenNextCloudflareForDev();
 
+const locales = ['hu', 'en'];
+const defaultLocale = 'en';
+
 
 // TODO cache-control headers don't work for static files
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  i18n: {
+    locales,
+    defaultLocale
+  },
   experimental: {
-    typedRoutes: true,
+    typedRoutes: true
   },
   eslint: {
     ignoreDuringBuilds: process.env.SKIP_LINTER === 'true'
