@@ -6,8 +6,10 @@ import { Button } from "./ui/button";
 import AgenticDevStudioLogo from "./agenticdev-studio-logo";
 import { getGithubStars } from "@/utils/stats";
 import { Suspense } from "react";
+import { useTranslations } from "next-intl";
 
 export function Footer() {
+  const t = useTranslations('footer')
   return (
     <footer className="border-t dark:bg-muted/30 bg-muted/60 shadow">
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
@@ -16,16 +18,16 @@ export function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6">
             {/* Legal Links */}
             <div className="space-y-3 md:space-y-4 flex flex-col items-center md:items-start">
-              <h3 className="text-sm font-semibold text-foreground text-center md:text-left">Jogi</h3>
+              <h3 className="text-sm font-semibold text-foreground text-center md:text-left">{t('legal_heading')}</h3>
               <ul className="space-y-2 flex flex-col items-center md:items-start">
                 <li>
                   <Link href="/terms" className="text-sm text-muted-foreground hover:text-foreground text-center md:text-left">
-                    Felhasználási feltételek
+                    {t('terms')}
                   </Link>
                 </li>
                 <li>
                   <Link href="/privacy" className="text-sm text-muted-foreground hover:text-foreground text-center md:text-left">
-                    Adatkezelési tájékoztató
+                    {t('privacy')}
                   </Link>
                 </li>
               </ul>
@@ -33,11 +35,11 @@ export function Footer() {
 
             {/* Company Info */}
             <div className="space-y-3 md:space-y-4 flex flex-col items-center md:items-start">
-              <h3 className="text-sm font-semibold text-foreground text-center md:text-left">Cég</h3>
+              <h3 className="text-sm font-semibold text-foreground text-center md:text-left">{t('company_heading')}</h3>
               <ul className="space-y-2 flex flex-col items-center md:items-start">
                 <li>
                   <Link href="/" className="text-sm text-muted-foreground hover:text-foreground text-center md:text-left">
-                    Főoldal
+                    {t('home')}
                   </Link>
                 </li>
               </ul>
@@ -45,7 +47,7 @@ export function Footer() {
 
             {/* Social Links and Theme Switch */}
             <div className="space-y-3 md:space-y-4 flex flex-col items-center md:items-start">
-              <h3 className="text-sm font-semibold text-foreground text-center md:text-left">Közösség</h3>
+              <h3 className="text-sm font-semibold text-foreground text-center md:text-left">{t('community_heading')}</h3>
               <div className="flex items-center space-x-4">
                 <a
                   href="https://github.com/LubomirGeorgiev"
@@ -73,7 +75,7 @@ export function Footer() {
           <div className="mt-6 pt-6 md:mt-8 md:pt-8 border-t">
             <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between md:gap-4">
               <p className="text-sm text-muted-foreground text-center md:text-left">
-                © {new Date().getFullYear()} {SITE_NAME}. All rights reserved.
+                {t('all_rights_reserved', { year: new Date().getFullYear(), siteName: SITE_NAME })}
               </p>
 
               <div className="flex flex-col md:flex-row items-center gap-4 md:space-x-4">
@@ -91,7 +93,7 @@ export function Footer() {
                     target="_blank"
                     className="flex items-center font-medium text-sm hover:text-foreground transition-colors"
                   >
-                    <span className="whitespace-nowrap">Készítette</span>
+                    <span className="whitespace-nowrap">{t('created_by')}</span>
                     <AgenticDevStudioLogo className="h-7 w-7 mx-1.5" />
                     <span className="whitespace-nowrap">AgenticDev</span>
                   </a>
@@ -107,6 +109,8 @@ export function Footer() {
 
 // This component will be wrapped in Suspense
 async function GithubButton() {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const t = useTranslations('footer')
   const starsCount = await getGithubStars();
 
   return (
@@ -119,7 +123,7 @@ async function GithubButton() {
       >
         <GithubIcon className="h-4 w-4" />
         <span className="whitespace-nowrap">
-          {starsCount ? `Fork a Githubon (${starsCount} csillag)` : "Fork a Githubon"}
+          {starsCount ? t('fork_on_github_stars', { starsCount }) : t('fork_on_github')}
         </span>
       </a>
     </Button>
@@ -128,6 +132,7 @@ async function GithubButton() {
 
 // Fallback while loading stars count
 function GithubButtonFallback() {
+  const t = useTranslations('footer')
   return (
     <Button variant="outline" size="sm" className="w-full md:w-auto h-9" asChild>
       <a
@@ -137,7 +142,7 @@ function GithubButtonFallback() {
         className="flex items-center justify-center space-x-2"
       >
         <GithubIcon className="h-4 w-4" />
-        <span className="whitespace-nowrap">Fork a Githubon</span>
+        <span className="whitespace-nowrap">{t('fork_on_github')}</span>
       </a>
     </Button>
   );
