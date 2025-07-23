@@ -7,8 +7,8 @@ import { ThemeProvider } from "@/components/providers";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { NextIntlClientProvider } from "next-intl";
-import { defaultLocale, getMessages } from "@/i18n";
-import NextTopLoader from 'nextjs-toploader'
+import { defaultLocale, getMessages } from "../../i18n";
+import NextTopLoader from "nextjs-toploader";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/constants";
 import { AgenticDevStudioStickyBanner } from "@/components/startup-studio-sticky-banner";
 
@@ -23,7 +23,14 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   metadataBase: new URL(SITE_URL),
-  keywords: ["SaaS", "Next.js", "React", "TypeScript", "Cloudflare Workers", "Edge Computing"],
+  keywords: [
+    "SaaS",
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Cloudflare Workers",
+    "Edge Computing",
+  ],
   authors: [{ name: "Lubomir Georgiev" }],
   creator: "Lubomir Georgiev",
   openGraph: {
@@ -67,21 +74,20 @@ export default async function BaseLayout({
           shadow="0 0 10px #000, 0 0 5px #000"
           height={4}
         />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-        >
-          <TooltipProvider
-            delayDuration={100}
-            skipDelayDuration={50}
-          >
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <TooltipProvider delayDuration={100} skipDelayDuration={50}>
             <NextIntlClientProvider messages={messages} locale={defaultLocale}>
               {children}
             </NextIntlClientProvider>
           </TooltipProvider>
         </ThemeProvider>
-        <Toaster richColors closeButton position="top-right" expand duration={7000} />
+        <Toaster
+          richColors
+          closeButton
+          position="top-right"
+          expand
+          duration={7000}
+        />
         <AgenticDevStudioStickyBanner />
       </body>
     </html>

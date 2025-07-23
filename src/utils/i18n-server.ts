@@ -1,4 +1,4 @@
-import { getMessages, Locale, defaultLocale } from '@/i18n'
+import { getMessages, Locale, defaultLocale } from '../../i18n'
 
 export type Messages = Record<string, unknown>
 

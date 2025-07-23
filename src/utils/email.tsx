@@ -1,12 +1,12 @@
 import "server-only";
 
 import { SITE_DOMAIN, SITE_URL } from "@/constants";
-import { render } from '@react-email/render'
+import { render } from "@react-email/render";
 import { ResetPasswordEmail } from "@/react-email/reset-password";
 import { VerifyEmail } from "@/react-email/verify-email";
 import { TeamInviteEmail } from "@/react-email/team-invite";
-import { getTranslator } from './i18n-server'
-import type { Locale } from '@/i18n'
+import { getTranslator } from "./i18n-server";
+import type { Locale } from "../../i18n";
 import isProd from "./is-prod";
 
 interface BrevoEmailOptions {
@@ -66,11 +66,12 @@ async function sendResendEmail({
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
       "Content-Type": "application/json",
     } as const,
     body: JSON.stringify({
-      from: from ?? `${process.env.EMAIL_FROM_NAME} <${process.env.EMAIL_FROM}>`,
+      from:
+        from ?? `${process.env.EMAIL_FROM_NAME} <${process.env.EMAIL_FROM}>`,
       to,
       subject,
       html,
@@ -82,7 +83,9 @@ async function sendResendEmail({
 
   if (!response.ok) {
     const error = await response.json();
-    throw new Error(`Failed to send email via Resend: ${JSON.stringify(error)}`);
+    throw new Error(
+      `Failed to send email via Resend: ${JSON.stringify(error)}`
+    );
   }
 
   return response.json();
@@ -111,7 +114,7 @@ async function sendBrevoEmail({
   const response = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
     headers: {
-      "accept": "application/json",
+      accept: "application/json",
       "content-type": "application/json",
       "api-key": process.env.BREVO_API_KEY,
     } as const,
@@ -127,11 +130,13 @@ async function sendBrevoEmail({
       templateId,
       params,
       tags,
-      ...(replyTo ? {
-        replyTo: {
-          email: replyTo,
-        }
-      } : {}),
+      ...(replyTo
+        ? {
+            replyTo: {
+              email: replyTo,
+            },
+          }
+        : {}),
     }),
   });
 
@@ -149,38 +154,42 @@ export async function sendPasswordResetEmail({
   username,
   locale,
 }: {
-  email: string
-  resetToken: string
-  username: string
-  locale?: Locale
+  email: string;
+  resetToken: string;
+  username: string;
+  locale?: Locale;
 }) {
   const resetUrl = `${SITE_URL}/reset-password?token=${resetToken}`;
 
   if (!isProd) {
-    console.warn('\n\n\nPassword reset url: ', resetUrl)
+    console.warn("\n\n\nPassword reset url: ", resetUrl);
 
-    return
+    return;
   }
 
-  const t = await getTranslator(locale)
-  const html = await render(ResetPasswordEmail({ resetLink: resetUrl, username, t }));
+  const t = await getTranslator(locale);
+  const html = await render(
+    ResetPasswordEmail({ resetLink: resetUrl, username, t })
+  );
   const provider = await getEmailProvider();
 
   if (!provider && isProd) {
-    throw new Error("No email provider configured. Set either RESEND_API_KEY or BREVO_API_KEY in your environment.");
+    throw new Error(
+      "No email provider configured. Set either RESEND_API_KEY or BREVO_API_KEY in your environment."
+    );
   }
 
   if (provider === "resend") {
     await sendResendEmail({
       to: [email],
-      subject: t('emails.reset_password.subject', { siteName: SITE_DOMAIN }),
+      subject: t("emails.reset_password.subject", { siteName: SITE_DOMAIN }),
       html,
       tags: [{ name: "type", value: "password-reset" }],
     });
   } else {
     await sendBrevoEmail({
       to: [{ email, name: username }],
-      subject: t('emails.reset_password.subject', { siteName: SITE_DOMAIN }),
+      subject: t("emails.reset_password.subject", { siteName: SITE_DOMAIN }),
       htmlContent: html,
       tags: ["password-reset"],
     });
@@ -193,38 +202,42 @@ export async function sendVerificationEmail({
   username,
   locale,
 }: {
-  email: string
-  verificationToken: string
-  username: string
-  locale?: Locale
+  email: string;
+  verificationToken: string;
+  username: string;
+  locale?: Locale;
 }) {
   const verificationUrl = `${SITE_URL}/verify-email?token=${verificationToken}`;
 
   if (!isProd) {
-    console.warn('\n\n\nVerification url: ', verificationUrl)
+    console.warn("\n\n\nVerification url: ", verificationUrl);
 
-    return
+    return;
   }
 
-  const t = await getTranslator(locale)
-  const html = await render(VerifyEmail({ verificationLink: verificationUrl, username, t }));
+  const t = await getTranslator(locale);
+  const html = await render(
+    VerifyEmail({ verificationLink: verificationUrl, username, t })
+  );
   const provider = await getEmailProvider();
 
   if (!provider && isProd) {
-    throw new Error("No email provider configured. Set either RESEND_API_KEY or BREVO_API_KEY in your environment.");
+    throw new Error(
+      "No email provider configured. Set either RESEND_API_KEY or BREVO_API_KEY in your environment."
+    );
   }
 
   if (provider === "resend") {
     await sendResendEmail({
       to: [email],
-      subject: t('emails.verify_email.subject', { siteName: SITE_DOMAIN }),
+      subject: t("emails.verify_email.subject", { siteName: SITE_DOMAIN }),
       html,
       tags: [{ name: "type", value: "email-verification" }],
     });
   } else {
     await sendBrevoEmail({
       to: [{ email, name: username }],
-      subject: t('emails.verify_email.subject', { siteName: SITE_DOMAIN }),
+      subject: t("emails.verify_email.subject", { siteName: SITE_DOMAIN }),
       htmlContent: html,
       tags: ["email-verification"],
     });
@@ -238,45 +251,49 @@ export async function sendTeamInvitationEmail({
   inviterName,
   locale,
 }: {
-  email: string
-  invitationToken: string
-  teamName: string
-  inviterName: string
-  locale?: Locale
+  email: string;
+  invitationToken: string;
+  teamName: string;
+  inviterName: string;
+  locale?: Locale;
 }) {
   const inviteUrl = `${SITE_URL}/team-invite?token=${invitationToken}`;
 
   if (!isProd) {
-    console.warn('\n\n\nTeam invitation url: ', inviteUrl)
-    return
+    console.warn("\n\n\nTeam invitation url: ", inviteUrl);
+    return;
   }
 
-  const t = await getTranslator(locale)
-  const html = await render(TeamInviteEmail({
-    inviteLink: inviteUrl,
-    recipientEmail: email,
-    teamName,
-    inviterName,
-    t,
-  }));
+  const t = await getTranslator(locale);
+  const html = await render(
+    TeamInviteEmail({
+      inviteLink: inviteUrl,
+      recipientEmail: email,
+      teamName,
+      inviterName,
+      t,
+    })
+  );
 
   const provider = await getEmailProvider();
 
   if (!provider && isProd) {
-    throw new Error("No email provider configured. Set either RESEND_API_KEY or BREVO_API_KEY in your environment.");
+    throw new Error(
+      "No email provider configured. Set either RESEND_API_KEY or BREVO_API_KEY in your environment."
+    );
   }
 
   if (provider === "resend") {
     await sendResendEmail({
       to: [email],
-      subject: t('emails.team_invite.subject', { siteName: SITE_DOMAIN }),
+      subject: t("emails.team_invite.subject", { siteName: SITE_DOMAIN }),
       html,
       tags: [{ name: "type", value: "team-invitation" }],
     });
   } else {
     await sendBrevoEmail({
       to: [{ email }],
-      subject: t('emails.team_invite.subject', { siteName: SITE_DOMAIN }),
+      subject: t("emails.team_invite.subject", { siteName: SITE_DOMAIN }),
       htmlContent: html,
       tags: ["team-invitation"],
     });
