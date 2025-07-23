@@ -34,12 +34,14 @@ import useSignOut from "@/hooks/useSignOut"
 import { useRouter } from "next/navigation"
 import { useSessionStore } from "@/state/session"
 import ThemeSwitch from "./theme-switch"
+import { useTranslations } from "next-intl"
 
 export function NavUser() {
   const { session, isLoading } = useSessionStore();
   const { signOut } = useSignOut();
   const { isMobile } = useSidebar()
   const router = useRouter()
+  const t = useTranslations('nav_user')
 
   if (isLoading) {
     return (
@@ -115,21 +117,21 @@ export function NavUser() {
             </DropdownMenuLabel>
             <div className="px-2">
               <ThemeSwitch className="w-full my-3">
-                Téma váltása
+                {t('theme_switch')}
               </ThemeSwitch>
             </div>
             <DropdownMenuGroup>
               <DropdownMenuItem className="cursor-pointer" onClick={() => router.push('/settings')}>
                 <BadgeCheck />
-                Fiók
+                {t('account')}
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer" onClick={() => router.push('/dashboard/billing')}>
                 <CreditCard />
-                Számlázás
+                {t('billing')}
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer">
                 <Bell />
-                Értesítések
+                {t('notifications')}
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
@@ -142,7 +144,7 @@ export function NavUser() {
               className="cursor-pointer"
             >
               <LogOut />
-              Kijelentkezés
+              {t('sign_out')}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
