@@ -1,0 +1,10 @@
+{
+  "hero": {
+    "open_source": "100% free and open source",
+    "title": "Production-ready SaaS template",
+    "subtitle": "Modern, open source starter to launch SaaS apps quickly on Next.js 15 and Cloudflare Workers.",
+    "view_on_github": "View on GitHub",
+    "try_demo": "Try the demo",
+    "total_users": "{totalUsers} users and counting"
+  }
+}
