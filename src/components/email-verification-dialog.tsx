@@ -41,11 +41,11 @@ export function EmailVerificationDialog() {
       toast.error(error.err?.message);
     },
     onStart: () => {
-      toast.loading("Sending verification email...");
+      toast.loading("Megerősítő email küldése...");
     },
     onSuccess: () => {
       toast.dismiss();
-      toast.success("Verification email sent");
+      toast.success("Megerősítő email elküldve");
       setLastResendTime(Date.now());
     },
   });
@@ -66,21 +66,21 @@ export function EmailVerificationDialog() {
   return (
     <Dialog open modal onOpenChange={(newState) => {
       if (newState === false) {
-        toast.warning("Please verify your email before you continue");
+        toast.warning("Kérjük, erősítsd meg az email címed, mielőtt folytatod");
       }
     }}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Verify your email</DialogTitle>
+          <DialogTitle>Email cím megerősítése</DialogTitle>
           <DialogDescription>
-            Please verify your email address to access all features. We sent a verification link to {session.user.email}.
-            The verification link will expire in {Math.floor(EMAIL_VERIFICATION_TOKEN_EXPIRATION_SECONDS / 3600)} hours.
+            Kérjük, erősítsd meg az email címed, hogy minden funkcióhoz hozzáférhess. A megerősítő linket elküldtük a(z) {session.user.email} címre.
+            A link {Math.floor(EMAIL_VERIFICATION_TOKEN_EXPIRATION_SECONDS / 3600)} óra múlva lejár.
 
             {!isProd && (
               <Alert
                 color="warning"
-                title="Development mode"
-                description="You can find the verification link in the console."
+                title="Fejlesztői mód"
+                description="A megerősítő linket megtalálod a konzolban."
                 className="mt-4 mb-2"
               />
             )}
@@ -92,10 +92,10 @@ export function EmailVerificationDialog() {
             disabled={isLoading || !canResend}
           >
             {isLoading
-              ? "Sending..."
+              ? "Küldés..."
               : !canResend
-                ? "Please wait 1 minute before resending"
-                : "Resend verification email"}
+                ? "Kérjük, várj 1 percet az újraküldés előtt"
+                : "Megerősítő email újraküldése"}
           </Button>
         </div>
       </DialogContent>

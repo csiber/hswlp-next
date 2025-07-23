@@ -30,36 +30,30 @@ export const VerifyEmail = ({
       <Head />
       <Body style={main}>
         <Container style={container}>
-          <Heading style={preheader}>Verify your email</Heading>
-          <Text style={paragraph}>Hi {username},</Text>
+          <Heading style={preheader}>Erősítsd meg az email címed</Heading>
+          <Text style={paragraph}>Szia {username},</Text>
           <Text style={paragraph}>
-            Thanks for signing up for {SITE_DOMAIN}! We need to verify your
-            email address to complete your registration. Please click the button
-            below to verify your email address.
+            Köszönjük, hogy regisztráltál a {SITE_DOMAIN} oldalán! A regisztráció befejezéséhez
+            meg kell erősítened az email címed. Kattints az alábbi gombra a megerősítéshez.
           </Text>
           <Section style={buttonContainer}>
             <Link style={button} href={verificationLink}>
-              Verify Email Address
+              Email cím megerősítése
             </Link>
           </Section>
           <Text style={paragraph}>
-            This verification link will expire in {expirationHours} hour
-            {expirationHours > 1 ? "s" : ""}. After that, you&apos;ll need to
-            request a new verification email.
+            Ez a megerősítő link {expirationHours} óra múlva lejár. Utána új megerősítő levelet kell kérned.
           </Text>
           <Text style={paragraph}>
-            If you&apos;re having trouble with the button above, copy and paste
-            this URL into your browser:
+            Ha nem működik a fenti gomb, másold be ezt a linket a böngésződ címsorába:
           </Text>
           <Text style={link}>{verificationLink}</Text>
           <Text style={paragraph}>
-            If you didn&apos;t create an account on {SITE_DOMAIN}, you can
-            safely ignore this email.
+            Ha nem te hoztál létre fiókot a {SITE_DOMAIN} oldalon, nyugodtan hagyd figyelmen kívül ezt a levelet.
           </Text>
         </Container>
         <Text style={footer}>
-          This is an automated message from {SITE_DOMAIN}. Please do not reply
-          to this email.
+          Ezt az üzenetet a {SITE_DOMAIN} küldte automatikusan. Kérjük, ne válaszolj rá.
         </Text>
       </Body>
     </Html>

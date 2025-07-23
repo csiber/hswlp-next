@@ -24,31 +24,26 @@ export const ResetPasswordEmail = ({
     <Head />
     <Body style={main}>
       <Container style={container}>
-        <Heading style={preheader}>Reset your {SITE_DOMAIN} password</Heading>
-        <Text style={paragraph}>Hi {username},</Text>
+        <Heading style={preheader}>Jelszó visszaállítása a {SITE_DOMAIN}-en</Heading>
+        <Text style={paragraph}>Szia {username},</Text>
         <Text style={paragraph}>
-          We received a request to reset your password for your {SITE_DOMAIN}{" "}
-          account. Click the button below to choose a new password. For security
-          reasons, this link will expire in 1 hour.
+          Jelszó-visszaállítási kérést kaptunk a(z) {SITE_DOMAIN} fiókodhoz. Az alábbi gombra kattintva új jelszót adhatsz meg. Biztonsági okokból a link 1 óráig érvényes.
         </Text>
         <Section style={buttonContainer}>
           <Link style={button} href={resetLink}>
-            Reset Password
+            Jelszó visszaállítása
           </Link>
         </Section>
         <Text style={paragraph}>
-          If you didn&apos;t request this password reset, you can safely ignore
-          this email. Your {SITE_DOMAIN} account password will remain unchanged.
+          Ha nem te kezdeményezted a jelszó visszaállítást, nyugodtan hagyd figyelmen kívül ezt az emailt. A(z) {SITE_DOMAIN} jelszavad változatlan marad.
         </Text>
         <Text style={paragraph}>
-          If you&apos;re having trouble with the button above, copy and paste
-          this URL into your browser:
+          Ha nem működik a fenti gomb, másold be ezt a linket a böngésződ címsorába:
         </Text>
         <Text style={link}>{resetLink}</Text>
       </Container>
       <Text style={footer}>
-        This is an automated message from {SITE_DOMAIN}. If you did not request
-        this email, please ignore it or contact support if you have concerns.
+        Ezt az üzenetet a {SITE_DOMAIN} küldte automatikusan. Ha nem te kérted a jelszó visszaállítását, hagyd figyelmen kívül vagy lépj kapcsolatba a támogatással.
       </Text>
     </Body>
   </Html>

@@ -168,14 +168,14 @@ export async function sendPasswordResetEmail({
   if (provider === "resend") {
     await sendResendEmail({
       to: [email],
-      subject: `Reset your password for ${SITE_DOMAIN}`,
+      subject: `Jelszavad visszaállítása a ${SITE_DOMAIN} fiókhoz`,
       html,
       tags: [{ name: "type", value: "password-reset" }],
     });
   } else {
     await sendBrevoEmail({
       to: [{ email, name: username }],
-      subject: `Reset your password for ${SITE_DOMAIN}`,
+      subject: `Jelszavad visszaállítása a ${SITE_DOMAIN} fiókhoz`,
       htmlContent: html,
       tags: ["password-reset"],
     });
@@ -209,14 +209,14 @@ export async function sendVerificationEmail({
   if (provider === "resend") {
     await sendResendEmail({
       to: [email],
-      subject: `Verify your email for ${SITE_DOMAIN}`,
+      subject: `Erősítsd meg az email címed a ${SITE_DOMAIN} használatához`,
       html,
       tags: [{ name: "type", value: "email-verification" }],
     });
   } else {
     await sendBrevoEmail({
       to: [{ email, name: username }],
-      subject: `Verify your email for ${SITE_DOMAIN}`,
+      subject: `Erősítsd meg az email címed a ${SITE_DOMAIN} használatához`,
       htmlContent: html,
       tags: ["email-verification"],
     });
@@ -257,14 +257,14 @@ export async function sendTeamInvitationEmail({
   if (provider === "resend") {
     await sendResendEmail({
       to: [email],
-      subject: `You've been invited to join a team on ${SITE_DOMAIN}`,
+      subject: `Meghívást kaptál egy csapatba a ${SITE_DOMAIN} oldalon`,
       html,
       tags: [{ name: "type", value: "team-invitation" }],
     });
   } else {
     await sendBrevoEmail({
       to: [{ email }],
-      subject: `You've been invited to join a team on ${SITE_DOMAIN}`,
+      subject: `Meghívást kaptál egy csapatba a ${SITE_DOMAIN} oldalon`,
       htmlContent: html,
       tags: ["team-invitation"],
     });
