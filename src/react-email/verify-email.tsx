@@ -13,15 +13,19 @@ import {
   EMAIL_VERIFICATION_TOKEN_EXPIRATION_SECONDS,
   SITE_DOMAIN,
 } from "@/constants";
+import enMessages from '../../lang/en.json'
+import { createTranslator } from '@/utils/i18n-server'
 
 interface VerifyEmailProps {
   verificationLink?: string;
   username?: string;
+  t: (key: string, params?: Record<string, string | number>) => string;
 }
 
 export const VerifyEmail = ({
   verificationLink = "https://hswlp.hu/verify-email",
   username = "User",
+  t,
 }: VerifyEmailProps) => {
   const expirationHours = EMAIL_VERIFICATION_TOKEN_EXPIRATION_SECONDS / 60 / 60;
 
@@ -30,30 +34,29 @@ export const VerifyEmail = ({
       <Head />
       <Body style={main}>
         <Container style={container}>
-          <Heading style={preheader}>Erősítsd meg az email címed</Heading>
-          <Text style={paragraph}>Szia {username},</Text>
+          <Heading style={preheader}>{t('emails.verify_email.heading')}</Heading>
+          <Text style={paragraph}>{t('emails.verify_email.greeting', { username })}</Text>
           <Text style={paragraph}>
-            Köszönjük, hogy regisztráltál a {SITE_DOMAIN} oldalán! A regisztráció befejezéséhez
-            meg kell erősítened az email címed. Kattints az alábbi gombra a megerősítéshez.
+            {t('emails.verify_email.intro', { siteName: SITE_DOMAIN })}
           </Text>
           <Section style={buttonContainer}>
             <Link style={button} href={verificationLink}>
-              Email cím megerősítése
+              {t('emails.verify_email.action')}
             </Link>
           </Section>
           <Text style={paragraph}>
-            Ez a megerősítő link {expirationHours} óra múlva lejár. Utána új megerősítő levelet kell kérned.
+            {t('emails.verify_email.expires_in', { hours: expirationHours })}
           </Text>
           <Text style={paragraph}>
-            Ha nem működik a fenti gomb, másold be ezt a linket a böngésződ címsorába:
+            {t('emails.verify_email.copy_link')}
           </Text>
           <Text style={link}>{verificationLink}</Text>
           <Text style={paragraph}>
-            Ha nem te hoztál létre fiókot a {SITE_DOMAIN} oldalon, nyugodtan hagyd figyelmen kívül ezt a levelet.
+            {t('emails.verify_email.not_expected', { siteName: SITE_DOMAIN })}
           </Text>
         </Container>
         <Text style={footer}>
-          Ezt az üzenetet a {SITE_DOMAIN} küldte automatikusan. Kérjük, ne válaszolj rá.
+          {t('emails.verify_email.footer', { siteName: SITE_DOMAIN })}
         </Text>
       </Body>
     </Html>
@@ -63,6 +66,7 @@ export const VerifyEmail = ({
 VerifyEmail.PreviewProps = {
   verificationLink: "https://hswlp.hu/verify-email?token=123",
   username: "PromNET",
+  t: createTranslator(enMessages),
 } as VerifyEmailProps;
 
 export default VerifyEmail;

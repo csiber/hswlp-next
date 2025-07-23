@@ -10,12 +10,15 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 import { SITE_DOMAIN } from "@/constants";
+import enMessages from '../../lang/en.json'
+import { createTranslator } from '@/utils/i18n-server'
 
 interface TeamInviteEmailProps {
   inviteLink?: string;
   recipientEmail?: string;
   teamName?: string;
   inviterName?: string;
+  t: (key: string, params?: Record<string, string | number>) => string;
 }
 
 export const TeamInviteEmail = ({
@@ -23,37 +26,36 @@ export const TeamInviteEmail = ({
   recipientEmail = "user@example.com",
   teamName = "Team",
   inviterName = "Someone",
+  t,
 }: TeamInviteEmailProps) => {
   return (
     <Html>
       <Head />
       <Body style={main}>
         <Container style={container}>
-          <Heading style={preheader}>
-            Meghívást kaptál egy csapatba a {SITE_DOMAIN} oldalon
-          </Heading>
-          <Text style={paragraph}>Szervusz,</Text>
+          <Heading style={preheader}>{t('emails.team_invite.heading', { siteName: SITE_DOMAIN })}</Heading>
+          <Text style={paragraph}>{t('emails.team_invite.greeting')}</Text>
           <Text style={paragraph}>
-            {inviterName} meghívott, hogy csatlakozz a &quot;{teamName}&quot; csapathoz a {SITE_DOMAIN} oldalon.
+            {t('emails.team_invite.intro', { inviterName, teamName, siteName: SITE_DOMAIN })}
           </Text>
           <Section style={buttonContainer}>
             <Link style={button} href={inviteLink}>
-              Meghívás elfogadása
+              {t('emails.team_invite.action')}
             </Link>
           </Section>
           <Text style={paragraph}>
-            Ezt a meghívót a(z) {recipientEmail} címre küldtük. Ha még nincs fiókod, a meghívás elfogadása után létrehozhatod.
+            {t('emails.team_invite.sent_to', { email: recipientEmail })}
           </Text>
           <Text style={paragraph}>
-            Ha nem működik a fenti gomb, másold be ezt a linket a böngésződ címsorába:
+            {t('emails.team_invite.copy_link')}
           </Text>
           <Text style={link}>{inviteLink}</Text>
           <Text style={paragraph}>
-            Ha nem számítottál ilyen meghívóra, nyugodtan töröld ezt a levelet.
+            {t('emails.team_invite.not_expected')}
           </Text>
         </Container>
         <Text style={footer}>
-          Ezt az üzenetet a {SITE_DOMAIN} küldte automatikusan. Kérjük, ne válaszolj rá.
+          {t('emails.team_invite.footer', { siteName: SITE_DOMAIN })}
         </Text>
       </Body>
     </Html>
@@ -65,6 +67,7 @@ TeamInviteEmail.PreviewProps = {
   recipientEmail: "no-reply@hswlp.hu",
   teamName: "HSWLP Team",
   inviterName: "PromNET",
+  t: createTranslator(enMessages),
 } as TeamInviteEmailProps;
 
 export default TeamInviteEmail;

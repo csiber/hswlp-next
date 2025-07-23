@@ -69,5 +69,39 @@
     "billing": "Billing",
     "notifications": "Notifications",
     "sign_out": "Sign out"
+  },
+  "emails": {
+    "reset_password": {
+      "subject": "Reset your {siteName} password",
+      "heading": "Reset your password on {siteName}",
+      "greeting": "Hi {username},",
+      "intro": "We received a request to reset your {siteName} account password. Click the button below to choose a new password. For security, the link is valid for 1 hour.",
+      "action": "Reset password",
+      "ignore": "If you didn't request a password reset, you can safely ignore this email. Your {siteName} password will stay the same.",
+      "copy_link": "If the button above doesn't work, copy this link into your browser:",
+      "footer": "This message was automatically sent by {siteName}. If you didn't request a password reset, ignore it or contact support."
+    },
+    "verify_email": {
+      "subject": "Verify your email for {siteName}",
+      "heading": "Verify your email address",
+      "greeting": "Hi {username},",
+      "intro": "Thanks for signing up at {siteName}! To finish your registration, you need to verify your email address. Click the button below.",
+      "action": "Verify email address",
+      "expires_in": "This verification link expires in {hours} hours. After that you'll need to request a new one.",
+      "copy_link": "If the button above doesn't work, copy this link into your browser:",
+      "not_expected": "If you didn't create an account on {siteName}, just ignore this email.",
+      "footer": "This message was automatically sent by {siteName}. Please do not reply."
+    },
+    "team_invite": {
+      "subject": "You've been invited to a team on {siteName}",
+      "heading": "You've been invited to a team on {siteName}",
+      "greeting": "Hello,",
+      "intro": "{inviterName} has invited you to join the \"{teamName}\" team on {siteName}.",
+      "action": "Accept invitation",
+      "sent_to": "This invitation was sent to {email}. If you don't have an account yet, you'll be able to create one after accepting.",
+      "copy_link": "If the button above doesn't work, copy this link into your browser:",
+      "not_expected": "If you weren't expecting this invitation, feel free to delete this email.",
+      "footer": "This message was automatically sent by {siteName}. Please do not reply."
+    }
   }
 }

@@ -69,5 +69,39 @@
     "billing": "Számlázás",
     "notifications": "Értesítések",
     "sign_out": "Kijelentkezés"
+  },
+  "emails": {
+    "reset_password": {
+      "subject": "Jelszavad visszaállítása a {siteName} fiókhoz",
+      "heading": "Jelszó visszaállítása a {siteName}-en",
+      "greeting": "Szia {username},",
+      "intro": "Jelszó-visszaállítási kérést kaptunk a(z) {siteName} fiókodhoz. Az alábbi gombra kattintva új jelszót adhatsz meg. Biztonsági okokból a link 1 óráig érvényes.",
+      "action": "Jelszó visszaállítása",
+      "ignore": "Ha nem te kezdeményezted a jelszó visszaállítást, nyugodtan hagyd figyelmen kívül ezt az emailt. A(z) {siteName} jelszavad változatlan marad.",
+      "copy_link": "Ha nem működik a fenti gomb, másold be ezt a linket a böngésződ címsorába:",
+      "footer": "Ezt az üzenetet a {siteName} küldte automatikusan. Ha nem te kérted a jelszó visszaállítását, hagyd figyelmen kívül vagy lépj kapcsolatba a támogatással."
+    },
+    "verify_email": {
+      "subject": "Erősítsd meg az email címed a {siteName} használatához",
+      "heading": "Erősítsd meg az email címed",
+      "greeting": "Szia {username},",
+      "intro": "Köszönjük, hogy regisztráltál a {siteName} oldalán! A regisztráció befejezéséhez meg kell erősítened az email címed. Kattints az alábbi gombra a megerősítéshez.",
+      "action": "Email cím megerősítése",
+      "expires_in": "Ez a megerősítő link {hours} óra múlva lejár. Utána új megerősítő levelet kell kérned.",
+      "copy_link": "Ha nem működik a fenti gomb, másold be ezt a linket a böngésződ címsorába:",
+      "not_expected": "Ha nem te hoztál létre fiókot a {siteName} oldalon, nyugodtan hagyd figyelmen kívül ezt a levelet.",
+      "footer": "Ezt az üzenetet a {siteName} küldte automatikusan. Kérjük, ne válaszolj rá."
+    },
+    "team_invite": {
+      "subject": "Meghívást kaptál egy csapatba a {siteName} oldalon",
+      "heading": "Meghívást kaptál egy csapatba a {siteName} oldalon",
+      "greeting": "Szervusz,",
+      "intro": "{inviterName} meghívott, hogy csatlakozz a \"{teamName}\" csapathoz a {siteName} oldalon.",
+      "action": "Meghívás elfogadása",
+      "sent_to": "Ezt a meghívót a(z) {email} címre küldtük. Ha még nincs fiókod, a meghívás elfogadása után létrehozhatod.",
+      "copy_link": "Ha nem működik a fenti gomb, másold be ezt a linket a böngésződ címsorába:",
+      "not_expected": "Ha nem számítottál ilyen meghívóra, nyugodtan töröld ezt a levelet.",
+      "footer": "Ezt az üzenetet a {siteName} küldte automatikusan. Kérjük, ne válaszolj rá."
+    }
   }
 }
