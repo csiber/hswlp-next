@@ -10,40 +10,48 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 import { SITE_DOMAIN } from "@/constants";
+import enMessages from '../../lang/en.json'
+import { createTranslator } from '@/utils/i18n-server'
+
+interface Translator {
+  (key: string, params?: Record<string, string | number>): string
+}
 
 interface ResetPasswordEmailProps {
   resetLink?: string;
   username?: string;
+  t: Translator;
 }
 
 export const ResetPasswordEmail = ({
   resetLink = "https://hswlp.hu/reset-password",
   username = "User",
+  t,
 }: ResetPasswordEmailProps) => (
   <Html>
     <Head />
     <Body style={main}>
       <Container style={container}>
-        <Heading style={preheader}>Jelszó visszaállítása a {SITE_DOMAIN}-en</Heading>
-        <Text style={paragraph}>Szia {username},</Text>
+        <Heading style={preheader}>{t('emails.reset_password.heading', { siteName: SITE_DOMAIN })}</Heading>
+        <Text style={paragraph}>{t('emails.reset_password.greeting', { username })}</Text>
         <Text style={paragraph}>
-          Jelszó-visszaállítási kérést kaptunk a(z) {SITE_DOMAIN} fiókodhoz. Az alábbi gombra kattintva új jelszót adhatsz meg. Biztonsági okokból a link 1 óráig érvényes.
+          {t('emails.reset_password.intro', { siteName: SITE_DOMAIN })}
         </Text>
         <Section style={buttonContainer}>
           <Link style={button} href={resetLink}>
-            Jelszó visszaállítása
+            {t('emails.reset_password.action')}
           </Link>
         </Section>
         <Text style={paragraph}>
-          Ha nem te kezdeményezted a jelszó visszaállítást, nyugodtan hagyd figyelmen kívül ezt az emailt. A(z) {SITE_DOMAIN} jelszavad változatlan marad.
+          {t('emails.reset_password.ignore', { siteName: SITE_DOMAIN })}
         </Text>
         <Text style={paragraph}>
-          Ha nem működik a fenti gomb, másold be ezt a linket a böngésződ címsorába:
+          {t('emails.reset_password.copy_link')}
         </Text>
         <Text style={link}>{resetLink}</Text>
       </Container>
       <Text style={footer}>
-        Ezt az üzenetet a {SITE_DOMAIN} küldte automatikusan. Ha nem te kérted a jelszó visszaállítását, hagyd figyelmen kívül vagy lépj kapcsolatba a támogatással.
+        {t('emails.reset_password.footer', { siteName: SITE_DOMAIN })}
       </Text>
     </Body>
   </Html>
@@ -52,6 +60,7 @@ export const ResetPasswordEmail = ({
 ResetPasswordEmail.PreviewProps = {
   resetLink: "https://example.com/reset-password?token=123",
   username: "johndoe",
+  t: createTranslator(enMessages),
 } as ResetPasswordEmailProps;
 
 export default ResetPasswordEmail;

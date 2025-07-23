@@ -5,6 +5,8 @@ import { render } from '@react-email/render'
 import { ResetPasswordEmail } from "@/react-email/reset-password";
 import { VerifyEmail } from "@/react-email/verify-email";
 import { TeamInviteEmail } from "@/react-email/team-invite";
+import { getTranslator } from './i18n-server'
+import type { Locale } from '@/i18n'
 import isProd from "./is-prod";
 
 interface BrevoEmailOptions {
@@ -144,11 +146,13 @@ async function sendBrevoEmail({
 export async function sendPasswordResetEmail({
   email,
   resetToken,
-  username
+  username,
+  locale,
 }: {
-  email: string;
-  resetToken: string;
-  username: string;
+  email: string
+  resetToken: string
+  username: string
+  locale?: Locale
 }) {
   const resetUrl = `${SITE_URL}/reset-password?token=${resetToken}`;
 
@@ -158,7 +162,8 @@ export async function sendPasswordResetEmail({
     return
   }
 
-  const html = await render(ResetPasswordEmail({ resetLink: resetUrl, username }));
+  const t = await getTranslator(locale)
+  const html = await render(ResetPasswordEmail({ resetLink: resetUrl, username, t }));
   const provider = await getEmailProvider();
 
   if (!provider && isProd) {
@@ -168,14 +173,14 @@ export async function sendPasswordResetEmail({
   if (provider === "resend") {
     await sendResendEmail({
       to: [email],
-      subject: `Jelszavad visszaállítása a ${SITE_DOMAIN} fiókhoz`,
+      subject: t('emails.reset_password.subject', { siteName: SITE_DOMAIN }),
       html,
       tags: [{ name: "type", value: "password-reset" }],
     });
   } else {
     await sendBrevoEmail({
       to: [{ email, name: username }],
-      subject: `Jelszavad visszaállítása a ${SITE_DOMAIN} fiókhoz`,
+      subject: t('emails.reset_password.subject', { siteName: SITE_DOMAIN }),
       htmlContent: html,
       tags: ["password-reset"],
     });
@@ -185,11 +190,13 @@ export async function sendPasswordResetEmail({
 export async function sendVerificationEmail({
   email,
   verificationToken,
-  username
+  username,
+  locale,
 }: {
-  email: string;
-  verificationToken: string;
-  username: string;
+  email: string
+  verificationToken: string
+  username: string
+  locale?: Locale
 }) {
   const verificationUrl = `${SITE_URL}/verify-email?token=${verificationToken}`;
 
@@ -199,7 +206,8 @@ export async function sendVerificationEmail({
     return
   }
 
-  const html = await render(VerifyEmail({ verificationLink: verificationUrl, username }));
+  const t = await getTranslator(locale)
+  const html = await render(VerifyEmail({ verificationLink: verificationUrl, username, t }));
   const provider = await getEmailProvider();
 
   if (!provider && isProd) {
@@ -209,14 +217,14 @@ export async function sendVerificationEmail({
   if (provider === "resend") {
     await sendResendEmail({
       to: [email],
-      subject: `Erősítsd meg az email címed a ${SITE_DOMAIN} használatához`,
+      subject: t('emails.verify_email.subject', { siteName: SITE_DOMAIN }),
       html,
       tags: [{ name: "type", value: "email-verification" }],
     });
   } else {
     await sendBrevoEmail({
       to: [{ email, name: username }],
-      subject: `Erősítsd meg az email címed a ${SITE_DOMAIN} használatához`,
+      subject: t('emails.verify_email.subject', { siteName: SITE_DOMAIN }),
       htmlContent: html,
       tags: ["email-verification"],
     });
@@ -227,12 +235,14 @@ export async function sendTeamInvitationEmail({
   email,
   invitationToken,
   teamName,
-  inviterName
+  inviterName,
+  locale,
 }: {
-  email: string;
-  invitationToken: string;
-  teamName: string;
-  inviterName: string;
+  email: string
+  invitationToken: string
+  teamName: string
+  inviterName: string
+  locale?: Locale
 }) {
   const inviteUrl = `${SITE_URL}/team-invite?token=${invitationToken}`;
 
@@ -241,11 +251,13 @@ export async function sendTeamInvitationEmail({
     return
   }
 
+  const t = await getTranslator(locale)
   const html = await render(TeamInviteEmail({
     inviteLink: inviteUrl,
     recipientEmail: email,
     teamName,
-    inviterName
+    inviterName,
+    t,
   }));
 
   const provider = await getEmailProvider();
@@ -257,14 +269,14 @@ export async function sendTeamInvitationEmail({
   if (provider === "resend") {
     await sendResendEmail({
       to: [email],
-      subject: `Meghívást kaptál egy csapatba a ${SITE_DOMAIN} oldalon`,
+      subject: t('emails.team_invite.subject', { siteName: SITE_DOMAIN }),
       html,
       tags: [{ name: "type", value: "team-invitation" }],
     });
   } else {
     await sendBrevoEmail({
       to: [{ email }],
-      subject: `Meghívást kaptál egy csapatba a ${SITE_DOMAIN} oldalon`,
+      subject: t('emails.team_invite.subject', { siteName: SITE_DOMAIN }),
       htmlContent: html,
       tags: ["team-invitation"],
     });
