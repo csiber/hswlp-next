@@ -5,7 +5,7 @@ import { getSessionFromCookie, requireVerifiedEmail } from "@/utils/auth";
 import { getAllSessionIdsOfUser, getKVSession, deleteKVSession } from "@/utils/kv-session";
 import { z } from "zod";
 import { withRateLimit, RATE_LIMITS } from "@/utils/with-rate-limit";
-import { UAParser } from 'ua-parser-js';
+import { SITE_URL } from "@/constants";
 import { SessionWithMeta } from "@/types";
 
 function isValidSession(session: unknown): session is SessionWithMeta {
@@ -32,35 +32,42 @@ export const getSessionsAction = createServerAction()
             const sessionData = await getKVSession(sessionId, session.user.id);
             if (!sessionData) return null;
 
-            // Parse user agent on the server
-            const result = new UAParser(sessionData.userAgent ?? '').getResult();
+            // Parse user agent on the server via API
+            const uaRes = await fetch(`${SITE_URL}/api/parse-ua`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ ua: sessionData.userAgent ?? '' }),
+            });
+            const result = uaRes.ok ? await uaRes.json() : null;
 
             return {
               ...sessionData,
               isCurrentSession: sessionId === session.id,
               expiration: absoluteExpiration,
               createdAt: sessionData.createdAt ?? 0,
-              parsedUserAgent: {
-                ua: result.ua,
-                browser: {
-                  name: result.browser.name,
-                  version: result.browser.version,
-                  major: result.browser.major
-                },
-                device: {
-                  model: result.device.model,
-                  type: result.device.type,
-                  vendor: result.device.vendor
-                },
-                engine: {
-                  name: result.engine.name,
-                  version: result.engine.version
-                },
-                os: {
-                  name: result.os.name,
-                  version: result.os.version
-                }
-              },
+              parsedUserAgent: result
+                ? {
+                    ua: result.ua,
+                    browser: {
+                      name: result.browser.name,
+                      version: result.browser.version,
+                      major: result.browser.major,
+                    },
+                    device: {
+                      model: result.device.model,
+                      type: result.device.type,
+                      vendor: result.device.vendor,
+                    },
+                    engine: {
+                      name: result.engine.name,
+                      version: result.engine.version,
+                    },
+                    os: {
+                      name: result.os.name,
+                      version: result.os.version,
+                    },
+                  }
+                : undefined,
             } as SessionWithMeta;
           })
         );
