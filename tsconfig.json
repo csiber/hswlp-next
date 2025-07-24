@@ -19,7 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "server-only": ["./server-only"]
     },
     "types": [
       "./cloudflare-env.d.ts" ,
