@@ -97,7 +97,11 @@ export async function createPaymentIntent({ packageId }: CreatePaymentIntentInpu
         params
       );
 
-      return { clientSecret: paymentIntent.client_secret };
+      if (!paymentIntent.client_secret) {
+        throw new Error("Missing client secret from Stripe response");
+      }
+
+      return { clientSecret: paymentIntent.client_secret! };
     } catch (error) {
       console.error("Payment intent creation error:", error);
       throw new Error("Failed to create payment intent");
