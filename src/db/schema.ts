@@ -282,6 +282,18 @@ export const teamInvitationTable = sqliteTable("team_invitation", {
   index('team_invitation_token_idx').on(table.token),
 ]));
 
+export const slowRequestLogTable = sqliteTable("slow_request_log", {
+  ...commonColumns,
+  id: text().primaryKey().$defaultFn(() => `slog_${createId()}`).notNull(),
+  url: text().notNull(),
+  durationMs: integer().notNull(),
+  userId: text().references(() => userTable.id),
+  sessionHash: text({ length: 64 }),
+}, (table) => ([
+  index('slow_request_log_url_idx').on(table.url),
+  index('slow_request_log_user_idx').on(table.userId),
+]));
+
 export const teamRelations = relations(teamTable, ({ many }) => ({
   memberships: many(teamMembershipTable),
   invitations: many(teamInvitationTable),
@@ -353,6 +365,13 @@ export const passKeyCredentialRelations = relations(passKeyCredentialTable, ({ o
   }),
 }));
 
+export const slowRequestLogRelations = relations(slowRequestLogTable, ({ one }) => ({
+  user: one(userTable, {
+    fields: [slowRequestLogTable.userId],
+    references: [userTable.id],
+  }),
+}));
+
 export type User = InferSelectModel<typeof userTable>;
 export type PassKeyCredential = InferSelectModel<typeof passKeyCredentialTable>;
 export type CreditTransaction = InferSelectModel<typeof creditTransactionTable>;
@@ -361,3 +380,4 @@ export type Team = InferSelectModel<typeof teamTable>;
 export type TeamMembership = InferSelectModel<typeof teamMembershipTable>;
 export type TeamRole = InferSelectModel<typeof teamRoleTable>;
 export type TeamInvitation = InferSelectModel<typeof teamInvitationTable>;
+export type SlowRequestLog = InferSelectModel<typeof slowRequestLogTable>;
