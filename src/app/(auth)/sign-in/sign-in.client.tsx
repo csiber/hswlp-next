@@ -18,6 +18,7 @@ import SSOButtons from "../_components/sso-buttons";
 import { KeyIcon } from "lucide-react";
 import { generateAuthenticationOptionsAction, verifyAuthenticationAction } from "@/app/(settings)/settings/security/passkey-settings.actions";
 import { startAuthentication } from "@simplewebauthn/browser";
+import type { PublicKeyCredentialRequestOptionsJSON } from "@simplewebauthn/types";
 
 interface SignInClientProps {
   redirectPath: string;
@@ -58,7 +59,9 @@ function PasskeyAuthenticationButton({ className, disabled, children, redirectPa
         toast.loading("Hitelesítés passkey-jel...");
 
       // Get authentication options from the server
-      const [options] = await generateOptions({});
+      const [result] = await generateOptions({});
+
+      const options = result?.optionsJSON as PublicKeyCredentialRequestOptionsJSON | undefined;
 
       if (!options) {
           throw new Error("Nem sikerült lekérni a hitelesítési opciókat");
