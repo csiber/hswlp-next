@@ -183,6 +183,23 @@ const SignUpPage = ({ redirectPath }: SignUpClientProps) => {
 
             <FormField
               control={form.control}
+              name="nickname"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="Becenév (opcionális)"
+                      className="w-full px-3 py-2"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
               name="lastName"
               render={({ field }) => (
                 <FormItem>
@@ -207,6 +224,24 @@ const SignUpPage = ({ redirectPath }: SignUpClientProps) => {
                     <Input
                       type="password"
                       placeholder="Jelszó"
+                      className="w-full px-3 py-2"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder="Jelszó újra"
                       className="w-full px-3 py-2"
                       {...field}
                     />
@@ -280,6 +315,23 @@ const SignUpPage = ({ redirectPath }: SignUpClientProps) => {
                     <FormControl>
                       <Input
                           placeholder="Keresztnév"
+                        className="w-full px-3 py-2"
+                        disabled={isRegistering}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={passkeyForm.control}
+                name="nickname"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                          placeholder="Becenév (opcionális)"
                         className="w-full px-3 py-2"
                         disabled={isRegistering}
                         {...field}

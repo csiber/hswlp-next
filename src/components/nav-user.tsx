@@ -67,7 +67,7 @@ export function NavUser() {
   }
 
   const { user } = session;
-  const displayName = user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : user.email;
+  const displayName = user.nickname || (user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : user.email);
 
   return (
     <SidebarMenu>

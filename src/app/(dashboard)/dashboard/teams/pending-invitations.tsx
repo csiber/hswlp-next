@@ -28,6 +28,7 @@ interface PendingInvitation {
   invitedBy: {
     id: string;
     firstName: string | null;
+    nickname: string | null;
     lastName: string | null;
     email: string | null;
     avatar: string | null;
@@ -118,7 +119,7 @@ export function PendingInvitations() {
               <div>
                 <h3 className="font-medium">{invitation.team.name}</h3>
                 <p className="text-sm text-muted-foreground">
-                  Invited by {invitation.invitedBy.firstName || ''} {invitation.invitedBy.lastName || ''}
+                  Invited by {invitation.invitedBy.nickname || `${invitation.invitedBy.firstName || ''} ${invitation.invitedBy.lastName || ''}`}
                 </p>
               </div>
             </div>
