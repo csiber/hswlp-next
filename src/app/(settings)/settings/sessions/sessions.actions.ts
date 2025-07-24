@@ -7,6 +7,7 @@ import { z } from "zod";
 import { withRateLimit, RATE_LIMITS } from "@/utils/with-rate-limit";
 import { SITE_URL } from "@/constants";
 import { SessionWithMeta } from "@/types";
+import type { IResult as UAParserResult } from "ua-parser-js";
 
 function isValidSession(session: unknown): session is SessionWithMeta {
   if (!session || typeof session !== 'object') return false;
@@ -38,7 +39,9 @@ export const getSessionsAction = createServerAction()
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ ua: sessionData.userAgent ?? '' }),
             });
-            const result = uaRes.ok ? await uaRes.json() : null;
+            const result: UAParserResult | null = uaRes.ok
+              ? (await uaRes.json()) as UAParserResult
+              : null;
 
             return {
               ...sessionData,
