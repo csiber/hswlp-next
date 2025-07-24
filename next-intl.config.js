@@ -1,4 +1,5 @@
-import { defaultLocale, locales } from './i18n';
+export const locales = ['hu', 'en'];
+export const defaultLocale = 'en';
 
 export default {
   locales,
