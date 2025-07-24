@@ -2,6 +2,7 @@
 
 import { useState, useRef} from "react";
 import { startRegistration } from "@simplewebauthn/browser";
+import type { PublicKeyCredentialCreationOptionsJSON } from "@simplewebauthn/types";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import {
@@ -34,7 +35,9 @@ function PasskeyRegistrationButton({ email, className, onSuccess }: PasskeyRegis
       setIsRegistering(true);
 
       // Get registration options from the server
-      const [options] = await generateRegistrationOptionsAction({ email });
+      const [result] = await generateRegistrationOptionsAction({ email });
+
+      const options = result as PublicKeyCredentialCreationOptionsJSON | undefined;
 
       if (!options) {
         throw new Error("Failed to get registration options");
