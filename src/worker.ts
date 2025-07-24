@@ -50,15 +50,16 @@ const worker = {
     const response = await runWithCloudflareRequestContext(request, env, ctx, async () => {
       const url = new URL(request.url);
       if (url.pathname.startsWith("/cdn-cgi/image/")) {
-        const m = url.pathname.match(/\/cdn-cgi\/image\/.+?\/(?<url>.+)$/);
+        const m = url.pathname.match(/\/cdn-cgi\/image\/.+?\/(.+)$/);
         if (m === null) {
           return new Response("Not Found!", { status: 404 });
         }
-        const imageUrl = (m as RegExpMatchArray & { groups: { url: string } }).groups.url;
+        const imageUrl = m[1];
         return imageUrl.match(/^https?:\/\//)
           ? fetch(imageUrl, { cf: { cacheEverything: true } })
           : env.ASSETS?.fetch(new URL(`/${imageUrl}`, url));
       }
+      // @ts-expect-error - injected by OpenNext at build time
       if (url.pathname === `${globalThis.__NEXT_BASE_PATH__}/_next/image`) {
         const imageUrl = url.searchParams.get("url") ?? "";
         return fetchImage(env.ASSETS, imageUrl);
