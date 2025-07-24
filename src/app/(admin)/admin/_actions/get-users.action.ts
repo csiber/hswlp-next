@@ -42,6 +42,7 @@ export const getUsersAction = createServerAction()
         id: true,
         email: true,
         firstName: true,
+        nickname: true,
         lastName: true,
         role: true,
         emailVerified: true,
@@ -57,9 +58,9 @@ export const getUsersAction = createServerAction()
     const transformedUsers = users.map(user => ({
       id: user.id,
       email: user.email,
-      name: user.firstName && user.lastName
+      name: user.nickname || (user.firstName && user.lastName
         ? `${user.firstName} ${user.lastName}`
-        : null,
+        : null),
       role: user.role,
       status: user.emailVerified ? "active" as const : "inactive" as const,
       createdAt: user.createdAt,

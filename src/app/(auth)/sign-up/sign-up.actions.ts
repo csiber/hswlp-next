@@ -53,6 +53,7 @@ export const signUpAction = createServerAction()
         const user = await createUser({
           email: input.email,
           firstName: input.firstName,
+          nickname: input.nickname || null,
           lastName: input.lastName,
           passwordHash: hashedPassword,
           signUpIpAddress: await getIP(),
@@ -105,7 +106,7 @@ export const signUpAction = createServerAction()
           await sendVerificationEmail({
             email: user.email,
             verificationToken,
-            username: user.firstName || user.email,
+            username: user.nickname || user.firstName || user.email,
           });
         } catch (error) {
           console.error(error)

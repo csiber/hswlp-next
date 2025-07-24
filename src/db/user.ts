@@ -12,6 +12,7 @@ export async function findUserByEmail(email: string) {
 export async function createUser(data: {
   email: string;
   firstName?: string | null;
+  nickname?: string | null;
   lastName?: string | null;
   passwordHash: string;
   signUpIpAddress?: string | null;

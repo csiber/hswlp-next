@@ -210,16 +210,16 @@ export default async function TeamDashboardPage({ params }: TeamPageProps) {
                     <TableRow key={member.id}>
                       <TableCell className="flex items-center gap-3">
                         <Avatar className="h-8 w-8">
-                          <AvatarImage
+                        <AvatarImage
                             src={member.user.avatar || ''}
-                            alt={`${member.user.firstName || ''} ${member.user.lastName || ''}`}
+                            alt={`${member.user.nickname || member.user.firstName || ''}`}
                           />
                           <AvatarFallback>
-                            {member.user.firstName?.[0]}{member.user.lastName?.[0]}
+                            {member.user.nickname?.[0] ?? member.user.firstName?.[0]}
                           </AvatarFallback>
                         </Avatar>
                         <span>
-                          {member.user.firstName} {member.user.lastName}
+                          {member.user.nickname || `${member.user.firstName} ${member.user.lastName}`}
                         </span>
                       </TableCell>
                       <TableCell>{member.user.email}</TableCell>
@@ -241,7 +241,7 @@ export default async function TeamDashboardPage({ params }: TeamPageProps) {
                           <RemoveMemberButton
                             teamId={team.id}
                             userId={member.userId}
-                            memberName={`${member.user.firstName || ''} ${member.user.lastName || ''}`.trim() || member.user.email || ''}
+                            memberName={member.user.nickname || `${member.user.firstName || ''} ${member.user.lastName || ''}`.trim() || member.user.email || ''}
                             isDisabled={member.isSystemRole && member.roleId === 'owner'}
                             tooltipText="A csapat tulajdonosát nem lehet eltávolítani"
                           />

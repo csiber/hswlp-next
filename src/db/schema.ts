@@ -27,6 +27,9 @@ export const userTable = sqliteTable("user", {
   firstName: text({
     length: 255,
   }),
+  nickname: text({
+    length: 255,
+  }),
   lastName: text({
     length: 255,
   }),

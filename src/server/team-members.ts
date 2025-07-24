@@ -67,6 +67,7 @@ export async function getTeamMembers(teamId: string) {
       user: {
         id: member.user.id,
         firstName: member.user.firstName,
+        nickname: member.user.nickname,
         lastName: member.user.lastName,
         email: member.user.email,
         avatar: member.user.avatar,
@@ -222,8 +223,9 @@ export async function inviteUserToTeam({
   // Get inviter's name for email
   const inviter = {
     firstName: session.user.firstName || "",
+    nickname: session.user.nickname || null,
     lastName: session.user.lastName || "",
-    fullName: `${session.user.firstName || ""} ${session.user.lastName || ""}`.trim() || session.user.email,
+    fullName: session.user.nickname || `${session.user.firstName || ""} ${session.user.lastName || ""}`.trim() || session.user.email,
   };
 
   // Check if user is already a member
@@ -468,6 +470,7 @@ export async function getTeamInvitations(teamId: string) {
         columns: {
           id: true,
           firstName: true,
+          nickname: true,
           lastName: true,
           email: true,
           avatar: true,
@@ -486,6 +489,7 @@ export async function getTeamInvitations(teamId: string) {
     invitedBy: {
       id: invitation.invitedByUser.id,
       firstName: invitation.invitedByUser.firstName,
+      nickname: invitation.invitedByUser.nickname,
       lastName: invitation.invitedByUser.lastName,
       email: invitation.invitedByUser.email,
       avatar: invitation.invitedByUser.avatar,
@@ -549,6 +553,7 @@ export async function getPendingInvitationsForCurrentUser() {
         columns: {
           id: true,
           firstName: true,
+          nickname: true,
           lastName: true,
           email: true,
           avatar: true,
@@ -574,6 +579,7 @@ export async function getPendingInvitationsForCurrentUser() {
     invitedBy: {
       id: invitation.invitedByUser.id,
       firstName: invitation.invitedByUser.firstName,
+      nickname: invitation.invitedByUser.nickname,
       lastName: invitation.invitedByUser.lastName,
       email: invitation.invitedByUser.email,
       avatar: invitation.invitedByUser.avatar,

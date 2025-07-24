@@ -57,7 +57,7 @@ export const resendVerificationAction = createServerAction()
         await sendVerificationEmail({
           email: session.user.email!,
           verificationToken,
-          username: session.user.firstName || session.user.email!,
+          username: session.user.nickname || session.user.firstName || session.user.email!,
         });
 
         return { success: true };
