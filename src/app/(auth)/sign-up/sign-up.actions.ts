@@ -1,12 +1,10 @@
 "use server";
 
 import { createServerAction, ZSAError } from "zsa"
-import { getDB } from "@/db"
-import { userTable } from "@/db/schema"
+import { findUserByEmail, createUser } from "@/db/user"
 import { signUpSchema } from "@/schemas/signup.schema";
 import { hashPassword } from "@/utils/password-hasher";
 import { createSession, generateSessionToken, setSessionTokenCookie, canSignUp } from "@/utils/auth";
-import { eq } from "drizzle-orm";
 import { createId } from "@paralleldrive/cuid2";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { getVerificationTokenKey } from "@/utils/auth-utils";
@@ -22,7 +20,6 @@ export const signUpAction = createServerAction()
   .handler(async ({ input }) => {
     return withRateLimit(
       async () => {
-        const db = getDB();
         const { env } = getCloudflareContext();
 
         if (await isTurnstileEnabled() && input.captchaToken) {
@@ -40,9 +37,7 @@ export const signUpAction = createServerAction()
         await canSignUp({ email: input.email });
 
         // Check if email is already taken
-        const existingUser = await db.query.userTable.findFirst({
-          where: eq(userTable.email, input.email),
-        });
+        const existingUser = await findUserByEmail(input.email);
 
         if (existingUser) {
           throw new ZSAError(
@@ -55,15 +50,13 @@ export const signUpAction = createServerAction()
         const hashedPassword = await hashPassword({ password: input.password });
 
         // Create the user
-        const [user] = await db.insert(userTable)
-          .values({
-            email: input.email,
-            firstName: input.firstName,
-            lastName: input.lastName,
-            passwordHash: hashedPassword,
-            signUpIpAddress: await getIP(),
-          })
-          .returning();
+        const user = await createUser({
+          email: input.email,
+          firstName: input.firstName,
+          lastName: input.lastName,
+          passwordHash: hashedPassword,
+          signUpIpAddress: await getIP(),
+        });
 
         if (!user || !user.email) {
           throw new ZSAError(
