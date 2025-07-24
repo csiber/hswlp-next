@@ -1,4 +1,4 @@
-import { defaultLocale, locales } from './i18n';
+import { defaultLocale, locales } from './i18n.js';
 
 export default {
   locales,

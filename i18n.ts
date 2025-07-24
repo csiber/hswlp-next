@@ -1,5 +1,5 @@
-import { locales, defaultLocale } from './next-intl.config';
-export { locales, defaultLocale } from './next-intl.config';
+import { locales, defaultLocale } from './next-intl.config.js';
+export { locales, defaultLocale } from './next-intl.config.js';
 export type Locale = (typeof locales)[number];
 
 const dictionaries: Record<Locale, () => Promise<Record<string, unknown>>> = {
