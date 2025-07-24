@@ -2,7 +2,7 @@
 
 import { createServerAction, ZSAError } from "zsa";
 import { z } from "zod";
-import { generatePasskeyRegistrationOptions, verifyPasskeyRegistration } from "@/utils/webauthn";
+import { SITE_URL } from "@/constants";
 import { getDB } from "@/db";
 import { userTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
@@ -74,8 +74,19 @@ export const startPasskeyRegistrationAction = createServerAction()
           );
         }
 
-        // Generate passkey registration options
-        const options = await generatePasskeyRegistrationOptions(user.id, input.email);
+        // Generate passkey registration options via API to avoid bundling heavy libs
+        const optionsRes = await fetch(`${SITE_URL}/api/webauthn/options`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: user.id, email: input.email }),
+        });
+        if (!optionsRes.ok) {
+          throw new ZSAError(
+            "INTERNAL_SERVER_ERROR",
+            "Nem sikerült lekérni a passkey opciókat"
+          );
+        }
+        const options = await optionsRes.json();
 
         const cookieStore = await cookies();
 
@@ -137,14 +148,22 @@ export const completePasskeyRegistrationAction = createServerAction()
     }
 
     try {
-      // Verify the registration
-      await verifyPasskeyRegistration({
-        userId,
-        response: input.response,
-        challenge,
-        userAgent: (await headers()).get("user-agent"),
-        ipAddress: await getIP(),
+      // Verify the registration through API
+      const verifyRes = await fetch(`${SITE_URL}/api/webauthn/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId,
+          response: input.response,
+          challenge,
+          userAgent: (await headers()).get("user-agent"),
+          ipAddress: await getIP(),
+        }),
       });
+      if (!verifyRes.ok) {
+        throw new Error("Verification failed");
+      }
+      await verifyRes.json();
 
       // Get user details for email verification
       const db = getDB();

@@ -1,12 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import {
-  generatePasskeyRegistrationOptions,
-  verifyPasskeyRegistration,
-  generatePasskeyAuthenticationOptions,
-  verifyPasskeyAuthentication
-} from "@/utils/webauthn";
+import { SITE_URL } from "@/constants";
 import { getDB } from "@/db";
 import { userTable, passKeyCredentialTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
@@ -56,7 +51,18 @@ export const generateRegistrationOptionsAction = createServerAction()
         );
       }
 
-      const options = await generatePasskeyRegistrationOptions(user.id, input.email);
+      const optionsRes = await fetch(`${SITE_URL}/api/webauthn/options`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: user.id, email: input.email }),
+      });
+      if (!optionsRes.ok) {
+        throw new ZSAError(
+          "INTERNAL_SERVER_ERROR",
+          "Nem sikerült lekérni a passkey opciókat"
+        );
+      }
+      const options = await optionsRes.json();
       return options;
     }, RATE_LIMITS.SETTINGS);
   });
@@ -88,13 +94,24 @@ export const verifyRegistrationAction = createServerAction()
         throw new ZSAError("FORBIDDEN", "Csak a saját fiókodhoz regisztrálhatsz passkeyt");
       }
 
-      await verifyPasskeyRegistration({
-        userId: user.id,
-        response: input.response,
-        challenge: input.challenge,
-        userAgent: (await headers()).get("user-agent"),
-        ipAddress: await getIP(),
+      const verifyRes = await fetch(`${SITE_URL}/api/webauthn/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: user.id,
+          response: input.response,
+          challenge: input.challenge,
+          userAgent: (await headers()).get("user-agent"),
+          ipAddress: await getIP(),
+        }),
       });
+      if (!verifyRes.ok) {
+        throw new ZSAError(
+          "PRECONDITION_FAILED",
+          "Nem sikerült regisztrálni a passkey-t"
+        );
+      }
+      await verifyRes.json();
       await createAndStoreSession(user.id, "passkey", input.response.id);
       return { success: true };
     }, RATE_LIMITS.SETTINGS);
@@ -151,7 +168,18 @@ export const generateAuthenticationOptionsAction = createServerAction()
   .input(z.object({}))
   .handler(async () => {
     return withRateLimit(async () => {
-      const options = await generatePasskeyAuthenticationOptions();
+      const optionsRes = await fetch(`${SITE_URL}/api/webauthn/authenticate/options`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: (await requireVerifiedEmail())?.user?.id }),
+      });
+      if (!optionsRes.ok) {
+        throw new ZSAError(
+          "INTERNAL_SERVER_ERROR",
+          "Nem sikerült lekérni a hitelesítési opciókat"
+        );
+      }
+      const options = await optionsRes.json();
       return options;
     }, RATE_LIMITS.SIGN_IN);
   });
@@ -167,12 +195,18 @@ export const verifyAuthenticationAction = createServerAction()
   .input(verifyAuthenticationSchema)
   .handler(async ({ input }) => {
     return withRateLimit(async () => {
-      const { verification, credential } = await verifyPasskeyAuthentication(input.response, input.challenge);
-
-      if (!verification.verified) {
+      const verifyRes = await fetch(`${SITE_URL}/api/webauthn/authenticate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          response: input.response,
+          challenge: input.challenge,
+        }),
+      });
+      if (!verifyRes.ok) {
         throw new ZSAError("FORBIDDEN", "A passkey hitelesítés sikertelen");
       }
-
+      const { credential } = await verifyRes.json();
       await createAndStoreSession(credential.userId, "passkey", input.response.id);
       return { success: true };
     }, RATE_LIMITS.SIGN_IN);

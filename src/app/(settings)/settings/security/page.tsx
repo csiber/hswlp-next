@@ -4,9 +4,9 @@ import { getSessionFromCookie } from "@/utils/auth";
 import { redirect } from "next/navigation";
 import { getDB } from "@/db";
 import { passKeyCredentialTable } from "@/db/schema";
+import { SITE_URL } from "@/constants";
 import { eq } from "drizzle-orm";
 import { PasskeysList } from "./passkey.client";
-import { UAParser } from "ua-parser-js";
 import type { PassKeyCredential } from "@/db/schema";
 import type { ParsedUserAgent } from "@/types";
 
@@ -29,38 +29,50 @@ export default async function SecurityPage() {
     .where(eq(passKeyCredentialTable.userId, session.user.id));
 
   // Parse user agent for each passkey
-  const passkeysWithParsedUA = passkeys.map((passkey: PassKeyCredential): ParsedPasskey => {
-    // Since userAgent is text() in the schema, it can be null or undefined
-    // Convert undefined to null to match our Passkey interface
-    const userAgent = passkey.userAgent ?? null;
-    const result = new UAParser(userAgent ?? '').getResult();
-    const passkeyWithParsedUA = {
-      ...passkey,
-      userAgent: userAgent ?? null,
-      parsedUserAgent: {
-        ua: userAgent ?? '',
-        browser: {
-          name: result.browser.name,
-          version: result.browser.version,
-          major: result.browser.major
-        },
-        device: {
-          model: result.device.model,
-          type: result.device.type,
-          vendor: result.device.vendor
-        },
-        engine: {
-          name: result.engine.name,
-          version: result.engine.version
-        },
-        os: {
-          name: result.os.name,
-          version: result.os.version
-        }
-      }
-    };
-    return passkeyWithParsedUA;
-  });
+  const passkeysWithParsedUA = await Promise.all(
+    passkeys.map(async (passkey: PassKeyCredential): Promise<ParsedPasskey> => {
+      const userAgent = passkey.userAgent ?? null;
+      const uaRes = await fetch(`${SITE_URL}/api/parse-ua`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ua: userAgent }),
+      });
+      const result = uaRes.ok ? await uaRes.json() : null;
+      return {
+        ...passkey,
+        userAgent: userAgent ?? null,
+        parsedUserAgent: result
+          ? {
+              ua: userAgent ?? '',
+              browser: {
+                name: result.browser.name,
+                version: result.browser.version,
+                major: result.browser.major,
+              },
+              device: {
+                model: result.device.model,
+                type: result.device.type,
+                vendor: result.device.vendor,
+              },
+              engine: {
+                name: result.engine.name,
+                version: result.engine.version,
+              },
+              os: {
+                name: result.os.name,
+                version: result.os.version,
+              },
+            }
+          : {
+              ua: userAgent ?? '',
+              browser: { name: '', version: '', major: '' },
+              device: { model: '', type: '', vendor: '' },
+              engine: { name: '', version: '' },
+              os: { name: '', version: '' },
+            },
+      };
+    })
+  );
 
   return (
     <div className="container max-w-4xl space-y-8">
