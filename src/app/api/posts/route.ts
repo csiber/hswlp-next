@@ -6,8 +6,14 @@ export async function GET() {
   return NextResponse.json(posts);
 }
 
+interface CreatePostRequest {
+  userId: string;
+  title: string;
+  content?: string | null;
+}
+
 export async function POST(request: Request) {
-  const body = await request.json();
+  const body = (await request.json()) as CreatePostRequest;
   const post = await createPost({
     userId: body.userId,
     title: body.title,
