@@ -1,12 +1,10 @@
 "use server";
 
 import { createServerAction, ZSAError } from "zsa";
-import { getDB } from "@/db";
-import { userTable } from "@/db/schema";
+import { findUserByEmail } from "@/db/user";
 import { signInSchema } from "@/schemas/signin.schema";
 import { verifyPassword } from "@/utils/password-hasher";
 import { createAndStoreSession } from "@/utils/auth";
-import { eq } from "drizzle-orm";
 import { RATE_LIMITS, withRateLimit } from "@/utils/with-rate-limit";
 
 export const signInAction = createServerAction()
@@ -14,13 +12,10 @@ export const signInAction = createServerAction()
   .handler(async ({ input }) => {
     return withRateLimit(
       async () => {
-        const db = getDB();
 
         try {
           // Find user by email
-          const user = await db.query.userTable.findFirst({
-            where: eq(userTable.email, input.email),
-          });
+          const user = await findUserByEmail(input.email);
 
           if (!user) {
             throw new ZSAError(
