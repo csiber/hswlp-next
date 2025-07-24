@@ -8,7 +8,11 @@ import { eq } from "drizzle-orm";
 import { createServerAction, ZSAError } from "zsa";
 import { requireVerifiedEmail, createAndStoreSession } from "@/utils/auth";
 import type { User } from "@/db/schema";
-import type { RegistrationResponseJSON, AuthenticationResponseJSON } from "@simplewebauthn/types";
+import type {
+  RegistrationResponseJSON,
+  AuthenticationResponseJSON,
+  PublicKeyCredentialRequestOptionsJSON,
+} from "@simplewebauthn/types";
 import { headers } from "next/headers";
 import { getIP } from "@/utils/get-IP";
 import { withRateLimit, RATE_LIMITS } from "@/utils/with-rate-limit";
@@ -179,8 +183,8 @@ export const generateAuthenticationOptionsAction = createServerAction()
           "Nem sikerült lekérni a hitelesítési opciókat"
         );
       }
-      const options = await optionsRes.json();
-      return options;
+      const options: PublicKeyCredentialRequestOptionsJSON = await optionsRes.json();
+      return { optionsJSON: options };
     }, RATE_LIMITS.SIGN_IN);
   });
 
@@ -206,7 +210,7 @@ export const verifyAuthenticationAction = createServerAction()
       if (!verifyRes.ok) {
         throw new ZSAError("FORBIDDEN", "A passkey hitelesítés sikertelen");
       }
-      const { credential } = await verifyRes.json();
+      const { credential } = (await verifyRes.json()) as { credential: { userId: string } };
       await createAndStoreSession(credential.userId, "passkey", input.response.id);
       return { success: true };
     }, RATE_LIMITS.SIGN_IN);

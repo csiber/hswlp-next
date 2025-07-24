@@ -86,7 +86,7 @@ export const startPasskeyRegistrationAction = createServerAction()
             "Nem sikerült lekérni a passkey opciókat"
           );
         }
-        const options = await optionsRes.json();
+        const options: PublicKeyCredentialCreationOptionsJSON = await optionsRes.json();
 
         const cookieStore = await cookies();
 

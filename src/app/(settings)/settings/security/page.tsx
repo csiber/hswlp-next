@@ -9,6 +9,7 @@ import { eq } from "drizzle-orm";
 import { PasskeysList } from "./passkey.client";
 import type { PassKeyCredential } from "@/db/schema";
 import type { ParsedUserAgent } from "@/types";
+import type { IResult } from "ua-parser-js";
 
 interface ParsedPasskey extends Omit<PassKeyCredential, 'userAgent'> {
   userAgent: string | null;
@@ -37,7 +38,7 @@ export default async function SecurityPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ua: userAgent }),
       });
-      const result = uaRes.ok ? await uaRes.json() : null;
+      const result: IResult | null = uaRes.ok ? ((await uaRes.json()) as IResult) : null;
       return {
         ...passkey,
         userAgent: userAgent ?? null,
