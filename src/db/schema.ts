@@ -95,6 +95,16 @@ export const passKeyCredentialTable = sqliteTable("passkey_credential", {
   index('credential_id_idx').on(table.credentialId),
 ]));
 
+export const postTable = sqliteTable("post", {
+  ...commonColumns,
+  id: text().primaryKey().$defaultFn(() => `post_${createId()}`).notNull(),
+  userId: text().notNull().references(() => userTable.id),
+  title: text({ length: 255 }).notNull(),
+  content: text(),
+}, (table) => ([
+  index('post_user_id_idx').on(table.userId),
+]));
+
 // Credit transaction types
 export const CREDIT_TRANSACTION_TYPE = {
   PURCHASE: 'PURCHASE',
@@ -351,10 +361,18 @@ export const purchasedItemsRelations = relations(purchasedItemsTable, ({ one }) 
   }),
 }));
 
+export const postRelations = relations(postTable, ({ one }) => ({
+  user: one(userTable, {
+    fields: [postTable.userId],
+    references: [userTable.id],
+  }),
+}));
+
 export const userRelations = relations(userTable, ({ many }) => ({
   passkeys: many(passKeyCredentialTable),
   creditTransactions: many(creditTransactionTable),
   purchasedItems: many(purchasedItemsTable),
+  posts: many(postTable),
   teamMemberships: many(teamMembershipTable),
 }));
 
@@ -381,3 +399,4 @@ export type TeamMembership = InferSelectModel<typeof teamMembershipTable>;
 export type TeamRole = InferSelectModel<typeof teamRoleTable>;
 export type TeamInvitation = InferSelectModel<typeof teamInvitationTable>;
 export type SlowRequestLog = InferSelectModel<typeof slowRequestLogTable>;
+export type Post = InferSelectModel<typeof postTable>;
