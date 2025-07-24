@@ -8,7 +8,11 @@ import {
   getCreditPackage,
 } from "@/utils/credits";
 import { CREDIT_TRANSACTION_TYPE } from "@/db/schema";
-import { getStripe } from "@/lib/stripe";
+import {
+  stripePost,
+  stripeGet,
+  type StripePaymentIntent,
+} from "@/utils/stripe-api";
 import { MAX_TRANSACTIONS_PER_PAGE, CREDITS_EXPIRATION_YEARS } from "@/constants";
 import ms from "ms";
 import { withRateLimit, RATE_LIMITS } from "@/utils/with-rate-limit";
@@ -65,6 +69,7 @@ export async function getTransactions({ page, limit = MAX_TRANSACTIONS_PER_PAGE 
   }, RATE_LIMITS.PURCHASE);
 }
 
+
 export async function createPaymentIntent({ packageId }: CreatePaymentIntentInput) {
   return withRateLimit(async () => {
     const session = await requireVerifiedEmail();
@@ -78,28 +83,31 @@ export async function createPaymentIntent({ packageId }: CreatePaymentIntentInpu
         throw new Error("Invalid package");
       }
 
-      const paymentIntent = await getStripe().paymentIntents.create({
-        amount: creditPackage.price * 100,
-        currency: 'huf',
-        automatic_payment_methods: {
-          enabled: true,
-          allow_redirects: 'never',
-        },
-        metadata: {
-          userId: session.user.id,
-          packageId: creditPackage.id,
-          credits: creditPackage.credits.toString(),
-        },
-      });
+      const params = new URLSearchParams();
+      params.set("amount", String(creditPackage.price * 100));
+      params.set("currency", "huf");
+      params.set("automatic_payment_methods[enabled]", "true");
+      params.set("automatic_payment_methods[allow_redirects]", "never");
+      params.set("metadata[userId]", session.user.id);
+      params.set("metadata[packageId]", creditPackage.id);
+      params.set("metadata[credits]", creditPackage.credits.toString());
 
-      return { clientSecret: paymentIntent.client_secret };
+      const paymentIntent = await stripePost<StripePaymentIntent>(
+        "/payment_intents",
+        params
+      );
+
+      if (!paymentIntent.client_secret) {
+        throw new Error("Missing client secret from Stripe response");
+      }
+
+      return { clientSecret: paymentIntent.client_secret! };
     } catch (error) {
       console.error("Payment intent creation error:", error);
       throw new Error("Failed to create payment intent");
     }
   }, RATE_LIMITS.PURCHASE);
 }
-
 export async function confirmPayment({ packageId, paymentIntentId }: PurchaseCreditsInput) {
   return withRateLimit(async () => {
     const session = await requireVerifiedEmail();
@@ -114,7 +122,7 @@ export async function confirmPayment({ packageId, paymentIntentId }: PurchaseCre
       }
 
       // Verify the payment intent
-      const paymentIntent = await getStripe().paymentIntents.retrieve(paymentIntentId);
+      const paymentIntent = await stripeGet<StripePaymentIntent>(`/payment_intents/${paymentIntentId}`);
 
       if (paymentIntent.status !== 'succeeded') {
         throw new Error("Payment not completed");
