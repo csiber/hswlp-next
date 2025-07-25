@@ -86,7 +86,7 @@ export function NavUser() {
                 <span className="font-semibold overflow-hidden text-ellipsis whitespace-nowrap">{displayName}</span>
                 <span className="truncate text-xs text-muted-foreground">{user.email}</span>
                 <Badge variant="secondary" className="w-fit text-[10px]" onClick={() => router.push('/dashboard/billing')}>
-                  {user.currentCredits} kredit
+                  {user.currentCredits} credits
                 </Badge>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
@@ -115,21 +115,21 @@ export function NavUser() {
             </DropdownMenuLabel>
             <div className="px-2">
               <ThemeSwitch className="w-full my-3">
-                Téma váltása
+                Toggle theme
               </ThemeSwitch>
             </div>
             <DropdownMenuGroup>
               <DropdownMenuItem className="cursor-pointer" onClick={() => router.push('/settings')}>
                 <BadgeCheck />
-                Fiók
+                Account
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer" onClick={() => router.push('/dashboard/billing')}>
                 <CreditCard />
-                Számlázás
+                Billing
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer">
                 <Bell />
-                Értesítések
+                Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
@@ -142,7 +142,7 @@ export function NavUser() {
               className="cursor-pointer"
             >
               <LogOut />
-              Kijelentkezés
+              Log out
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

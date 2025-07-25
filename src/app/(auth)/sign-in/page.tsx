@@ -5,8 +5,8 @@ import SignInClientPage from "./sign-in.client";
 import { REDIRECT_AFTER_SIGN_IN } from "@/constants";
 
 export const metadata: Metadata = {
-  title: "Bejelentkezés",
-  description: "Lépj be a fiókodba",
+  title: "Sign in",
+  description: "Access your account",
 };
 
 const SignInPage = async ({
