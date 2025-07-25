@@ -18,6 +18,10 @@ interface VerifyRequest {
 
 export async function POST(request: Request) {
   const session = await requireVerifiedEmail()
+
+  if (!session) {
+    throw new Error('Not authenticated')
+  }
   const body = (await request.json()) as VerifyRequest
 
   const { verifyRegistrationResponse } = await import('@simplewebauthn/server')
