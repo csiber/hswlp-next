@@ -52,5 +52,5 @@ export async function POST(request: Request) {
     .set({ counter: verification.authenticationInfo.newCounter })
     .where(eq(passKeyCredentialTable.credentialId, credential.credentialId))
 
-  return NextResponse.json({ success: true, credential })
+  return NextResponse.json({ success: true, userId: credential.userId })
 }
