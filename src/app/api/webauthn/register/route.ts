@@ -3,13 +3,13 @@ import { getDB } from '@/db'
 import { passKeyCredentialTable } from '@/db/schema'
 import isProd from '@/utils/is-prod'
 import { SITE_DOMAIN, SITE_URL } from '@/constants'
+import { requireVerifiedEmail } from '@/utils/auth'
 import type { RegistrationResponseJSON } from '@simplewebauthn/types'
 
 const rpID = isProd ? SITE_DOMAIN : 'localhost'
 const origin = SITE_URL
 
 interface VerifyRequest {
-  userId: string
   response: RegistrationResponseJSON
   challenge: string
   userAgent?: string | null
@@ -17,6 +17,7 @@ interface VerifyRequest {
 }
 
 export async function POST(request: Request) {
+  const session = await requireVerifiedEmail()
   const body = (await request.json()) as VerifyRequest
 
   const { verifyRegistrationResponse } = await import('@simplewebauthn/server')
@@ -36,7 +37,7 @@ export async function POST(request: Request) {
   const { credential, aaguid } = verification.registrationInfo
   const db = getDB()
   await db.insert(passKeyCredentialTable).values({
-    userId: body.userId,
+    userId: session.user.id,
     credentialId: credential.id,
     credentialPublicKey: Buffer.from(credential.publicKey).toString('base64url'),
     counter: 0,
