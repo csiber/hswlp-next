@@ -13,6 +13,10 @@ const rpID = isProd ? SITE_DOMAIN : 'localhost'
 export async function POST() {
   const session = await requireVerifiedEmail()
 
+  if (!session) {
+    throw new Error('Not authenticated')
+  }
+
   const { generateRegistrationOptions } = await import('@simplewebauthn/server')
 
   const db = getDB()
@@ -24,7 +28,7 @@ export async function POST() {
     rpName,
     rpID,
     userID: Buffer.from(session.user.id),
-    userName: session.user.email,
+    userName: session.user.email!,
     attestationType: 'none',
     excludeCredentials: existingCredentials.map((cred) => ({
       id: cred.credentialId,

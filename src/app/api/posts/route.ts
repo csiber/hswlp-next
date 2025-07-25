@@ -15,6 +15,10 @@ interface CreatePostRequest {
 
 export async function POST(request: Request) {
   const session = await requireVerifiedEmail();
+
+  if (!session) {
+    throw new Error("Not authenticated");
+  }
   return withRateLimit(
     async () => {
       const body = (await request.json()) as CreatePostRequest;

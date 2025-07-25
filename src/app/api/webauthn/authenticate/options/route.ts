@@ -11,6 +11,10 @@ const rpID = isProd ? SITE_DOMAIN : 'localhost'
 
 export async function POST() {
   const session = await requireVerifiedEmail()
+
+  if (!session) {
+    throw new Error('Not authenticated')
+  }
   const { generateAuthenticationOptions } = await import('@simplewebauthn/server')
 
   const db = getDB()
