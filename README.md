@@ -5,7 +5,7 @@ Ez a repository a HSWLP platform `hswlp-next` nevű **új alaprendszere**, amely
 Ez az alap biztosítja a következőket:
 
 - Bejelentkezés, regisztráció, email hitelesítés
-- Google OAuth és Turnstile captcha
+- Turnstile captcha
 - Cloudflare D1 adatbázis migrációkkal
 - R2 tárhely és KV session kezelés
 - Stripe integráció és emailküldés (Resend vagy Brevo)
