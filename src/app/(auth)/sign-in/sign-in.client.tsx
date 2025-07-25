@@ -14,7 +14,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
 import Link from "next/link";
-import SSOButtons from "../_components/sso-buttons";
 import { KeyIcon } from "lucide-react";
 import { generateAuthenticationOptionsAction, verifyAuthenticationAction } from "@/app/(settings)/settings/security/passkey-settings.actions";
 import { startAuthentication } from "@simplewebauthn/browser";
@@ -136,7 +135,6 @@ const SignInPage = ({ redirectPath }: SignInClientProps) => {
         </div>
 
         <div className="space-y-4">
-          <SSOButtons isSignIn />
 
           <PasskeyAuthenticationButton className="w-full" redirectPath={redirectPath}>
             <KeyIcon className="w-5 h-5 mr-2" />
