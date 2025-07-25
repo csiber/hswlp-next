@@ -14,27 +14,27 @@ export function Hero() {
           <div className="mx-auto max-w-2xl text-center">
             <div className="mb-10 flex justify-center gap-4 flex-wrap">
               <ShinyButton className="rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 ring-1 ring-inset ring-indigo-500/20">
-                100% ingyenes és nyílt forráskódú
+                100% free and open source
               </ShinyButton>
               <Suspense fallback={<TotalUsersButtonSkeleton />}>
                 <TotalUsersButton />
               </Suspense>
             </div>
               <h1 className="text-4xl font-bold tracking-tight sm:text-6xl bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
-                Éles üzemre kész SaaS sablon
+                Production-ready SaaS template
               </h1>
               <p className="mt-6 text-lg leading-8 text-muted-foreground">
-                Modern, nyílt forrású sablon SaaS alkalmazások gyors indításához Next.js 15 és Cloudflare Workers alapokon.
+                Modern, open-source template for quickly launching SaaS apps with Next.js 15 and Cloudflare Workers.
               </p>
             <div className="mt-10 flex items-center justify-center gap-x-4 md:gap-x-6">
               <a href={GITHUB_REPO_URL} target="_blank">
                 <Button size="lg" className="rounded-full">
-                  Megtekintés GitHubon
+                  View on GitHub
                 </Button>
               </a>
               <Link href="/sign-in">
                 <Button variant="outline" size="lg" className="rounded-full">
-                  Demó kipróbálása
+                  Try the demo
                 </Button>
               </Link>
             </div>
@@ -53,7 +53,7 @@ async function TotalUsersButton() {
 
   return (
     <ShinyButton className="rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 ring-1 ring-inset ring-purple-500/20">
-      {totalUsers} felhasználó és növekszik
+      {totalUsers} users and growing
     </ShinyButton>
   );
 }

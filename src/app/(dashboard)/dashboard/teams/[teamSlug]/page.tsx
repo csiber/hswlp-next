@@ -87,13 +87,13 @@ export default async function TeamDashboardPage({ params }: TeamPageProps) {
         <div className="container mx-auto px-5 py-12">
           <Alert
             color="danger"
-            title="Hozzáférés megtagadva"
-            description={`Nincs jogosultságod a(z) "${team.name}" csapathoz. Vedd fel a kapcsolatot a csapat tulajdonosával a hozzáférésért.`}
+            title="Access denied"
+            description={`You don't have access to "${team.name}". Contact the team owner to request access.`}
             className="mb-6"
           />
           <Button asChild className="mt-4">
             <Link href="/dashboard/teams">
-              Vissza a csapatokhoz
+              Back to teams
             </Link>
           </Button>
         </div>
@@ -138,7 +138,7 @@ export default async function TeamDashboardPage({ params }: TeamPageProps) {
               <InviteMemberModal
                 teamId={team.id}
                 trigger={
-                  <Button>Tagok meghívása</Button>
+                  <Button>Invite members</Button>
                 }
               />
             )}
@@ -190,19 +190,19 @@ export default async function TeamDashboardPage({ params }: TeamPageProps) {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Tag</TableHead>
+                  <TableHead>Member</TableHead>
                   <TableHead>Email</TableHead>
-                  <TableHead>Szerep</TableHead>
-                  <TableHead>Csatlakozott</TableHead>
-                  <TableHead>Állapot</TableHead>
-                  {canRemoveMembers && <TableHead className="text-right">Művelet</TableHead>}
+                  <TableHead>Role</TableHead>
+                  <TableHead>Joined</TableHead>
+                  <TableHead>Status</TableHead>
+                  {canRemoveMembers && <TableHead className="text-right">Action</TableHead>}
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {teamMembers.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={canRemoveMembers ? 6 : 5} className="text-center py-6 text-muted-foreground">
-                      Nincs egyetlen tag sem
+                      No members yet
                     </TableCell>
                   </TableRow>
                 ) : (
@@ -233,8 +233,8 @@ export default async function TeamDashboardPage({ params }: TeamPageProps) {
                       </TableCell>
                       <TableCell>
                         {member.isActive
-                          ? <span className="text-green-600 dark:text-green-400">Aktív</span>
-                          : <span className="text-red-600 dark:text-red-400">Inaktív</span>}
+                          ? <span className="text-green-600 dark:text-green-400">Active</span>
+                          : <span className="text-red-600 dark:text-red-400">Inactive</span>}
                       </TableCell>
                       {canRemoveMembers && (
                         <TableCell className="text-right">
@@ -243,7 +243,7 @@ export default async function TeamDashboardPage({ params }: TeamPageProps) {
                             userId={member.userId}
                             memberName={member.user.nickname || `${member.user.firstName || ''} ${member.user.lastName || ''}`.trim() || member.user.email || ''}
                             isDisabled={member.isSystemRole && member.roleId === 'owner'}
-                            tooltipText="A csapat tulajdonosát nem lehet eltávolítani"
+                            tooltipText="You cannot remove the team owner"
                           />
                         </TableCell>
                       )}

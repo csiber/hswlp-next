@@ -34,18 +34,18 @@ function PasskeyAuthenticationButton({ className, disabled, children, redirectPa
   const { execute: generateOptions } = useServerAction(generateAuthenticationOptionsAction, {
     onError: (error) => {
       toast.dismiss();
-        toast.error(error.err?.message || "Nem sikerült lekérni a hitelesítési opciókat");
+        toast.error(error.err?.message || "Failed to retrieve authentication options");
     },
   });
 
   const { execute: verifyAuthentication } = useServerAction(verifyAuthenticationAction, {
     onError: (error) => {
       toast.dismiss();
-        toast.error(error.err?.message || "A hitelesítés nem sikerült");
+        toast.error(error.err?.message || "Authentication failed");
     },
     onSuccess: () => {
       toast.dismiss();
-        toast.success("Sikeres hitelesítés");
+        toast.success("Authentication successful");
       window.location.href = redirectPath;
     },
   });
@@ -55,7 +55,7 @@ function PasskeyAuthenticationButton({ className, disabled, children, redirectPa
   const handleAuthenticate = async () => {
     try {
       setIsAuthenticating(true);
-        toast.loading("Hitelesítés passkey-jel...");
+        toast.loading("Authenticating with passkey...");
 
       // Get authentication options from the server
       const [result] = await generateOptions({});
@@ -63,7 +63,7 @@ function PasskeyAuthenticationButton({ className, disabled, children, redirectPa
       const options = result?.optionsJSON as PublicKeyCredentialRequestOptionsJSON | undefined;
 
       if (!options) {
-          throw new Error("Nem sikerült lekérni a hitelesítési opciókat");
+          throw new Error("Failed to retrieve authentication options");
       }
 
       // Start the authentication process in the browser
@@ -77,9 +77,9 @@ function PasskeyAuthenticationButton({ className, disabled, children, redirectPa
         challenge: options.challenge,
       });
     } catch (error) {
-        console.error("Passkey hitelesítési hiba:", error);
+        console.error("Passkey authentication error:", error);
         toast.dismiss();
-        toast.error("A hitelesítés nem sikerült");
+        toast.error("Authentication failed");
     } finally {
       setIsAuthenticating(false);
     }
@@ -91,7 +91,7 @@ function PasskeyAuthenticationButton({ className, disabled, children, redirectPa
       disabled={isAuthenticating || disabled}
       className={className}
     >
-      {isAuthenticating ? "Hitelesítés..." : children || "Bejelentkezés Passkey-jel"}
+      {isAuthenticating ? "Authenticating..." : children || "Sign in with Passkey"}
     </Button>
   );
 }
@@ -103,11 +103,11 @@ const SignInPage = ({ redirectPath }: SignInClientProps) => {
       toast.error(error.err?.message)
     },
     onStart: () => {
-      toast.loading("Bejelentkezés folyamatban...")
+      toast.loading("Signing in...")
     },
     onSuccess: () => {
       toast.dismiss()
-      toast.success("Sikeres bejelentkezés")
+      toast.success("Sign in successful")
       window.location.href = redirectPath;
     }
   })
@@ -123,13 +123,13 @@ const SignInPage = ({ redirectPath }: SignInClientProps) => {
     <div className="min-h-[90vh] flex flex-col items-center px-4 justify-center bg-background my-6 md:my-10">
       <div className="w-full max-w-md space-y-8 p-6 md:p-10 bg-card rounded-xl shadow-lg border border-border">
         <div className="text-center">
-          <h2 className="mt-2 text-2xl md:text-3xl font-bold tracking-tight text-foreground">
-            Jelentkezz be a fiókodba
+            <h2 className="mt-2 text-2xl md:text-3xl font-bold tracking-tight text-foreground">
+            Sign in to your account
           </h2>
           <p className="mt-2 text-muted-foreground">
             Or{" "}
             <Link href={`/sign-up?redirect=${encodeURIComponent(redirectPath)}`} className="font-medium text-primary hover:text-primary/90 underline">
-              hozz létre új fiókot
+              create a new account
             </Link>
           </p>
         </div>
@@ -138,12 +138,12 @@ const SignInPage = ({ redirectPath }: SignInClientProps) => {
 
           <PasskeyAuthenticationButton className="w-full" redirectPath={redirectPath}>
             <KeyIcon className="w-5 h-5 mr-2" />
-              Bejelentkezés Passkey-jel
+              Sign in with Passkey
           </PasskeyAuthenticationButton>
         </div>
 
           <SeparatorWithText>
-            <span className="uppercase text-muted-foreground">Vagy</span>
+            <span className="uppercase text-muted-foreground">Or</span>
           </SeparatorWithText>
 
         <Form {...form}>
@@ -155,7 +155,7 @@ const SignInPage = ({ redirectPath }: SignInClientProps) => {
                 <FormItem>
                   <FormControl>
                     <Input
-                      placeholder="Email cím"
+                      placeholder="Email address"
                       type="email"
                       className="w-full px-3 py-2"
                       {...field}
@@ -174,7 +174,7 @@ const SignInPage = ({ redirectPath }: SignInClientProps) => {
                   <FormControl>
                     <Input
                       type="password"
-                        placeholder="Jelszó"
+                        placeholder="Password"
                       className="w-full px-3 py-2"
                       {...field}
                     />
@@ -188,7 +188,7 @@ const SignInPage = ({ redirectPath }: SignInClientProps) => {
               type="submit"
               className="w-full flex justify-center py-2.5"
             >
-                Bejelentkezés jelszóval
+                Sign in with password
             </Button>
           </form>
         </Form>
@@ -196,9 +196,9 @@ const SignInPage = ({ redirectPath }: SignInClientProps) => {
 
       <div className="mt-6">
         <p className="text-center text-sm text-muted-foreground">
-          <Link href="/forgot-password" className="font-medium text-primary hover:text-primary/90">
-              Elfelejtetted a jelszavad?
-          </Link>
+              <Link href="/forgot-password" className="font-medium text-primary hover:text-primary/90">
+                Forgot your password?
+              </Link>
         </p>
       </div>
     </div>

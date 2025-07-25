@@ -5,8 +5,8 @@ import { redirect } from "next/navigation";
 import { REDIRECT_AFTER_SIGN_IN } from "@/constants";
 
 export const metadata: Metadata = {
-  title: "Regisztráció",
-  description: "Új fiók létrehozása",
+  title: "Sign up",
+  description: "Create a new account",
 };
 
 const SignUpPage = async ({
