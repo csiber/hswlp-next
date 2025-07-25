@@ -73,7 +73,7 @@ export const forgotPasswordAction = createServerAction()
             await sendPasswordResetEmail({
               email: user.email,
               resetToken: token,
-              username: user.nickname || user.firstName ?? user.email,
+              username: user.nickname || user.firstName || user.email,
             });
           }
 
