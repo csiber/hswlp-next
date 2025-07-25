@@ -79,7 +79,7 @@ export default async function TeamsIndexPage() {
         {teams.length === 0 ? (
           <Card className="border-dashed border-2">
             <CardHeader>
-              <CardTitle className="text-xl">You don't have any teams yet</CardTitle>
+              <CardTitle className="text-xl">You don&apos;t have any teams yet</CardTitle>
               <CardDescription>
                 Teams let you work with others on projects and share resources.
               </CardDescription>

@@ -59,7 +59,7 @@ const faqs = [
     question: "How do I deploy the app?",
     answer: (
       <>
-        <p>Deployment is automated via GitHub Actions. You'll need:</p>
+        <p>Deployment is automated via GitHub Actions. You&apos;ll need:</p>
         <ol className="list-decimal pl-6 mt-2 space-y-1">
           <li>Create Cloudflare D1 and KV namespaces</li>
           <li>Set up Resend for email service</li>
@@ -75,7 +75,7 @@ const faqs = [
     question: "What do I need to get started?",
     answer: (
       <>
-        <p>You'll only need a Cloudflare account (the free tier works), Node.js installed locally and some basic React and TypeScript knowledge. The template comes with detailed documentation.</p>
+        <p>You&apos;ll only need a Cloudflare account (the free tier works), Node.js installed locally and some basic React and TypeScript knowledge. The template comes with detailed documentation.</p>
         <p>For more information see the <a href={`${GITHUB_REPO_URL}/blob/main/README.md`} target="_blank">documentation</a>.</p>
       </>
     ),
