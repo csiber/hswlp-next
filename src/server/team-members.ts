@@ -28,6 +28,7 @@ export async function getTeamMembers(teamId: string) {
         columns: {
           id: true,
           firstName: true,
+          nickname: true,
           lastName: true,
           email: true,
           avatar: true,
