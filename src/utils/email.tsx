@@ -270,3 +270,42 @@ export async function sendTeamInvitationEmail({
     });
   }
 }
+
+export async function sendBugReportEmail({
+  reporterEmail,
+  description,
+  screenshotDataUrl,
+}: {
+  reporterEmail: string;
+  description: string;
+  screenshotDataUrl?: string;
+}) {
+  const html = `
+    <h1>Bug Report</h1>
+    <p><strong>Reporter:</strong> ${reporterEmail}</p>
+    <p>${description}</p>
+    ${screenshotDataUrl ? `<img src="${screenshotDataUrl}" alt="Screenshot" />` : ""}
+  `;
+
+  const provider = await getEmailProvider();
+
+  if (!provider && isProd) {
+    throw new Error("No email provider configured. Set either RESEND_API_KEY or BREVO_API_KEY in your environment.");
+  }
+
+  if (provider === "resend") {
+    await sendResendEmail({
+      to: ["info@hswlp.com"],
+      subject: "New Bug Report",
+      html,
+      tags: [{ name: "type", value: "bug-report" }],
+    });
+  } else {
+    await sendBrevoEmail({
+      to: [{ email: "info@hswlp.com" }],
+      subject: "New Bug Report",
+      htmlContent: html,
+      tags: ["bug-report"],
+    });
+  }
+}
