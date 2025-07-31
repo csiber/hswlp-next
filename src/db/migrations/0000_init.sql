@@ -11,7 +11,7 @@ CREATE TABLE `user` (
 
 CREATE UNIQUE INDEX `user_email_unique` ON `user` (`email`);
 
--- 🔐 DEV FELHASZNÁLÓ BESZÚRÁSA
+-- 🔐 INSERT DEV USER
 INSERT INTO
     `user` (
         id,
@@ -28,7 +28,7 @@ VALUES (
         strftime('%s', 'now'),
         strftime('%s', 'now'),
         'Csaba',
-        'Polyák',
+        'Polyak',
         'csiberius@gmail.com',
         '8f8409e43374ffa2f3b5981887e36a52:d5d672eceec331f461e458218dac7183f61befe746afe907754111e5d53de40f',
         'admin'

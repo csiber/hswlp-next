@@ -28,7 +28,7 @@ export function MarketplaceCard({ id, name, description, credits, containerClass
         <div className="flex items-center justify-between">
           <CardTitle>{name}</CardTitle>
           {isPurchased && (
-            <Badge variant="secondary">Megvásárolva</Badge>
+            <Badge variant="secondary">Purchased</Badge>
           )}
         </div>
         <CardDescription>{description}</CardDescription>
