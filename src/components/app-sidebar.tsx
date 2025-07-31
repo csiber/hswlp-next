@@ -84,45 +84,45 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     teams: formattedTeams,
     navMain: [
       {
-        title: "Vezérlőpult",
+        title: "Dashboard",
         url: "/dashboard",
         icon: SquareTerminal,
         isActive: true,
       },
       {
-        title: "Csapatok",
+        title: "Teams",
         url: "/dashboard/teams" as Route,
         icon: Users,
       },
       {
-        title: "Piactér",
+        title: "Marketplace",
         url: "/dashboard/marketplace",
         icon: ShoppingCart,
       },
       {
-        title: "Számlázás",
+        title: "Billing",
         url: "/dashboard/billing",
         icon: CreditCard,
       },
       {
-        title: "Beállítások",
+        title: "Settings",
         url: "/settings",
         icon: Settings2,
         items: [
           {
-            title: "Profil",
+            title: "Profile",
             url: "/settings",
           },
           {
-            title: "Biztonság",
+            title: "Security",
             url: "/settings/security",
           },
           {
-            title: "Munkamenetek",
+            title: "Sessions",
             url: "/settings/sessions",
           },
           {
-            title: "Jelszó módosítása",
+            title: "Change Password",
             url: "/forgot-password",
           },
         ],
