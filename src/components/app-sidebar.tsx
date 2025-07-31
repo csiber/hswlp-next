@@ -4,6 +4,7 @@ import { type ComponentType, useEffect, useState } from "react"
 import type { Route } from 'next'
 
 import {
+  Rocket,
   Building2,
   Frame,
   Map,
@@ -83,6 +84,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     },
     teams: formattedTeams,
     navMain: [
+      {
+        title: "Landing",
+        url: "/",
+        icon: Rocket,
+        isActive: true,
+      },
       {
         title: "Dashboard",
         url: "/dashboard",
