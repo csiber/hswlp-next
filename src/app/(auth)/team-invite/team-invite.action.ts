@@ -34,7 +34,7 @@ export const acceptTeamInviteAction = createServerAction()
 
           throw new ZSAError(
             "INTERNAL_SERVER_ERROR",
-            "Váratlan hiba történt a meghívás elfogadása közben"
+            "An unexpected error occurred while accepting the invitation"
           );
         }
       },

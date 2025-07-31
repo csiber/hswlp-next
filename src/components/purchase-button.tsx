@@ -18,14 +18,14 @@ export default function PurchaseButton({ itemId, itemType }: PurchaseButtonProps
   const { execute: handlePurchase, isPending } = useServerAction(purchaseAction, {
     onError: (error) => {
       toast.dismiss();
-      toast.error(error.err?.message || "Nem sikerült a vásárlás")
+      toast.error(error.err?.message || "Purchase failed")
     },
     onStart: () => {
-      toast.loading("Vásárlás feldolgozása...")
+      toast.loading("Processing purchase...")
     },
     onSuccess: () => {
       toast.dismiss()
-      toast.success("Sikeres vásárlás!")
+      toast.success("Purchase successful!")
     },
   })
 
@@ -38,7 +38,7 @@ export default function PurchaseButton({ itemId, itemType }: PurchaseButtonProps
       }}
       disabled={isPending}
     >
-      {isPending ? "Feldolgozás..." : "Vásárlás"}
+      {isPending ? "Processing..." : "Purchase"}
     </ShinyButton>
   )
 }

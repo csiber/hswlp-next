@@ -4,8 +4,8 @@ import { CreateTeamForm } from "@/components/teams/create-team-form";
 import { PageHeader } from "@/components/page-header";
 
 export const metadata = {
-  title: "Csapat létrehozása",
-  description: "Új csapat létrehozása a szervezeted számára",
+  title: "Create Team",
+  description: "Create a new team for your organization",
 };
 
 export default async function CreateTeamPage() {
@@ -22,20 +22,20 @@ export default async function CreateTeamPage() {
         items={[
           {
             href: "/dashboard/teams",
-            label: "Csapatok"
+            label: "Teams"
           },
           {
             href: "/dashboard/teams/create",
-            label: "Csapat létrehozása"
+            label: "Create Team"
           }
         ]}
       />
       <div className="container mx-auto px-5 pb-12">
         <div className="max-w-xl mx-auto">
           <div className="mb-8">
-            <h1 className="text-4xl font-bold mt-4">Új csapat létrehozása</h1>
+            <h1 className="text-4xl font-bold mt-4">Create a New Team</h1>
             <p className="text-muted-foreground mt-2">
-              Hozz létre csapatot, hogy másokkal együtt dolgozhass projektekben és megoszthasd az erőforrásokat.
+              Create a team to collaborate on projects and share resources.
             </p>
           </div>
 
