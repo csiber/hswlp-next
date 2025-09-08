@@ -1,76 +1,81 @@
-# HSWLP:Next – Cloudflare alapú újgenerációs SaaS rendszer
+````markdown
+# HSWLP:Next – Cloudflare-Powered Next-Generation SaaS Framework
 
-Ez a repository a HSWLP platform `hswlp-next` nevű **új alaprendszere**, amelyre a különböző frontend rétegek (ún. **shellek**) épülnek. A rendszer teljesen Cloudflare-infrastruktúrán fut (Workers, D1, R2, KV), és készen áll SaaS alkalmazások hosztolására – külön back-end nélkül.
+**HSWLP:Next** is the new **core system** of the HSWLP platform.  
+It provides a **modern, Cloudflare-native foundation** on which various frontend “shells” (applications) can be built and deployed — without the need for a separate backend.
 
-Ez az alap biztosítja a következőket:
-
-- Bejelentkezés, regisztráció, email hitelesítés
-- Turnstile captcha
-- Cloudflare D1 adatbázis migrációkkal
-- R2 tárhely és KV session kezelés
-- Stripe integráció és emailküldés (Resend vagy Brevo)
-- Alkalmas Cloudflare Pages és Edge funkciók kiszolgálására
+The framework is designed for **scalability, security, and speed**, making it ready for launching SaaS products directly on Cloudflare’s infrastructure.
 
 ---
 
-## Használat lokálisan
+## ✨ Key Features
 
-1. Telepítés:
+- **Authentication & Onboarding**  
+  Sign-up, login, email verification, and Cloudflare Turnstile captcha
+
+- **Cloudflare-Native Storage**  
+  D1 database with migrations, R2 object storage, and KV for session handling
+
+- **Payments & Billing**  
+  Stripe integration for subscriptions and purchases  
+  Email notifications via Resend or Brevo
+
+- **Cloud-Optimized Deployment**  
+  Seamless deployment to Cloudflare Workers with support for Pages and Edge Functions
+
+---
+
+## 🚀 Getting Started (Local Development)
+
+1. **Install dependencies**
 
    ```bash
    pnpm install
-   ```
+````
 
-2. Környezeti változók:
+2. **Configure environment variables**
+   Copy `.env.example` to `.env` and fill in your values.
+   (For local dev, also copy `.dev.vars.example` → `.dev.vars`)
 
-   - Másold le a `.env.example` fájlt `.env` néven, majd töltsd ki.
-   - Ha használod: `.dev.vars.example` → `.dev.vars`
-
-3. Lokális migráció és indítás:
+3. **Run migrations and start the dev server**
 
    ```bash
    pnpm db:migrate:dev
    pnpm dev
    ```
 
-4. Nyisd meg a böngészőben:
-   [http://localhost:3000](http://localhost:3000)
+4. Open [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## Cloudflare deploy
+## ☁️ Deployment to Cloudflare
 
-A rendszer automatikusan deployolható Cloudflare Workers-re:
+Deploy in one step:
 
 ```bash
 pnpm run deploy
 ```
 
-Ez lefuttatja az `opennext:build` és `opennextjs-cloudflare deploy` parancsokat, majd feltölti:
+This will:
 
-- a Worker kódot
-- statikus asseteket (R2)
-- titkos környezeti változókat (`wrangler secret put`)
-- valamint a `wrangler.json` alapján hozzárendeli:
-  - D1 adatbázist
-  - KV namespace-eket
-  - R2 bucketet
+* Build the Worker
+* Upload static assets (R2)
+* Bind secrets, database, KV, and buckets via Wrangler
 
-A `.env` fájl NEM kerül automatikusan feltöltésre – a titkos adatokat külön kell beállítani `wrangler secret put` paranccsal vagy a Cloudflare dashboardon.
+> ⚠️ Secrets must be configured manually with
+> `wrangler secret put` or in the Cloudflare dashboard.
 
 ---
 
-## Fontos konfigurációs helyek
+## 📂 Project Structure
 
-- Állandók: `src/constants.ts`
-- Email sablonok: `src/react-email/`
-- Globális CSS: `src/app/globals.css`
-- Meta adatok: `src/app/layout.tsx`
-- Wrangler config: `wrangler.json`
+* `src/constants.ts` → configuration constants
+* `src/react-email/` → email templates
+* `src/app/globals.css` → global styles
+* `src/app/layout.tsx` → metadata & layout
+* `wrangler.json` → Worker configuration
 
----
-
-## Email sablonok előnézete
+Preview email templates locally:
 
 ```bash
 pnpm email:dev
@@ -80,17 +85,15 @@ pnpm email:dev
 
 ---
 
-## A rendszer jövője
+## 🛠️ Roadmap
 
-A `hswlp-next` az alapja minden jövőbeli HSWLP shellnek, ideértve:
+HSWLP\:Next will serve as the foundation for upcoming HSWLP apps:
 
-- `HSWLP:Cloud` (statikus site deploy)
-- `HSWLP:NAS` (helyi Docker stack manager)
-- `HSWLP:Dev` (fejlesztői központ)
-- `HSWLP:Store` (sablon piactér)
-- `HSWLP:Academy` (oktatási modul)
+* **HSWLP\:Cloud** – Static website deployments
+* **HSWLP\:NAS** – Local Docker stack manager
+* **HSWLP\:Dev** – Developer hub
+* **HSWLP\:Store** – Template marketplace
+* **HSWLP\:Academy** – Learning modules
 
-Egy közös rendszer, több célra.
-Tisztán, Cloudflare-alapon.
-
----
+**One system, many possibilities.
+Built cleanly, built on Cloudflare.**
