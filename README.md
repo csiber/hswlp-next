@@ -1,4 +1,3 @@
-````markdown
 # HSWLP:Next – Cloudflare-Powered Next-Generation SaaS Framework
 
 **HSWLP:Next** is the new **core system** of the HSWLP platform.  
@@ -31,7 +30,6 @@ The framework is designed for **scalability, security, and speed**, making it re
 
    ```bash
    pnpm install
-````
 
 2. **Configure environment variables**
    Copy `.env.example` to `.env` and fill in your values.
